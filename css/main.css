@@ -1750,6 +1750,14 @@ pre code {
   margin-top: 40px;
   text-align: center;
 }
+.use-motion .post-block {
+  margin-top: 60px;
+  margin-bottom: 60px;
+  padding: 25px;
+  background: rgba(255,255,255,0.9) none repeat scroll !important;
+  -webkit-box-shadow: 0 0 5px rgba(202,203,203,0.5);
+  -moz-box-shadow: 0 0 5px rgba(202,203,204,0.5);
+}
 .use-motion .post-block,
 .use-motion .pagination,
 .use-motion .comments {
@@ -2621,7 +2629,7 @@ ul.breadcrumb li:last-child {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #f5ecff;
+  background: #ff1fb4;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
