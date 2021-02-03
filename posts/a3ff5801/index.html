@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+<meta name="description" content="​    继上一篇搭建完最基础的Hexo环境并且发布一篇Demo文章后，虽然基本上能满足了平时的个人Blog编写以及发布，但很多地方还是用户体验不太好，于是再对自己的Blog进行一系列的优化😁😁。 优化一：Hexo 主题优化​    如果觉得默认的主题已经不错了的可以直接跳过改步骤（但后续优化基于该主题进行的优化，不一定全部通用）。 网上搜了下大部分都用的 nexT 这个主题，于是就直接参照对">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo之优化（一）">
+<meta property="og:url" content="http://example.com/posts/a3ff5801/index.html">
+<meta property="og:site_name" content="BeanKingdom">
+<meta property="og:description" content="​    继上一篇搭建完最基础的Hexo环境并且发布一篇Demo文章后，虽然基本上能满足了平时的个人Blog编写以及发布，但很多地方还是用户体验不太好，于是再对自己的Blog进行一系列的优化😁😁。 优化一：Hexo 主题优化​    如果觉得默认的主题已经不错了的可以直接跳过改步骤（但后续优化基于该主题进行的优化，不一定全部通用）。 网上搜了下大部分都用的 nexT 这个主题，于是就直接参照对">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/03/1jk4csEovyJWgnM.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/03/1I6TEuywBj2QG7R.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/03/q2CwmFHZsNoyYlW.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/03/L4j9vFUxBl2o3cM.png">
+<meta property="article:published_time" content="2021-02-03T13:54:21.000Z">
+<meta property="article:modified_time" content="2021-02-03T14:01:22.754Z">
+<meta property="article:tag" content="blog搭建">
+<meta property="article:tag" content="hexo建站">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/03/1jk4csEovyJWgnM.png">
+
+
+<link rel="canonical" href="http://example.com/posts/a3ff5801/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>Hexo之优化（一） | BeanKingdom</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">BeanKingdom</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about" rel="section"><i class="user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories" rel="section"><i class="th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E4%B8%80%EF%BC%9AHexo-%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">优化一：Hexo 主题优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E4%BA%8C%EF%BC%9A%E6%96%87%E7%AB%A0%E6%8A%98%E5%8F%A0%E5%B1%95%E7%A4%BA-%E5%AF%B9%E6%96%87%E7%AB%A0%E6%B7%BB%E5%8A%A0%E5%88%86%E7%B1%BB%E3%80%81%E6%A0%87%E7%AD%BE%E7%AD%89"><span class="nav-number">2.</span> <span class="nav-text">优化二：文章折叠展示 + 对文章添加分类、标签等</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E4%B8%89%EF%BC%9A-%E6%96%87%E7%AB%A0%E7%94%9F%E6%88%90%E7%9F%AD%E9%93%BE%E6%8E%A5%E3%80%82"><span class="nav-number">3.</span> <span class="nav-text">优化三： 文章生成短链接。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%9B%9B%EF%BC%9A%E4%BF%AE%E6%94%B9%E6%96%87%E5%86%85%E9%93%BE%E6%8E%A5%E6%A0%B7%E5%BC%8F%E3%80%82"><span class="nav-number">4.</span> <span class="nav-text">优化四：修改文内链接样式。</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/a3ff5801/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BeanKingdom">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hexo之优化（一）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-02-03 21:54:21 / 修改时间：22:01:22" itemprop="dateCreated datePublished" datetime="2021-02-03T21:54:21+08:00">2021-02-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/hexo%E5%BB%BA%E7%AB%99/" itemprop="url" rel="index"><span itemprop="name">hexo建站</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>​    继上一篇搭建完最基础的Hexo环境并且发布一篇Demo文章后，虽然基本上能满足了平时的个人Blog编写以及发布，但很多地方还是用户体验不太好，于是再对自己的Blog进行一系列的优化😁😁。</p>
+<h4 id="优化一：Hexo-主题优化"><a href="#优化一：Hexo-主题优化" class="headerlink" title="优化一：Hexo 主题优化"></a>优化一：Hexo 主题优化</h4><p>​    如果觉得默认的主题已经不错了的可以直接跳过改步骤（<strong>但后续优化基于该主题进行的优化，不一定全部通用</strong>）。</p>
+<p>网上搜了下大部分都用的 <a target="_blank" rel="noopener" href="https://github.com/next-theme/hexo-theme-next">nexT</a> 这个主题，于是就直接参照对应的 <a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/getting-started/">官网链接</a> 操作即可。（顺便继续记录一些遇到的坑~~）</p>
+<a id="more"></a>
+
+<ul>
+<li><p><strong>问题1: 由于官网是英文版，在网上搜索中文版本代码过老导致启动进入 localhost:4000页面仅展示如下错误内容。</strong></p>
+<p>如果你看的教程是 <code>https://theme-next.iissnan.com/getting-started.html</code>，那么就要注意了，该链接中的nexT代码过于老旧了，可能会存在一定的问题，建议使用 <a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/getting-started/">官网链接</a> 。</p>
+</li>
+</ul>
+<p><strong>参照最新版的教程修改完主题后，最新的样式就如下图：</strong></p>
+<img src="https://i.loli.net/2021/02/03/1jk4csEovyJWgnM.png" alt="hexo_default.png" style="zoom:30%;" />
+
+<p>​    这个时候问题来了，<strong>如果每篇文章都如上，篇幅比较长，那么就导致首页每次展示的文章数量过少。</strong></p>
+<h4 id="优化二：文章折叠展示-对文章添加分类、标签等"><a href="#优化二：文章折叠展示-对文章添加分类、标签等" class="headerlink" title="优化二：文章折叠展示 + 对文章添加分类、标签等"></a>优化二：文章折叠展示 + 对文章添加分类、标签等</h4><ul>
+<li><p>步骤一：修改nexT主题目录下的_config.yml配置 (将文件中的注释去掉即可)。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">home</span></span><br><span class="line">  <span class="attr">about:</span> <span class="string">/about</span> <span class="string">||</span> <span class="string">user</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags</span> <span class="string">||</span> <span class="string">tags</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories</span> <span class="string">||</span> <span class="string">th</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives</span> <span class="string">||</span> <span class="string">archive</span></span><br></pre></td></tr></table></figure></li>
+<li><p>步骤二：给文章添加对应的属性（如：tags、categories、description）。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">Hexo</span> <span class="string">首次搭建个人Blog</span> <span class="string">问题记录（一）</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2021-02-01 22:14:05</span></span><br><span class="line"><span class="attr">tags:</span> </span><br><span class="line"><span class="bullet">-</span> <span class="string">blog搭建</span> </span><br><span class="line"><span class="bullet">-</span> <span class="string">hexo建站</span></span><br><span class="line"><span class="attr">categories:</span> <span class="string">hexo建站</span></span><br></pre></td></tr></table></figure>
+<p><strong>问题2：设置首页新增了 <code>tags</code> 和 <code>categories</code> 页后，点击进入到对应的 <code>tags</code> 或者 <code>categories</code> 的时候没有想要的内容， 仅仅一个 <code>tags</code>或者 <code>categories</code> 标签。</strong></p>
+<p>原因: 在执行 <code>hexo new page &quot;tags&quot; </code> 这一步自动生成的index.md 文件中内容缺失导致。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 解决办法如下操作，打开对应的 blog_dir/source/tags/index.md 文件, 在最后补充如下代码</span></span><br><span class="line"><span class="built_in">type</span>: <span class="string">&quot;tags&quot;</span>	<span class="comment"># about/categories页操作将tags替换成about/categories即可</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>步骤三：文章折叠的<a target="_blank" rel="noopener" href="http://theme-next.iissnan.com/faqs.html#%E9%A6%96%E9%A1%B5%E6%98%BE%E7%A4%BA%E6%96%87%E7%AB%A0%E6%91%98%E5%BD%95">解决办法</a> (个人选择了方法一)</p>
+</li>
+</ul>
+<p>优化完后的效果如下：</p>
+<img src="https://i.loli.net/2021/02/03/1I6TEuywBj2QG7R.png" alt="nexT_first.png" style="zoom:40%;" />
+
+<h4 id="优化三：-文章生成短链接。"><a href="#优化三：-文章生成短链接。" class="headerlink" title="优化三： 文章生成短链接。"></a>优化三： 文章生成短链接。</h4><p>点开上图的阅读全文后，发现整体的链接是一大串文字，这个时候看起来就比较怪异，并且复制出来后直接会是URL编码的格式。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https://beanskingdom.github.io/2021/02/01/Hexo-首次搭建遇到的问题/#more</span><br><span class="line">https://beanskingdom.github.io/2021/02/01/Hexo-%E9%A6%96%E6%AC%A1%E6%90%AD%E5%BB%BA%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/#more</span><br></pre></td></tr></table></figure>
+<p>此时可以通过Hexo-abbrlink生成唯一永久文章链接（<a target="_blank" rel="noopener" href="https://github.com/Rozbo/hexo-abbrlink">参考链接</a>）。 </p>
+<p>最终的效果则为：<code>xxx/posts/48255dc8/#more</code></p>
+<h4 id="优化四：修改文内链接样式。"><a href="#优化四：修改文内链接样式。" class="headerlink" title="优化四：修改文内链接样式。"></a>优化四：修改文内链接样式。</h4><p>nexT默认文章链接样式如下图：</p>
+<img src="https://i.loli.net/2021/02/03/q2CwmFHZsNoyYlW.png" alt="next_link_style.png" style="zoom:40%;" />
+
+<p>为了突出区别性，我们在<code>themes\next\source\css\_common\components\post\post-body.styl</code>文件中添加下列的代码即可。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.post-body</span> <span class="selector-tag">p</span> <span class="selector-tag">a</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#0593d3</span>;</span><br><span class="line">    <span class="attribute">border-bottom</span>: none;</span><br><span class="line">    <span class="attribute">border-bottom</span>: <span class="number">1px</span> solid <span class="number">#0593d3</span>;</span><br><span class="line">    &amp;:hover &#123;</span><br><span class="line">        <span class="selector-tag">color</span>: <span class="selector-id">#fc6423</span>;</span><br><span class="line">        <span class="selector-tag">border-bottom</span>: <span class="selector-tag">none</span>;</span><br><span class="line">        <span class="selector-tag">border-bottom</span>: 1<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#fc6423</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>优化后的样式如下：</p>
+<img src="https://i.loli.net/2021/02/03/L4j9vFUxBl2o3cM.png" alt="next_link_update.png" style="zoom:40%;" />
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/blog%E6%90%AD%E5%BB%BA/" rel="tag"># blog搭建</a>
+              <a href="/tags/hexo%E5%BB%BA%E7%AB%99/" rel="tag"># hexo建站</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/48255dc8/" rel="prev" title="Hexo 首次搭建个人Blog 问题记录（一）">
+                  <i class="fa fa-chevron-left"></i> Hexo 首次搭建个人Blog 问题记录（一）
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
