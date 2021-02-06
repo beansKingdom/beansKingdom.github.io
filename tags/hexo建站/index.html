@@ -324,8 +324,6 @@
     <span title="站点阅读时长">7 分钟</span>
   </span>
 </div>
-<div class="busuanzi-count">
-</div>
 
     </div>
   </footer>
@@ -342,11 +340,22 @@
 
 
   
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 
 
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"RxwAAjYjlIuwVtWQmp433VMU-gzGzoHsz","appKey":"UnfFYvCblrw3Er5yRUH7IMrR","serverURLs":null,"placeholder":"欢迎吐槽～","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"enableQQ":false,"requiredFields":[]}, {
+      el: '#valine-comments',
+      path: "/tags/hexo%E5%BB%BA%E7%AB%99/",
+      serverURLs: "https://rxwaajyj.api.lncldglobal.com"
+    }));
+  }, window.Valine);
+});
+</script>
 
 </body>
 </html>
