@@ -32,10 +32,10 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.loli.net/2021/02/07/B8rjYhz1ZksDfiq.png">
 <meta property="article:published_time" content="2021-02-07T15:26:10.000Z">
-<meta property="article:modified_time" content="2021-02-07T15:27:50.138Z">
+<meta property="article:modified_time" content="2021-02-07T15:33:23.423Z">
 <meta property="article:author" content="BigBean">
-<meta property="article:tag" content="Python">
 <meta property="article:tag" content="gRPC接口">
+<meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.loli.net/2021/02/07/B8rjYhz1ZksDfiq.png">
 
@@ -253,7 +253,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-02-07 23:26:10 / 修改时间：23:27:50" itemprop="dateCreated datePublished" datetime="2021-02-07T23:26:10+08:00">2021-02-07</time>
+      <time title="创建时间：2021-02-07 23:26:10 / 修改时间：23:33:23" itemprop="dateCreated datePublished" datetime="2021-02-07T23:26:10+08:00">2021-02-07</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -298,7 +298,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>​    最近几个项目都是用的go语言编写的，使用的是 <code>gRPC接口</code>，是没有对外暴露http接口。但在部分场景下，由于可测性的需要必须直接调用 <code>gRPC接口</code>，达到数据的构造，所以需要通过 <code>Python</code> 代码完成调用服务器上的 <code>gRPC接口</code> 。</p>
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>​    最近几个项目都是用的go语言编写的，使用的是 gRPC接口，是没有对外暴露http接口。但在部分场景下，由于可测性的需要必须直接调用 gRPC接口，达到数据的构造，所以需要通过 <code>Python</code> 代码完成调用服务器上的 gRPC接口 。</p>
 <h3 id="问题记录"><a href="#问题记录" class="headerlink" title="问题记录"></a>问题记录</h3><p>​    由于网上相关最简单的demo已经是烂了一地。。。我这边就不再去重复写一段demo了（可参考当时我看的一篇<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1557398">Blog</a>，或自行搜索相关前置准备）。</p>
 <p>​    主要记录在实际过程中运用遇到的一些问题，希望能给大家一些帮助。</p>
 <a id="more"></a>
@@ -308,15 +308,15 @@
 <h5 id="问题1-github-com-gogo-protobuf-gogoproto-gogo-proto-File-not-found。"><a href="#问题1-github-com-gogo-protobuf-gogoproto-gogo-proto-File-not-found。" class="headerlink" title="问题1: github.com/gogo/protobuf/gogoproto/gogo.proto: File not found。"></a>问题1: github.com/gogo/protobuf/gogoproto/gogo.proto: File not found。</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 由于转化的脚本中直接以如下方法引用的 gogo.proto 文件，但在转换的时候肯定是找不到的</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;github.com/gogo/protobuf/gogoproto/gogo.proto&quot;</span></span><br></pre></td></tr></table></figure>
 <p>解决办法：</p>
 <ol>
-<li>将 <a target="_blank" rel="noopener" href="https://github.com/gogo/protobuf/blob/master/gogoproto/gogo.proto">gogo.proto</a> 文件下载到本地，放到与需要转换的 <code>user.proto</code> 文件同级目录下;</li>
-<li>修改 <code>user.proto</code> 的代码，将 <code>import &quot;github.com/gogo/protobuf/gogoproto/gogo.proto&quot;</code> 修改为 <code>import &quot;gogo.proto&quot;</code>。</li>
+<li>将 <a target="_blank" rel="noopener" href="https://github.com/gogo/protobuf/blob/master/gogoproto/gogo.proto">gogo.proto</a> 文件下载到本地，放到与需要转换的 user.proto 文件同级目录下;</li>
+<li>修改 user.proto 的代码，将 <code>import &quot;github.com/gogo/protobuf/gogoproto/gogo.proto&quot;</code> 修改为 <code>import &quot;gogo.proto&quot;</code>。</li>
 </ol>
-<h5 id="问题2-base-proto-File-not-found。"><a href="#问题2-base-proto-File-not-found。" class="headerlink" title="问题2: base.proto: File not found。"></a>问题2: base.proto: File not found。</h5><p>解决方式同问题1，实际就将依赖的这个 <code>base.proto</code> 文件放到与需要转换的 <code>user.proto</code> 文件同级目录下即可。（<strong>由于我们的 <code>base.proto</code> 文件中也同问题1中一样引用了 <code>gogo.proto</code>，所以都需要重复问题1的步骤2</strong>）</p>
-<p>经过上面操作，终于将 <code>user.proto</code> 文件转成了对应的python脚本，具体样式如下。</p>
+<h5 id="问题2-base-proto-File-not-found。"><a href="#问题2-base-proto-File-not-found。" class="headerlink" title="问题2: base.proto: File not found。"></a>问题2: base.proto: File not found。</h5><p>解决方式同问题1，实际就将依赖的这个 base.proto 文件放到与需要转换的 user.proto 文件同级目录下即可。（<strong>由于我们的 base.proto 文件中也同问题1中一样引用了 gogo.proto，所以都需要重复问题1的步骤2</strong>）</p>
+<p>经过上面操作，终于将 user.proto 文件转成了对应的python脚本，具体样式如下。</p>
 <img src="https://i.loli.net/2021/02/07/B8rjYhz1ZksDfiq.png" alt="python_convert_grpc.png" style="zoom:40%;" />
 
 <p>但你以为这就完事了？？(╯▔︹▔)╯ ， <code>Too young too simple</code></p>
-<h4 id="步骤二：调用转换成python脚本的接口。"><a href="#步骤二：调用转换成python脚本的接口。" class="headerlink" title="步骤二：调用转换成python脚本的接口。"></a>步骤二：调用转换成python脚本的接口。</h4><p><em>注：由于无需本地启动一个服务端，所以可以简单点只写一个调用端即可（具体方式类似 <code>BloomRPC</code>，通过  <code>kubectl</code> 代理到远端的 <code>grpc</code>服务端， 具体原理可自行搜索）</em></p>
+<h4 id="步骤二：调用转换成python脚本的接口。"><a href="#步骤二：调用转换成python脚本的接口。" class="headerlink" title="步骤二：调用转换成python脚本的接口。"></a>步骤二：调用转换成python脚本的接口。</h4><p><em>注：由于无需本地启动一个服务端，所以可以简单点只写一个调用端即可（具体方式类似 <code>BloomRPC</code>，通过  <code>kubectl</code> 代理到远端的 grpc服务端， 具体原理可自行搜索）</em></p>
 <p>在写客户端代码之前，就还存在一个隐藏问题。</p>
 <h5 id="问题3-实际上如果在写客户端代码时候需要引用的其它的proto文件中的方法，则需要其它引用的文件也转成-python脚本（根据个人需要进行转换）。"><a href="#问题3-实际上如果在写客户端代码时候需要引用的其它的proto文件中的方法，则需要其它引用的文件也转成-python脚本（根据个人需要进行转换）。" class="headerlink" title="问题3: 实际上如果在写客户端代码时候需要引用的其它的proto文件中的方法，则需要其它引用的文件也转成 python脚本（根据个人需要进行转换）。"></a>问题3: 实际上如果在写客户端代码时候需要引用的其它的proto文件中的方法，则需要其它引用的文件也转成 python脚本（根据个人需要进行转换）。</h5><p>客户端代码大致如下（<em>我编写的demo中则无需转换其它文件</em>）：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> grpc</span><br><span class="line"><span class="keyword">import</span> user_pb2_grpc, user_pb2</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">userService</span>:</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_mobile_by_id</span>(<span class="params">cls</span>):</span></span><br><span class="line">      	<span class="comment"># 连接上本地的gRPC代理服务端, 端口为kubectl本地代理的端口</span></span><br><span class="line">        channel = grpc.insecure_channel(<span class="string">&#x27;localhost:6666&#x27;</span>) </span><br><span class="line">        <span class="comment"># 根据对应服务初始化渠道</span></span><br><span class="line">        test_stub = user_pb2_grpc.UserStub(channel)          </span><br><span class="line">        user_id = <span class="number">1234</span></span><br><span class="line">        <span class="comment"># 根据具体的 Request 定义来传入参数, 否则会报错</span></span><br><span class="line">        <span class="keyword">return</span> test_stub.GetXxxById(user_pb2.GetXxxByIdRequest(userId=user_id))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    print(userService.get_mobile_by_id())</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 执行效果如下</span></span><br><span class="line">(ENV) ➜  demo_python_convert_grpc python user_client.py</span><br><span class="line">mobileId: <span class="string">&quot;11166668888&quot;</span></span><br></pre></td></tr></table></figure>
@@ -360,8 +360,8 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
               <a href="/tags/gRPC%E6%8E%A5%E5%8F%A3/" rel="tag"><i class="fa fa-tag"></i> gRPC接口</a>
+              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
           </div>
 
         
