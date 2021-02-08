@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 5.3.0">
-
-
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -15,15 +13,15 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
-
-<script class="hexo-configurations">
+<script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","version":"8.2.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
-<meta name="description" content="​    继上一篇搭建完最基础的Hexo环境并且发布一篇Demo文章后，基本上能满足了平时的个人Blog编写以及发布，但很多地方还是用户体验不太好，于是再对自己的Blog进行一系列的优化😁😁。 优化一：Hexo 主题优化​    网上搜了下大部分都用的 nexT 这个主题，于是就直接参照对应的 官网链接 操作即可。（顺便继续记录一些遇到的坑~~）如果觉得默认的主题已经不错了的可以直接跳过改步骤">
+<link rel="stylesheet" href="/js/prism/prism.css">
+
+  <meta name="description" content="​    继上一篇搭建完最基础的Hexo环境并且发布一篇Demo文章后，基本上能满足了平时的个人Blog编写以及发布，但很多地方还是用户体验不太好，于是再对自己的Blog进行一系列的优化😁😁。 优化一：Hexo 主题优化​    网上搜了下大部分都用的 nexT 这个主题，于是就直接参照对应的 官网链接 操作即可。（顺便继续记录一些遇到的坑~~）如果觉得默认的主题已经不错了的可以直接跳过改步骤">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo之优化（一）">
 <meta property="og:url" content="http://example.com/posts/a3ff5801/index.html">
@@ -42,11 +40,10 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.loli.net/2021/02/03/1jk4csEovyJWgnM.png">
 
-
 <link rel="canonical" href="http://example.com/posts/a3ff5801/">
 
 
-<script class="page-configurations">
+<script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -55,182 +52,150 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>Hexo之优化（一） | BeansKingdom</title>
+
+  <title>Hexo之优化（一） | BeansKingdom</title>
   
+
+
 
 
 
 
   <noscript>
   <style>
-  body { margin-top: 2rem; }
-
+  .use-motion .brand,
   .use-motion .menu-item,
-  .use-motion .sidebar,
+  .sidebar-inner,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header {
-    visibility: visible;
-  }
-
-  .use-motion .header,
-  .use-motion .site-brand-container .toggle,
-  .use-motion .footer { opacity: initial; }
+  .use-motion .collection-header { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle,
-  .use-motion .custom-logo-image {
+  .use-motion .site-subtitle {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line {
-    transform: scaleX(1);
-  }
-
-  .search-pop-overlay, .sidebar-nav { display: none; }
-  .sidebar-panel { display: block; }
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
   </style>
 </noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
-  <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
 
-  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏" role="button">
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <i class="logo-line"></i>
+      <span class="logo-line-before"><i></i></span>
       <h1 class="site-title">BeansKingdom</h1>
-      <i class="logo-line"></i>
+      <span class="logo-line-after"><i></i></span>
     </a>
   </div>
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
 
 
 
+
 <nav class="site-nav">
-  <ul class="main-menu menu">
-        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags" rel="section"><i class="tags fa-fw"></i>标签</a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories" rel="section"><i class="th fa-fw"></i>分类</a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
-
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
 </div>
-        
-  
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
   </div>
 
-  <aside class="sidebar">
-
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
-      <ul class="sidebar-nav">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <div class="sidebar-panel-container">
-        <!--noindex-->
-        <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E4%B8%80%EF%BC%9AHexo-%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">优化一：Hexo 主题优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E4%BA%8C%EF%BC%9A%E6%96%87%E7%AB%A0%E6%8A%98%E5%8F%A0%E5%B1%95%E7%A4%BA-%E5%AF%B9%E6%96%87%E7%AB%A0%E6%B7%BB%E5%8A%A0%E5%88%86%E7%B1%BB%E3%80%81%E6%A0%87%E7%AD%BE%E7%AD%89"><span class="nav-number">2.</span> <span class="nav-text">优化二：文章折叠展示 + 对文章添加分类、标签等</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E4%B8%89%EF%BC%9A-%E6%96%87%E7%AB%A0%E7%94%9F%E6%88%90%E7%9F%AD%E9%93%BE%E6%8E%A5"><span class="nav-number">3.</span> <span class="nav-text">优化三： 文章生成短链接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%9B%9B%EF%BC%9A%E4%BF%AE%E6%94%B9%E6%96%87%E5%86%85%E9%93%BE%E6%8E%A5%E6%A0%B7%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">优化四：修改文内链接样式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E4%BA%94%EF%BC%9A%E7%BB%99%E4%B8%BB%E9%A1%B5%E6%96%87%E7%AB%A0%E6%B7%BB%E5%8A%A0%E9%98%B4%E5%BD%B1%E6%95%88%E6%9E%9C"><span class="nav-number">5.</span> <span class="nav-text">优化五：给主页文章添加阴影效果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%85%AD%EF%BC%9A%E6%96%87%E7%AB%A0%E5%86%85%E9%83%A8%E7%9A%84%E5%AF%BC%E8%88%AA%E6%A0%8F%E4%BD%8D%E7%BD%AE%E4%BC%98%E5%8C%96"><span class="nav-number">6.</span> <span class="nav-text">优化六：文章内部的导航栏位置优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E4%B8%83%EF%BC%9A%E7%BB%99%E6%96%87%E7%AB%A0%E6%9C%AB%E5%B0%BE%E6%B7%BB%E5%8A%A0%E7%BB%93%E6%9D%9F%E8%AF%AD"><span class="nav-number">7.</span> <span class="nav-text">优化七：给文章末尾添加结束语</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%85%AB%EF%BC%9A%E7%BB%99%E4%BB%A3%E7%A0%81%E5%9D%97%E6%B7%BB%E5%8A%A0%E5%A4%8D%E5%88%B6%E5%8A%9F%E8%83%BD"><span class="nav-number">8.</span> <span class="nav-text">优化八：给代码块添加复制功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E4%B9%9D%EF%BC%9A%E5%AE%9E%E7%8E%B0%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD"><span class="nav-number">9.</span> <span class="nav-text">优化九：实现统计功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">10.</span> <span class="nav-text">总结</span></a></li></ol></div>
-        </div>
-        <!--/noindex-->
-
-        <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">BigBean</p>
-  <div class="site-description" itemprop="description"></div>
 </div>
-<div class="site-state-wrap site-overview-item animated">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives">
-        
-          <span class="site-state-item-count">5</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories">
-          
-        <span class="site-state-item-count">3</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags">
-          
-        <span class="site-state-item-count">8</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-        </div>
-      </div>
-    </div>
-  </aside>
-  <div class="sidebar-dimmer"></div>
-
-
     </header>
 
     
-  <div class="back-to-top" role="button">
+  <div class="back-to-top">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
 
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
 
-    <div class="main-inner post posts-expand">
+          <div class="content post posts-expand">
+            
 
-
-  
-
-
-<div class="post-block">
+    
   
   
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/a3ff5801/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -247,58 +212,68 @@
           Hexo之优化（一）
         </h1>
 
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2021-02-03 21:54:21" itemprop="dateCreated datePublished" datetime="2021-02-03T21:54:21+08:00">2021-02-03</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-02-04 22:17:23" itemprop="dateModified" datetime="2021-02-04T22:17:23+08:00">2021-02-04</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/hexo%E5%BB%BA%E7%AB%99/" itemprop="url" rel="index"><span itemprop="name">hexo建站</span></a>
-        </span>
-    </span>
+              <time title="创建时间：2021-02-03 21:54:21" itemprop="dateCreated datePublished" datetime="2021-02-03T21:54:21+08:00">2021-02-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-04 22:17:23" itemprop="dateModified" datetime="2021-02-04T22:17:23+08:00">2021-02-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hexo%E5%BB%BA%E7%AB%99/" itemprop="url" rel="index"><span itemprop="name">hexo建站</span></a>
+                </span>
+            </span>
 
+          
+            <span id="/posts/a3ff5801/" class="post-meta-item leancloud_visitors" data-flag-title="Hexo之优化（一）" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
   
-    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+  <span class="post-meta-item">
+    
       <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
+        <i class="fa fa-comment-o"></i>
       </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span id="busuanzi_value_page_pv"></span>
-    </span>
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.5k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/a3ff5801/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/a3ff5801/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -307,6 +282,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
+
+      
         <p>​    继上一篇搭建完最基础的Hexo环境并且发布一篇Demo文章后，基本上能满足了平时的个人Blog编写以及发布，但很多地方还是用户体验不太好，于是再对自己的Blog进行一系列的优化😁😁。</p>
 <h4 id="优化一：Hexo-主题优化"><a href="#优化一：Hexo-主题优化" class="headerlink" title="优化一：Hexo 主题优化"></a>优化一：Hexo 主题优化</h4><p>​    网上搜了下大部分都用的 <a target="_blank" rel="noopener" href="https://github.com/next-theme/hexo-theme-next">nexT</a> 这个主题，于是就直接参照对应的 <a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/getting-started/">官网链接</a> 操作即可。（顺便继续记录一些遇到的坑~~）如果觉得默认的主题已经不错了的可以直接跳过改步骤（<strong>但后续优化<font color=red>基于nexT v8.2.1版本优化</font>，不一定全部通用于其他主题</strong>）。</p>
 <a id="more"></a>
@@ -322,12 +299,23 @@
 <p>​    这个时候问题来了，<strong>如果每篇文章都如上，篇幅比较长，那么就导致首页每次展示的文章数量过少。</strong></p>
 <h4 id="优化二：文章折叠展示-对文章添加分类、标签等"><a href="#优化二：文章折叠展示-对文章添加分类、标签等" class="headerlink" title="优化二：文章折叠展示 + 对文章添加分类、标签等"></a>优化二：文章折叠展示 + 对文章添加分类、标签等</h4><ul>
 <li><p>步骤一：修改nexT主题目录下的_config.yml配置 (将文件中的注释去掉即可)。</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">home</span></span><br><span class="line">  <span class="attr">about:</span> <span class="string">/about</span> <span class="string">||</span> <span class="string">user</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags</span> <span class="string">||</span> <span class="string">tags</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories</span> <span class="string">||</span> <span class="string">th</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives</span> <span class="string">||</span> <span class="string">archive</span></span><br></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-yml" data-language="yml"><code class="language-yml">menu:
+  home: &#x2F; || home
+  about: &#x2F;about || user
+  tags: &#x2F;tags || tags
+  categories: &#x2F;categories || th
+  archives: &#x2F;archives || archive<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li><p>步骤二：给文章添加对应的属性（如：tags、categories、description）。</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">Hexo</span> <span class="string">首次搭建个人Blog</span> <span class="string">问题记录（一）</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2021-02-01 22:14:05</span></span><br><span class="line"><span class="attr">tags:</span> </span><br><span class="line"><span class="bullet">-</span> <span class="string">blog搭建</span> </span><br><span class="line"><span class="bullet">-</span> <span class="string">hexo建站</span></span><br><span class="line"><span class="attr">categories:</span> <span class="string">hexo建站</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-yml" data-language="yml"><code class="language-yml">title: Hexo 首次搭建个人Blog 问题记录（一）
+date: 2021-02-01 22:14:05
+tags: 
+- blog搭建 
+- hexo建站
+categories: hexo建站<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>问题2：设置首页新增了 <code>tags</code> 和 <code>categories</code> 页后，点击进入到对应的 <code>tags</code> 或者 <code>categories</code> 的时候没有想要的内容， 仅仅一个 <code>tags</code>或者 <code>categories</code> 标签。</strong></p>
 <p>原因: 在执行 <code>hexo new page &quot;tags&quot; </code> 这一步自动生成的index.md 文件中内容缺失导致。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 解决办法如下操作，打开对应的 blog_dir/source/tags/index.md 文件, 在最后补充如下代码</span></span><br><span class="line"><span class="built_in">type</span>: <span class="string">&quot;tags&quot;</span>	<span class="comment"># about/categories页操作将tags替换成about/categories即可</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 解决办法如下操作，打开对应的 blog_dir/source/tags/index.md 文件, 在最后补充如下代码</span>
+type: <span class="token string">"tags"</span>	<span class="token comment"># about/categories页操作将tags替换成about/categories即可</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
 <li><p>步骤三：文章折叠的<a target="_blank" rel="noopener" href="http://theme-next.iissnan.com/faqs.html#%E9%A6%96%E9%A1%B5%E6%98%BE%E7%A4%BA%E6%96%87%E7%AB%A0%E6%91%98%E5%BD%95">解决办法</a> (个人选择了方法一)</p>
 </li>
@@ -336,45 +324,91 @@
 <img src="https://i.loli.net/2021/02/03/1I6TEuywBj2QG7R.png" alt="nexT_first.png" style="zoom:40%;" />
 
 <h4 id="优化三：-文章生成短链接"><a href="#优化三：-文章生成短链接" class="headerlink" title="优化三： 文章生成短链接"></a>优化三： 文章生成短链接</h4><p>点开上图的阅读全文后，发现整体的链接是一大串文字，这个时候看起来就比较怪异，并且复制出来后直接会是URL编码的格式。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https://beanskingdom.github.io/2021/02/01/Hexo-首次搭建遇到的问题/#more</span><br><span class="line">https://beanskingdom.github.io/2021/02/01/Hexo-%E9%A6%96%E6%AC%A1%E6%90%AD%E5%BB%BA%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/#more</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-html" data-language="html"><code class="language-html">https://beanskingdom.github.io/2021/02/01/Hexo-首次搭建遇到的问题/#more
+https://beanskingdom.github.io/2021/02/01/Hexo-%E9%A6%96%E6%AC%A1%E6%90%AD%E5%BB%BA%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/#more<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>此时可以通过Hexo-abbrlink生成唯一永久文章链接（<a target="_blank" rel="noopener" href="https://github.com/Rozbo/hexo-abbrlink">参考链接</a>）。 </p>
 <p>最终的效果则为：<code>xxx/posts/48255dc8/#more</code></p>
 <h4 id="优化四：修改文内链接样式"><a href="#优化四：修改文内链接样式" class="headerlink" title="优化四：修改文内链接样式"></a>优化四：修改文内链接样式</h4><p>nexT默认文章链接样式如下图：</p>
 <img src="https://i.loli.net/2021/02/03/q2CwmFHZsNoyYlW.png" alt="next_link_style.png" style="zoom:40%;" />
 
 <p>为了突出区别性，我们在<code>themes/next/source/css/_common/components/post/post-body.styl</code>文件中添加下列的代码即可。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.post-body</span> <span class="selector-tag">p</span> <span class="selector-tag">a</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#0593d3</span>;</span><br><span class="line">    <span class="attribute">border-bottom</span>: none;</span><br><span class="line">    <span class="attribute">border-bottom</span>: <span class="number">1px</span> solid <span class="number">#0593d3</span>;</span><br><span class="line">    &amp;:hover &#123;</span><br><span class="line">        <span class="selector-tag">color</span>: <span class="selector-id">#fc6423</span>;</span><br><span class="line">        <span class="selector-tag">border-bottom</span>: <span class="selector-tag">none</span>;</span><br><span class="line">        <span class="selector-tag">border-bottom</span>: 1<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#fc6423</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">.post-body p a</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> #0593d3<span class="token punctuation">;</span>
+    <span class="token property">border-bottom</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
+    <span class="token property">border-bottom</span><span class="token punctuation">:</span> 1px solid #0593d3<span class="token selector">;
+    &amp;:hover</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">color</span><span class="token punctuation">:</span> #fc6423<span class="token punctuation">;</span>
+        <span class="token property">border-bottom</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
+        <span class="token property">border-bottom</span><span class="token punctuation">:</span> 1px solid #fc6423<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>优化后的样式如下：</p>
 <img src="https://i.loli.net/2021/02/03/L4j9vFUxBl2o3cM.png" alt="next_link_update.png" style="zoom:40%;" />
 
 <h4 id="优化五：给主页文章添加阴影效果"><a href="#优化五：给主页文章添加阴影效果" class="headerlink" title="优化五：给主页文章添加阴影效果"></a>优化五：给主页文章添加阴影效果</h4><p>打开<code>themes/next/source/css/_common/components/post/index.styl</code>文件，将<code>post-block</code>代码进行如下更改：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">if (hexo-config(&#x27;motion.transition.post_block&#x27;)) &#123;</span><br><span class="line">  	# 添加如下代码</span><br><span class="line">    <span class="selector-class">.post-block</span>&#123;</span><br><span class="line">        <span class="attribute">margin-top</span>: <span class="number">60px</span>;</span><br><span class="line">        <span class="attribute">margin-bottom</span>: <span class="number">60px</span>;</span><br><span class="line">        <span class="attribute">padding</span>: <span class="number">25px</span>;</span><br><span class="line">        background:rgba(255,255,255,0.9) none repeat scroll !important; //添加透明效果</span><br><span class="line">        <span class="selector-tag">-webkit-box-shadow</span>: 0 0 5<span class="selector-tag">px</span> <span class="selector-tag">rgba</span>(202, 203, 203, .5);</span><br><span class="line">        <span class="selector-tag">-moz-box-shadow</span>: 0 0 5<span class="selector-tag">px</span> <span class="selector-tag">rgba</span>(202, 203, 204, .5);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">if (hexo-config('motion.transition.post_block'))</span> <span class="token punctuation">&#123;</span>
+  	<span class="token selector"># 添加如下代码
+    .post-block</span><span class="token punctuation">&#123;</span>
+        <span class="token property">margin-top</span><span class="token punctuation">:</span> 60px<span class="token punctuation">;</span>
+        <span class="token property">margin-bottom</span><span class="token punctuation">:</span> 60px<span class="token punctuation">;</span>
+        <span class="token property">padding</span><span class="token punctuation">:</span> 25px<span class="token punctuation">;</span>
+        <span class="token property">background</span><span class="token punctuation">:</span><span class="token function">rgba</span><span class="token punctuation">(</span>255<span class="token punctuation">,</span>255<span class="token punctuation">,</span>255<span class="token punctuation">,</span>0.9<span class="token punctuation">)</span> none repeat scroll <span class="token important">!important</span><span class="token punctuation">;</span> //添加透明效果
+        <span class="token property">-webkit-box-shadow</span><span class="token punctuation">:</span> 0 0 5px <span class="token function">rgba</span><span class="token punctuation">(</span>202<span class="token punctuation">,</span> 203<span class="token punctuation">,</span> 203<span class="token punctuation">,</span> .5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token property">-moz-box-shadow</span><span class="token punctuation">:</span> 0 0 5px <span class="token function">rgba</span><span class="token punctuation">(</span>202<span class="token punctuation">,</span> 203<span class="token punctuation">,</span> 204<span class="token punctuation">,</span> .5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 <h4 id="优化六：文章内部的导航栏位置优化"><a href="#优化六：文章内部的导航栏位置优化" class="headerlink" title="优化六：文章内部的导航栏位置优化"></a>优化六：文章内部的导航栏位置优化</h4><p>默认文章内部的导航栏位置是在左侧，看文章时候比较怪异，所以优化到了右边。</p>
 <p>打开 <code>themes/next/_config.yml</code> 文件，将如下代码修改。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sidebar:</span><br><span class="line">  <span class="comment"># Sidebar Position.</span></span><br><span class="line">  <span class="comment"># position: left		# 将改行注释掉，再去掉下面一行的注释</span></span><br><span class="line">  position: right</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sidebar:
+  <span class="token comment"># Sidebar Position.</span>
+  <span class="token comment"># position: left		# 将改行注释掉，再去掉下面一行的注释</span>
+  position: right<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 <h4 id="优化七：给文章末尾添加结束语"><a href="#优化七：给文章末尾添加结束语" class="headerlink" title="优化七：给文章末尾添加结束语"></a>优化七：给文章末尾添加结束语</h4><ul>
 <li><p>在<code>themes/next/layout/_macro</code>中新建<code>passage-end-tag.swig</code>文件，添加代码至该文件中；</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">    &#123;% <span class="keyword">if</span> not is_index %&#125;</span><br><span class="line">      &lt;div style=<span class="string">&quot;text-align:center;color: #ccc;font-size:20px;&quot;</span>&gt;------------- 本 文 结 束 &lt;i class=<span class="string">&quot;fa fa-paw&quot;</span>&gt;&lt;/i&gt; 感 谢 您 的 阅 读 -------------&lt;/div&gt;</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token operator">&lt;</span>div<span class="token operator">></span>
+    <span class="token punctuation">&#123;</span>% <span class="token keyword">if</span> not is_index %<span class="token punctuation">&#125;</span>
+      <span class="token operator">&lt;</span>div <span class="token assign-left variable">style</span><span class="token operator">=</span><span class="token string">"text-align:center;color: #ccc;font-size:20px;"</span><span class="token operator">></span>------------- 本 文 结 束 <span class="token operator">&lt;</span>i <span class="token assign-left variable">class</span><span class="token operator">=</span><span class="token string">"fa fa-paw"</span><span class="token operator">></span><span class="token operator">&lt;</span>/i<span class="token operator">></span> 感 谢 您 的 阅 读 -------------<span class="token operator">&lt;</span>/div<span class="token operator">></span>
+    <span class="token punctuation">&#123;</span>% endif %<span class="token punctuation">&#125;</span>
+<span class="token operator">&lt;</span>/div<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li><p>打开<code>themes/next/layout/_macro/post.njk</code>文件，在<code>post-body</code>后，<code>post-footer</code>前，添加下面内容:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &#123;% <span class="keyword">if</span> not is_index %&#125;</span><br><span class="line">    &#123;% include <span class="string">&#x27;passage-end-tag.swig&#x27;</span> %&#125;</span><br><span class="line">  &#123;% endif %&#125;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在如下内容之前添加上述代码</span></span><br><span class="line"><span class="comment">#    &#123;#####################&#125;</span></span><br><span class="line"><span class="comment">#    &#123;### END POST BODY ###&#125;</span></span><br><span class="line"><span class="comment">#    &#123;#####################&#125;</span></span><br></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token operator">&lt;</span>div<span class="token operator">></span>
+  <span class="token punctuation">&#123;</span>% <span class="token keyword">if</span> not is_index %<span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#123;</span>% include <span class="token string">'passage-end-tag.swig'</span> %<span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#123;</span>% endif %<span class="token punctuation">&#125;</span>
+<span class="token operator">&lt;</span>/div<span class="token operator">></span>
+
+<span class="token comment"># 在如下内容之前添加上述代码</span>
+<span class="token comment">#    &#123;#####################&#125;</span>
+<span class="token comment">#    &#123;### END POST BODY ###&#125;</span>
+<span class="token comment">#    &#123;#####################&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li><p>在主题配置文件<code>_config.yml</code>在末尾添加：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文章末尾添加“本文结束”标记</span></span><br><span class="line"><span class="attr">passage_end_tag:</span></span><br><span class="line">  <span class="attr">enabled:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-yml" data-language="yml"><code class="language-yml"># 文章末尾添加“本文结束”标记
+passage_end_tag:
+  enabled: true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 
 </li>
 </ul>
 <h4 id="优化八：给代码块添加复制功能"><a href="#优化八：给代码块添加复制功能" class="headerlink" title="优化八：给代码块添加复制功能"></a>优化八：给代码块添加复制功能</h4><p>打开<code>themes/next/_config.yml</code>主题配置文件，搜索<code>codeblock</code>,开启复制，修改代码如下。</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">copy_button:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span>		<span class="comment"># 显示复制按钮</span></span><br><span class="line">  <span class="comment"># Available values: default | flat | mac</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">flat</span>			<span class="comment"># 复制按钮展示形式</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-yml" data-language="yml"><code class="language-yml">copy_button:
+  enable: true		# 显示复制按钮
+  # Available values: default | flat | mac
+  style: flat			# 复制按钮展示形式<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 <h4 id="优化九：实现统计功能"><a href="#优化九：实现统计功能" class="headerlink" title="优化九：实现统计功能"></a>优化九：实现统计功能</h4><p>在根目录下安装 <code>hexo-wordcount</code>,运行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-wordcount --save</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> hexo-wordcount --save<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>然后在主题的配置文件中，配置如下：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Post wordcount display settings</span></span><br><span class="line"><span class="comment"># Dependencies: https://github.com/willin/hexo-wordcount</span></span><br><span class="line"><span class="attr">post_wordcount:</span></span><br><span class="line">  <span class="attr">item_text:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">wordcount:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">min2read:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-yml" data-language="yml"><code class="language-yml"># Post wordcount display settings
+# Dependencies: https:&#x2F;&#x2F;github.com&#x2F;willin&#x2F;hexo-wordcount
+post_wordcount:
+  item_text: true
+  wordcount: true
+  min2read: true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>​    至此，部分个人体验相关的优化已经结束，这个时候可以开心的写blog了，自己看起来效果也不错，但这样你满足了么？？</p>
@@ -397,24 +431,8 @@
     
     
 
-    <footer class="post-footer">
+      <footer class="post-footer">
           
-
-<div class="post-copyright">
-<ul>
-  <li class="post-copyright-author">
-      <strong>本文作者： </strong>BigBean
-  </li>
-  <li class="post-copyright-link">
-      <strong>本文链接：</strong>
-      <a href="http://example.com/posts/a3ff5801/" title="Hexo之优化（一）">http://example.com/posts/a3ff5801/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-</div>
-
           <div class="post-tags">
               <a href="/tags/blog%E6%90%AD%E5%BB%BA/" rel="tag"><i class="fa fa-tag"></i> blog搭建</a>
               <a href="/tags/hexo%E5%BB%BA%E7%AB%99/" rel="tag"><i class="fa fa-tag"></i> hexo建站</a>
@@ -422,29 +440,30 @@
 
         
 
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/posts/48255dc8/" rel="prev" title="Hexo 首次搭建个人Blog问题记录">
-                  <i class="fa fa-chevron-left"></i> Hexo 首次搭建个人Blog问题记录
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/posts/cb6108fb/" rel="next" title="一次Python程序Hang住的排查过程">
-                  一次Python程序Hang住的排查过程 <i class="fa fa-chevron-right"></i>
-                </a>
-            </div>
-          </div>
-    </footer>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/48255dc8/" rel="prev" title="Hexo 首次搭建个人Blog问题记录">
+      <i class="fa fa-chevron-left"></i> Hexo 首次搭建个人Blog问题记录
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/cb6108fb/" rel="next" title="一次Python程序Hang住的排查过程">
+      一次Python程序Hang住的排查过程 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-</div>
+  
+  
+  
 
 
 
-
-
-
-
-
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -453,7 +472,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -462,63 +481,194 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      const commentClass = event.target.classList[1];
+      let commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E4%B8%80%EF%BC%9AHexo-%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">优化一：Hexo 主题优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E4%BA%8C%EF%BC%9A%E6%96%87%E7%AB%A0%E6%8A%98%E5%8F%A0%E5%B1%95%E7%A4%BA-%E5%AF%B9%E6%96%87%E7%AB%A0%E6%B7%BB%E5%8A%A0%E5%88%86%E7%B1%BB%E3%80%81%E6%A0%87%E7%AD%BE%E7%AD%89"><span class="nav-number">2.</span> <span class="nav-text">优化二：文章折叠展示 + 对文章添加分类、标签等</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E4%B8%89%EF%BC%9A-%E6%96%87%E7%AB%A0%E7%94%9F%E6%88%90%E7%9F%AD%E9%93%BE%E6%8E%A5"><span class="nav-number">3.</span> <span class="nav-text">优化三： 文章生成短链接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%9B%9B%EF%BC%9A%E4%BF%AE%E6%94%B9%E6%96%87%E5%86%85%E9%93%BE%E6%8E%A5%E6%A0%B7%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">优化四：修改文内链接样式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E4%BA%94%EF%BC%9A%E7%BB%99%E4%B8%BB%E9%A1%B5%E6%96%87%E7%AB%A0%E6%B7%BB%E5%8A%A0%E9%98%B4%E5%BD%B1%E6%95%88%E6%9E%9C"><span class="nav-number">5.</span> <span class="nav-text">优化五：给主页文章添加阴影效果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%85%AD%EF%BC%9A%E6%96%87%E7%AB%A0%E5%86%85%E9%83%A8%E7%9A%84%E5%AF%BC%E8%88%AA%E6%A0%8F%E4%BD%8D%E7%BD%AE%E4%BC%98%E5%8C%96"><span class="nav-number">6.</span> <span class="nav-text">优化六：文章内部的导航栏位置优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E4%B8%83%EF%BC%9A%E7%BB%99%E6%96%87%E7%AB%A0%E6%9C%AB%E5%B0%BE%E6%B7%BB%E5%8A%A0%E7%BB%93%E6%9D%9F%E8%AF%AD"><span class="nav-number">7.</span> <span class="nav-text">优化七：给文章末尾添加结束语</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%85%AB%EF%BC%9A%E7%BB%99%E4%BB%A3%E7%A0%81%E5%9D%97%E6%B7%BB%E5%8A%A0%E5%A4%8D%E5%88%B6%E5%8A%9F%E8%83%BD"><span class="nav-number">8.</span> <span class="nav-text">优化八：给代码块添加复制功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E4%B9%9D%EF%BC%9A%E5%AE%9E%E7%8E%B0%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD"><span class="nav-number">9.</span> <span class="nav-text">优化九：实现统计功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">10.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">BigBean</p>
+  <div class="site-description" itemprop="description"></div>
 </div>
-  </main>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
 
-  <footer class="footer">
-    <div class="footer-inner">
 
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
 
 <div class="copyright">
+  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">BigBean</span>
-</div>
-<div class="wordcount">
-  <span class="post-meta-item">
+    <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
-      <i class="fa fa-chart-line"></i>
+      <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">10k</span>
-  </span>
-  <span class="post-meta-item">
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">9k</span>
+    <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">9 分钟</span>
-  </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">8 分钟</span>
 </div>
-<div class="busuanzi-count">
-</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+<script src="/js/prism/prism.js" async></script>
 
-    </div>
-  </footer>
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
 
   
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
 
   
 
 
 
 
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
 
 
   
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
 
 
-
-
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'RxwAAjYjlIuwVtWQmp433VMU-gzGzoHsz',
+      appKey     : 'UnfFYvCblrw3Er5yRUH7IMrR',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
 
 </body>
 </html>

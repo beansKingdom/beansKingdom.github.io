@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 5.3.0">
-
-
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -15,15 +13,15 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
-
-<script class="hexo-configurations">
+<script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","version":"8.2.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
-<meta name="description" content="背景​    有时候在执行shell脚本的时候，在运行&#x2F;调试的过程中会有些报错看起来不是太明显，那如何高效的调试自己编写的shell脚本呢？？ 解决方案​    网上有一些解决方案，但是尝试了下后觉得使用 shell 中的 set 命令来解决更加方便和快捷。下面来看看 set 命令到底能够有哪些应用场景。">
+<link rel="stylesheet" href="/js/prism/prism.css">
+
+  <meta name="description" content="背景​    有时候在执行shell脚本的时候，在运行&#x2F;调试的过程中会有些报错看起来不是太明显，那如何高效的调试自己编写的shell脚本呢？？ 解决方案​    网上有一些解决方案，但是尝试了下后觉得使用 shell 中的 set 命令来解决更加方便和快捷。下面来看看 set 命令到底能够有哪些应用场景。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux Set命令">
 <meta property="og:url" content="http://example.com/posts/cf736c07/index.html">
@@ -37,11 +35,10 @@
 <meta property="article:tag" content="Linux 命令">
 <meta name="twitter:card" content="summary">
 
-
 <link rel="canonical" href="http://example.com/posts/cf736c07/">
 
 
-<script class="page-configurations">
+<script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -50,182 +47,150 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>Linux Set命令 | BeansKingdom</title>
+
+  <title>Linux Set命令 | BeansKingdom</title>
   
+
+
 
 
 
 
   <noscript>
   <style>
-  body { margin-top: 2rem; }
-
+  .use-motion .brand,
   .use-motion .menu-item,
-  .use-motion .sidebar,
+  .sidebar-inner,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header {
-    visibility: visible;
-  }
-
-  .use-motion .header,
-  .use-motion .site-brand-container .toggle,
-  .use-motion .footer { opacity: initial; }
+  .use-motion .collection-header { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle,
-  .use-motion .custom-logo-image {
+  .use-motion .site-subtitle {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line {
-    transform: scaleX(1);
-  }
-
-  .search-pop-overlay, .sidebar-nav { display: none; }
-  .sidebar-panel { display: block; }
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
   </style>
 </noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
-  <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
 
-  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏" role="button">
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <i class="logo-line"></i>
+      <span class="logo-line-before"><i></i></span>
       <h1 class="site-title">BeansKingdom</h1>
-      <i class="logo-line"></i>
+      <span class="logo-line-after"><i></i></span>
     </a>
   </div>
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
 
 
 
+
 <nav class="site-nav">
-  <ul class="main-menu menu">
-        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags" rel="section"><i class="tags fa-fw"></i>标签</a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories" rel="section"><i class="th fa-fw"></i>分类</a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
-
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
 </div>
-        
-  
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
   </div>
 
-  <aside class="sidebar">
-
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
-      <ul class="sidebar-nav">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <div class="sidebar-panel-container">
-        <!--noindex-->
-        <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">2.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89set-u"><span class="nav-number">2.1.</span> <span class="nav-text">（1）set -u</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89set-x"><span class="nav-number">2.2.</span> <span class="nav-text">（2）set -x</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%883%EF%BC%89set-e"><span class="nav-number">2.3.</span> <span class="nav-text">（3）set -e</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%884%EF%BC%89set-o-pipefail"><span class="nav-number">2.4.</span> <span class="nav-text">（4）set -o pipefail</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
-        </div>
-        <!--/noindex-->
-
-        <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">BigBean</p>
-  <div class="site-description" itemprop="description"></div>
 </div>
-<div class="site-state-wrap site-overview-item animated">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives">
-        
-          <span class="site-state-item-count">5</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories">
-          
-        <span class="site-state-item-count">3</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags">
-          
-        <span class="site-state-item-count">8</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-        </div>
-      </div>
-    </div>
-  </aside>
-  <div class="sidebar-dimmer"></div>
-
-
     </header>
 
     
-  <div class="back-to-top" role="button">
+  <div class="back-to-top">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
 
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
 
-    <div class="main-inner post posts-expand">
+          <div class="content post posts-expand">
+            
 
-
-  
-
-
-<div class="post-block">
+    
   
   
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/cf736c07/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -242,52 +207,62 @@
           Linux Set命令
         </h1>
 
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
 
-      <time title="创建时间：2021-02-06 11:14:55 / 修改时间：18:51:32" itemprop="dateCreated datePublished" datetime="2021-02-06T11:14:55+08:00">2021-02-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a>
-        </span>
-    </span>
+              <time title="创建时间：2021-02-06 11:14:55 / 修改时间：18:51:32" itemprop="dateCreated datePublished" datetime="2021-02-06T11:14:55+08:00">2021-02-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a>
+                </span>
+            </span>
 
+          
+            <span id="/posts/cf736c07/" class="post-meta-item leancloud_visitors" data-flag-title="Linux Set命令" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
   
-    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+  <span class="post-meta-item">
+    
       <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
+        <i class="fa fa-comment-o"></i>
       </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span id="busuanzi_value_page_pv"></span>
-    </span>
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.9k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/cf736c07/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/cf736c07/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -296,32 +271,98 @@
     
     
     <div class="post-body" itemprop="articleBody">
+
+      
         <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>​    有时候在执行shell脚本的时候，在运行/调试的过程中会有些报错看起来不是太明显，那如何高效的调试自己编写的shell脚本呢？？</p>
 <h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>​    网上有一些解决方案，但是尝试了下后觉得使用 shell 中的 <strong>set</strong> 命令来解决更加方便和快捷。下面来看看 <strong>set</strong> 命令到底能够有哪些应用场景。</p>
 <a id="more"></a>
 
 <h4 id="（1）set-u"><a href="#（1）set-u" class="headerlink" title="（1）set -u"></a>（1）set -u</h4><p>​    执行脚本的时候，有时候会遇到变量未定义（如：拼写错误导致变量未定义），Bash 默认是忽略它并且继续执行的，在某些场景这可能会对后面的脚本造成不可预期的错误操作， 所以可以通过 <code>set -u</code> 来控制，具体案例如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$a</span></span><br><span class="line"><span class="built_in">echo</span> bar</span><br><span class="line">$ bash set_test.sh</span><br><span class="line"></span><br><span class="line">bar</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/usr/bin/bash</span>
+
+<span class="token builtin class-name">echo</span> <span class="token variable">$a</span>
+<span class="token builtin class-name">echo</span> bar
+$ <span class="token function">bash</span> set_test.sh
+
+bar<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>​    可以看到，<code>echo $a</code> 输出了一个空行，Bash 忽略了不存在的 <code>$a</code>，然后继续执行 <code>echo bar</code>。大多数情况下，这不是开发者想要的行为，遇到变量不存在，脚本应该报错，而不是一声不响地往下执行。</p>
 <p>通过脚本在头部加上 <code>set -u</code> 后，遇到不存在的变量就会报错，并停止执行。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">set</span> -u</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$a</span></span><br><span class="line"><span class="built_in">echo</span> bar</span><br><span class="line">$ bash set_test.sh</span><br><span class="line">set_test.sh: line 4: a: unbound variable</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/usr/bin/bash</span>
+<span class="token builtin class-name">set</span> -u
+
+<span class="token builtin class-name">echo</span> <span class="token variable">$a</span>
+<span class="token builtin class-name">echo</span> bar
+$ <span class="token function">bash</span> set_test.sh
+set_test.sh: line <span class="token number">4</span>: a: unbound variable<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="（2）set-x"><a href="#（2）set-x" class="headerlink" title="（2）set -x"></a>（2）set -x</h4><p>​    在执行复杂脚本的时候，需要对脚本进行类似debug一样的操作，则可以通过设置 <code>set -x</code>，这样就会对脚本中的执行过程的变量以及具体执行的代码进行输出。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">set</span> -x</span><br><span class="line"></span><br><span class="line">name=<span class="string">&quot;tester&quot;</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$&#123;name&#125;</span> == <span class="string">&quot;tester&quot;</span> ]];<span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;hello&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;failed...&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> end</span><br><span class="line">$ bash set_test.sh</span><br><span class="line">+ name=tester</span><br><span class="line">+ [[ tester == \t\e\s\t\e\r ]]</span><br><span class="line">+ <span class="built_in">echo</span> hello</span><br><span class="line">hello</span><br><span class="line">+ <span class="built_in">echo</span> end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/usr/bin/bash</span>
+<span class="token builtin class-name">set</span> -x
+
+<span class="token assign-left variable">name</span><span class="token operator">=</span><span class="token string">"tester"</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token variable">$&#123;name&#125;</span> <span class="token operator">==</span> <span class="token string">"tester"</span> <span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token keyword">then</span>
+  <span class="token builtin class-name">echo</span> <span class="token string">"hello"</span>
+<span class="token keyword">else</span>
+  <span class="token builtin class-name">echo</span> <span class="token string">"failed..."</span>
+<span class="token keyword">fi</span>
+
+<span class="token builtin class-name">echo</span> end
+$ <span class="token function">bash</span> set_test.sh
++ <span class="token assign-left variable">name</span><span class="token operator">=</span>tester
++ <span class="token punctuation">[</span><span class="token punctuation">[</span> tester <span class="token operator">==</span> <span class="token punctuation">\</span>t<span class="token punctuation">\</span>e<span class="token punctuation">\</span>s<span class="token punctuation">\</span>t<span class="token punctuation">\</span>e<span class="token punctuation">\</span>r <span class="token punctuation">]</span><span class="token punctuation">]</span>
++ <span class="token builtin class-name">echo</span> hello
+hello
++ <span class="token builtin class-name">echo</span> end
+end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>​    可以看到，在进行条件判断的时候，变量name被具体值替换了，打印了代码走到了条件分支的哪一步，以及打印了相应的有输出的代码行，行首以+表示。这对于调试复杂的脚本是很有用的。</p>
 <h4 id="（3）set-e"><a href="#（3）set-e" class="headerlink" title="（3）set -e"></a>（3）set -e</h4><p>​    如果脚本里面有运行失败的命令（返回值非0），Bash 默认会继续执行后面的命令，在实际开发中，这种会导致比较严重的影响。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/bash</span></span><br><span class="line"></span><br><span class="line">foo</span><br><span class="line"><span class="built_in">echo</span> bar</span><br><span class="line">$ bash set_test.sh</span><br><span class="line">set_test.sh: line 5: foo: <span class="built_in">command</span> not found</span><br><span class="line">bar</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/usr/bin/bash</span>
+
+foo
+<span class="token builtin class-name">echo</span> bar
+$ <span class="token function">bash</span> set_test.sh
+set_test.sh: line <span class="token number">5</span>: foo: <span class="token builtin class-name">command</span> not found
+bar<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>通过使用 <code>set -e</code> 则可以运行失败的命令就直接退出。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">set</span> -e</span><br><span class="line"></span><br><span class="line">foo</span><br><span class="line"><span class="built_in">echo</span> bar</span><br><span class="line">$ bash set_test.sh</span><br><span class="line">set_test.sh: line 6: foo: <span class="built_in">command</span> not found</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/usr/bin/bash</span>
+<span class="token builtin class-name">set</span> -e
+
+foo
+<span class="token builtin class-name">echo</span> bar
+$ <span class="token function">bash</span> set_test.sh
+set_test.sh: line <span class="token number">6</span>: foo: <span class="token builtin class-name">command</span> not found<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>也可以通过下面的方式来指定具体某个代码块运行失败后自动退出。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -e      <span class="comment"># 表示打开遇到运行命令返回非0则退出</span></span><br><span class="line">command1</span><br><span class="line">command2</span><br><span class="line"><span class="built_in">set</span> +e      <span class="comment"># 表示关闭遇到运行命令返回非0则退出</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">set</span> -e      <span class="token comment"># 表示打开遇到运行命令返回非0则退出</span>
+command1
+command2
+<span class="token builtin class-name">set</span> +e      <span class="token comment"># 表示关闭遇到运行命令返回非0则退出</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="（4）set-o-pipefail"><a href="#（4）set-o-pipefail" class="headerlink" title="（4）set -o pipefail"></a>（4）set -o pipefail</h4><p>​    <code>set -e</code> 有一个例外情况，就是不适用于管道命令。Bash 会把<strong>最后一个子命令的返回值</strong>，作为<strong>整个命令的返回值</strong>。也就是说，只要最后一个子命令不失败，管道命令总是会执行成功，因此它后面命令依然会执行，<code>set -e</code> 就失效了。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">set</span> -e</span><br><span class="line"></span><br><span class="line">foo | <span class="built_in">echo</span> a</span><br><span class="line"><span class="built_in">echo</span> bar</span><br><span class="line">$ bash set_test.sh</span><br><span class="line">set_test.sh: line 7: foo: <span class="built_in">command</span> not found</span><br><span class="line">a</span><br><span class="line">bar</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/usr/bin/bash</span>
+<span class="token builtin class-name">set</span> -e
+
+foo <span class="token operator">|</span> <span class="token builtin class-name">echo</span> a
+<span class="token builtin class-name">echo</span> bar
+$ <span class="token function">bash</span> set_test.sh
+set_test.sh: line <span class="token number">7</span>: foo: <span class="token builtin class-name">command</span> not found
+a
+bar<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>​    上面代码中，<strong>foo</strong>是一个不存在的命令，但是 <code>foo | echo a</code> 这个管道命令会执行成功，导致后面的 <code>echo bar</code> 会继续执行。</p>
 <p>​     <code>set -eo pipefail</code> 用来解决这种情况，只要一个子命令失败，整个管道命令就失败，脚本会在该管道执行完后终止执行。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/bash</span></span><br><span class="line"><span class="built_in">set</span> -eo pipefail</span><br><span class="line"></span><br><span class="line">foo | <span class="built_in">echo</span> a</span><br><span class="line"><span class="built_in">echo</span> bar</span><br><span class="line">$ bash set_test.sh</span><br><span class="line">set_test.sh: line 7: foo: <span class="built_in">command</span> not found</span><br><span class="line">a</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/usr/bin/bash</span>
+<span class="token builtin class-name">set</span> -eo pipefail
+
+foo <span class="token operator">|</span> <span class="token builtin class-name">echo</span> a
+<span class="token builtin class-name">echo</span> bar
+$ <span class="token function">bash</span> set_test.sh
+set_test.sh: line <span class="token number">7</span>: foo: <span class="token builtin class-name">command</span> not found
+a<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>​    可以看出，管道任务失败后，echo bar则未进行执行。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>​    set命令的上面这四个参数，一般都放在一起使用，常用的两种方式如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 写法一</span></span><br><span class="line"><span class="built_in">set</span> -euxo pipefail</span><br><span class="line"></span><br><span class="line"><span class="comment"># 写法二</span></span><br><span class="line"><span class="built_in">set</span> -eux</span><br><span class="line"><span class="built_in">set</span> -o pipefail</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 写法一</span>
+<span class="token builtin class-name">set</span> -euxo pipefail
+
+<span class="token comment"># 写法二</span>
+<span class="token builtin class-name">set</span> -eux
+<span class="token builtin class-name">set</span> -o pipefail<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
     </div>
 
@@ -340,24 +381,8 @@
     
     
 
-    <footer class="post-footer">
+      <footer class="post-footer">
           
-
-<div class="post-copyright">
-<ul>
-  <li class="post-copyright-author">
-      <strong>本文作者： </strong>BigBean
-  </li>
-  <li class="post-copyright-link">
-      <strong>本文链接：</strong>
-      <a href="http://example.com/posts/cf736c07/" title="Linux Set命令">http://example.com/posts/cf736c07/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-</div>
-
           <div class="post-tags">
               <a href="/tags/shell-%E8%84%9A%E6%9C%AC%E8%B0%83%E8%AF%95/" rel="tag"><i class="fa fa-tag"></i> shell 脚本调试</a>
               <a href="/tags/Linux-%E5%91%BD%E4%BB%A4/" rel="tag"><i class="fa fa-tag"></i> Linux 命令</a>
@@ -365,29 +390,30 @@
 
         
 
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/posts/cb6108fb/" rel="prev" title="一次Python程序Hang住的排查过程">
-                  <i class="fa fa-chevron-left"></i> 一次Python程序Hang住的排查过程
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/posts/2a44a0fd/" rel="next" title="python调用gRPC接口">
-                  python调用gRPC接口 <i class="fa fa-chevron-right"></i>
-                </a>
-            </div>
-          </div>
-    </footer>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/cb6108fb/" rel="prev" title="一次Python程序Hang住的排查过程">
+      <i class="fa fa-chevron-left"></i> 一次Python程序Hang住的排查过程
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/2a44a0fd/" rel="next" title="python调用gRPC接口">
+      python调用gRPC接口 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-</div>
+  
+  
+  
 
 
 
-
-
-
-
-
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -396,7 +422,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -405,63 +431,194 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      const commentClass = event.target.classList[1];
+      let commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">2.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89set-u"><span class="nav-number">2.1.</span> <span class="nav-text">（1）set -u</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89set-x"><span class="nav-number">2.2.</span> <span class="nav-text">（2）set -x</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%883%EF%BC%89set-e"><span class="nav-number">2.3.</span> <span class="nav-text">（3）set -e</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%884%EF%BC%89set-o-pipefail"><span class="nav-number">2.4.</span> <span class="nav-text">（4）set -o pipefail</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">BigBean</p>
+  <div class="site-description" itemprop="description"></div>
 </div>
-  </main>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
 
-  <footer class="footer">
-    <div class="footer-inner">
 
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
 
 <div class="copyright">
+  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">BigBean</span>
-</div>
-<div class="wordcount">
-  <span class="post-meta-item">
+    <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
-      <i class="fa fa-chart-line"></i>
+      <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">10k</span>
-  </span>
-  <span class="post-meta-item">
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">9k</span>
+    <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">9 分钟</span>
-  </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">8 分钟</span>
 </div>
-<div class="busuanzi-count">
-</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+<script src="/js/prism/prism.js" async></script>
 
-    </div>
-  </footer>
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
 
   
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
 
   
 
 
 
 
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
 
 
   
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
 
 
-
-
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'RxwAAjYjlIuwVtWQmp433VMU-gzGzoHsz',
+      appKey     : 'UnfFYvCblrw3Er5yRUH7IMrR',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
 
 </body>
 </html>
