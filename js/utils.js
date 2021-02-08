@@ -236,7 +236,10 @@ NexT.utils = {
       // TOC item animation navigate.
       link.addEventListener('click', event => {
         event.preventDefault();
-        var target = document.getElementById(event.currentTarget.getAttribute('href').replace('#', ''));
+        var str_id = decodeURI(event.currentTarget.getAttribute('href').replace('#', ''));
+        // console.log("test str_id" + str_id)
+        var target = document.getElementById(str_id);
+        // var target = document.getElementById(event.currentTarget.getAttribute('href').replace('#', ''));
         var offset = target.getBoundingClientRect().top + window.scrollY;
         window.anime({
           targets  : document.scrollingElement,
@@ -411,3 +414,4 @@ NexT.utils = {
     return intersectionObserver;
   }
 };
+
