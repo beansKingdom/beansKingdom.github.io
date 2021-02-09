@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 <link rel="stylesheet" href="/js/prism/prism.css">
 
@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.loli.net/2021/02/07/B8rjYhz1ZksDfiq.png">
 <meta property="article:published_time" content="2021-02-07T15:26:10.000Z">
-<meta property="article:modified_time" content="2021-02-09T08:41:22.418Z">
+<meta property="article:modified_time" content="2021-02-09T10:29:11.232Z">
 <meta property="article:author" content="BigBean">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="gRPC接口">
@@ -108,6 +108,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -137,11 +138,38 @@
     <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">6</span></a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -195,7 +223,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-09 16:41:22" itemprop="dateModified" datetime="2021-02-09T16:41:22+08:00">2021-02-09</time>
+                <time title="修改时间：2021-02-09 18:29:11" itemprop="dateModified" datetime="2021-02-09T18:29:11+08:00">2021-02-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -283,7 +311,7 @@ user.proto:258:5: <span class="token string">"NullInt64"</span> is not defined.<
 
 </li>
 </ol>
-<h5 id="问题2-base-proto-File-not-found。"><a href="#问题2-base-proto-File-not-found。" class="headerlink" title="问题2: base.proto: File not found。"></a>问题2: base.proto: File not found。</h5><p>解决方式同问题1，实际就将依赖的这个 base.proto 文件放到与需要转换的 user.proto 文件同级目录下即可。（<strong>由于我们的 base.proto 文件中也同问题1中一样引用了 gogo.proto，所以都需要重复问题1的步骤2</strong>）</p>
+<h5 id="问题2-base-proto-File-not-found。"><a href="#问题2-base-proto-File-not-found。" class="headerlink" title="问题2: base.proto: File not found。"></a>问题2: base.proto: File not found。</h5><p>解决方式同问题1，实际就将依赖的这个 base.proto 文件放到与需要转换的 user.proto 文件同级目录下即可。（<code>由于我的 base.proto 文件中也同问题1中一样引用了 gogo.proto，所以都需要重复问题1的步骤2</code>）</p>
 <p>经过上面操作，终于将 user.proto 文件转成了对应的python脚本，具体样式如下。</p>
 <img src="https://i.loli.net/2021/02/07/B8rjYhz1ZksDfiq.png" alt="python_convert_grpc.png" style="zoom:40%;" />
 
@@ -525,6 +553,10 @@ fields<span class="token operator">=</span><span class="token punctuation">[</sp
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 
