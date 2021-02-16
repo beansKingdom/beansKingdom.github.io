@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"beanskingdom.top","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"beanskingdom.top","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 <link rel="stylesheet" href="/js/prism/prism.css">
 
@@ -267,7 +267,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.3k</span>
+              <span>2.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -291,27 +291,15 @@
 <p>​    主要记录在实际过程中运用遇到的一些问题，希望能给大家一些帮助。</p>
 <a id="more"></a>
 
-<h4 id="步骤一：在执行转化脚本命令时候报错，具体信息如下："><a href="#步骤一：在执行转化脚本命令时候报错，具体信息如下：" class="headerlink" title="步骤一：在执行转化脚本命令时候报错，具体信息如下："></a>步骤一：在执行转化脚本命令时候报错，具体信息如下：</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">python -m grpc_tools.protoc -I. --python_out<span class="token operator">=</span>. --grpc_python_out<span class="token operator">=</span>. ./user.proto
-
-github.com/gogo/protobuf/gogoproto/gogo.proto: File not found.
-base.proto: File not found.
-user.proto:7:1: Import <span class="token string">"github.com/gogo/protobuf/gogoproto/gogo.proto"</span> was not found or had errors.
-user.proto:8:1: Import <span class="token string">"base.proto"</span> was not found or had errors.
-user.proto:47:5: <span class="token string">"NullInt64"</span> is not defined.
-user.proto:59:5: <span class="token string">"NullInt64"</span> is not defined.
-user.proto:86:5: <span class="token string">"NullInt64"</span> is not defined.
-user.proto:239:5: <span class="token string">"NullInt64"</span> is not defined.
-user.proto:258:5: <span class="token string">"NullInt64"</span> is not defined.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="步骤一：在执行转化脚本命令时候报错，具体信息如下："><a href="#步骤一：在执行转化脚本命令时候报错，具体信息如下：" class="headerlink" title="步骤一：在执行转化脚本命令时候报错，具体信息如下："></a>步骤一：在执行转化脚本命令时候报错，具体信息如下：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. ./user.proto</span><br><span class="line"></span><br><span class="line">github.com/gogo/protobuf/gogoproto/gogo.proto: File not found.</span><br><span class="line">base.proto: File not found.</span><br><span class="line">user.proto:7:1: Import <span class="string">&quot;github.com/gogo/protobuf/gogoproto/gogo.proto&quot;</span> was not found or had errors.</span><br><span class="line">user.proto:8:1: Import <span class="string">&quot;base.proto&quot;</span> was not found or had errors.</span><br><span class="line">user.proto:47:5: <span class="string">&quot;NullInt64&quot;</span> is not defined.</span><br><span class="line">user.proto:59:5: <span class="string">&quot;NullInt64&quot;</span> is not defined.</span><br><span class="line">user.proto:86:5: <span class="string">&quot;NullInt64&quot;</span> is not defined.</span><br><span class="line">user.proto:239:5: <span class="string">&quot;NullInt64&quot;</span> is not defined.</span><br><span class="line">user.proto:258:5: <span class="string">&quot;NullInt64&quot;</span> is not defined.</span><br></pre></td></tr></table></figure>
 <p>针对报错问题一个个分析。</p>
-<h5 id="问题1-github-com-gogo-protobuf-gogoproto-gogo-proto-File-not-found。"><a href="#问题1-github-com-gogo-protobuf-gogoproto-gogo-proto-File-not-found。" class="headerlink" title="问题1: github.com/gogo/protobuf/gogoproto/gogo.proto: File not found。"></a>问题1: github.com/gogo/protobuf/gogoproto/gogo.proto: File not found。</h5><pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// 由于转化的脚本中直接以如下方法引用的 gogo.proto 文件，但在转换的时候肯定是找不到的</span>
-<span class="token keyword">import</span> <span class="token string">"github.com/gogo/protobuf/gogoproto/gogo.proto"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h5 id="问题1-github-com-gogo-protobuf-gogoproto-gogo-proto-File-not-found。"><a href="#问题1-github-com-gogo-protobuf-gogoproto-gogo-proto-File-not-found。" class="headerlink" title="问题1: github.com/gogo/protobuf/gogoproto/gogo.proto: File not found。"></a>问题1: github.com/gogo/protobuf/gogoproto/gogo.proto: File not found。</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 由于转化的脚本中直接以如下方法引用的 gogo.proto 文件，但在转换的时候肯定是找不到的</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;github.com/gogo/protobuf/gogoproto/gogo.proto&quot;</span></span><br></pre></td></tr></table></figure>
 <p>解决办法：</p>
 <ol>
 <li><p>将 <a target="_blank" rel="noopener" href="https://github.com/gogo/protobuf/blob/master/gogoproto/gogo.proto">gogo.proto</a> 文件下载到本地，放到与需要转换的 user.proto 文件同级目录下;</p>
 </li>
 <li><p>修改 user.proto 的代码。</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 将如下代码修改成 import "gogo.proto"</span>
-<span class="token function">import</span> <span class="token string">"github.com/gogo/protobuf/gogoproto/gogo.proto"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将如下代码修改成 import &quot;gogo.proto&quot;</span></span><br><span class="line">import <span class="string">&quot;github.com/gogo/protobuf/gogoproto/gogo.proto&quot;</span></span><br></pre></td></tr></table></figure>
 
 
 </li>
@@ -324,33 +312,8 @@ user.proto:258:5: <span class="token string">"NullInt64"</span> is not defined.<
 <h4 id="步骤二：调用转换成python脚本的接口。"><a href="#步骤二：调用转换成python脚本的接口。" class="headerlink" title="步骤二：调用转换成python脚本的接口。"></a>步骤二：调用转换成python脚本的接口。</h4><p><em>注：由于无需本地启动一个服务端，所以可以简单点只写一个调用端即可（具体方式类似 <code>BloomRPC</code>，通过  <code>kubectl</code> 代理到远端的 <code>grpc</code>服务端， 具体原理可自行搜索）</em></p>
 <p>在写客户端代码之前，就还存在一个隐藏问题。</p>
 <h5 id="问题3-实际上如果在写客户端代码时候需要引用的其它的proto文件中的方法，则需要其它引用的文件也转成-python脚本（根据个人需要进行转换）。"><a href="#问题3-实际上如果在写客户端代码时候需要引用的其它的proto文件中的方法，则需要其它引用的文件也转成-python脚本（根据个人需要进行转换）。" class="headerlink" title="问题3: 实际上如果在写客户端代码时候需要引用的其它的proto文件中的方法，则需要其它引用的文件也转成 python脚本（根据个人需要进行转换）。"></a>问题3: 实际上如果在写客户端代码时候需要引用的其它的proto文件中的方法，则需要其它引用的文件也转成 python脚本（根据个人需要进行转换）。</h5><p>客户端代码大致如下（<em>我编写的demo中则无需转换其它文件</em>）：</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> grpc
-<span class="token keyword">import</span> user_pb2_grpc<span class="token punctuation">,</span> user_pb2
-
-<span class="token keyword">class</span> <span class="token class-name">userService</span><span class="token punctuation">:</span>
-
-    <span class="token decorator annotation punctuation">@classmethod</span>
-    <span class="token keyword">def</span> <span class="token function">get_mobile_by_id</span><span class="token punctuation">(</span>cls<span class="token punctuation">)</span><span class="token punctuation">:</span>
-      	<span class="token comment"># 连接上本地的gRPC代理服务端, 端口为kubectl本地代理的端口</span>
-        channel <span class="token operator">=</span> grpc<span class="token punctuation">.</span>insecure_channel<span class="token punctuation">(</span><span class="token string">'localhost:6666'</span><span class="token punctuation">)</span> 
-        <span class="token comment"># 根据对应服务初始化渠道</span>
-        test_stub <span class="token operator">=</span> user_pb2_grpc<span class="token punctuation">.</span>UserStub<span class="token punctuation">(</span>channel<span class="token punctuation">)</span>          
-        user_id <span class="token operator">=</span> <span class="token number">1234</span>
-        <span class="token comment"># 根据具体的 Request 定义来传入参数, 否则会报错</span>
-        <span class="token keyword">return</span> test_stub<span class="token punctuation">.</span>GetXxxById<span class="token punctuation">(</span>user_pb2<span class="token punctuation">.</span>GetXxxByIdRequest<span class="token punctuation">(</span>userId<span class="token operator">=</span>user_id<span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span>userService<span class="token punctuation">.</span>get_mobile_by_id<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    
-<span class="token comment"># 执行效果如下</span>
-<span class="token punctuation">(</span>ENV<span class="token punctuation">)</span> ➜  demo_python_convert_grpc python user_client<span class="token punctuation">.</span>py
-mobileId<span class="token punctuation">:</span> <span class="token string">"11166668888"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 参数按照 user_pb2.py中方法Request定义的FieldDescriptor中具体的name来传入</span>
-fields<span class="token operator">=</span><span class="token punctuation">[</span>
-    _descriptor<span class="token punctuation">.</span>FieldDescriptor<span class="token punctuation">(</span>
-      name<span class="token operator">=</span><span class="token string">'userId'</span><span class="token punctuation">,</span> full_name
-      <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> grpc</span><br><span class="line"><span class="keyword">import</span> user_pb2_grpc, user_pb2</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">userService</span>:</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_mobile_by_id</span>(<span class="params">cls</span>):</span></span><br><span class="line">      	<span class="comment"># 连接上本地的gRPC代理服务端, 端口为kubectl本地代理的端口</span></span><br><span class="line">        channel = grpc.insecure_channel(<span class="string">&#x27;localhost:6666&#x27;</span>) </span><br><span class="line">        <span class="comment"># 根据对应服务初始化渠道</span></span><br><span class="line">        test_stub = user_pb2_grpc.UserStub(channel)          </span><br><span class="line">        user_id = <span class="number">1234</span></span><br><span class="line">        <span class="comment"># 根据具体的 Request 定义来传入参数, 否则会报错</span></span><br><span class="line">        <span class="keyword">return</span> test_stub.GetXxxById(user_pb2.GetXxxByIdRequest(userId=user_id))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    print(userService.get_mobile_by_id())</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 执行效果如下</span></span><br><span class="line">(ENV) ➜  demo_python_convert_grpc python user_client.py</span><br><span class="line">mobileId: <span class="string">&quot;11166668888&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 参数按照 user_pb2.py中方法Request定义的FieldDescriptor中具体的name来传入</span></span><br><span class="line">fields=[</span><br><span class="line">    _descriptor.FieldDescriptor(</span><br><span class="line">      name=<span class="string">&#x27;userId&#x27;</span>, full_name</span><br><span class="line">      ...]</span><br></pre></td></tr></table></figure>
 <p>​    至此，整体调用 <code>gRPC接口</code> 的流程算是跑通了，后续就看各自业务需求来定制化了。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>​    最后吐槽下，很多时候准备做一件事的时候，发现网上教程挺多的，但是也会发现那些 “教程” 可能<strong>千篇一律</strong>。。。有些甚至一摸一样╮(╯Д╰)╭ 。。。当你真正按照这些 “教程” 来操作的时候又会发现可能不那么简单，所以说：<font color=blue><strong>实践是检验真理的唯一标准</strong> ！！！</font></p>
 
@@ -491,20 +454,20 @@ fields<span class="token operator">=</span><span class="token punctuation">[</sp
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -541,13 +504,13 @@ fields<span class="token operator">=</span><span class="token punctuation">[</sp
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">11k</span>
+    <span title="站点总字数">14k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">10 分钟</span>
+    <span title="站点阅读时长">12 分钟</span>
 </div>
 <script src="/js/prism/prism.js" async></script>
 
@@ -634,6 +597,7 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
   }, window.Valine);
 });
 </script>
+
 
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"left","width":300,"height":300,"bottom":-20},"mobile":{"show":false},"log":false});</script></body>
 </html>

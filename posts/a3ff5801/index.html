@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"beanskingdom.top","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"beanskingdom.top","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 <link rel="stylesheet" href="/js/prism/prism.css">
 
@@ -270,7 +270,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.4k</span>
+              <span>3.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -304,23 +304,12 @@
 <p>​    这个时候问题来了，<strong>如果每篇文章都如上，篇幅比较长，那么就导致首页每次展示的文章数量过少。</strong></p>
 <h4 id="优化二：文章折叠展示-对文章添加分类、标签等"><a href="#优化二：文章折叠展示-对文章添加分类、标签等" class="headerlink" title="优化二：文章折叠展示 + 对文章添加分类、标签等"></a>优化二：文章折叠展示 + 对文章添加分类、标签等</h4><ul>
 <li><p>步骤一：修改nexT主题目录下的_config.yml配置 (将文件中的注释去掉即可)。</p>
-<pre class="line-numbers language-yml" data-language="yml"><code class="language-yml">menu:
-  home: &#x2F; || home
-  about: &#x2F;about || user
-  tags: &#x2F;tags || tags
-  categories: &#x2F;categories || th
-  archives: &#x2F;archives || archive<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">home</span></span><br><span class="line">  <span class="attr">about:</span> <span class="string">/about</span> <span class="string">||</span> <span class="string">user</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags</span> <span class="string">||</span> <span class="string">tags</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories</span> <span class="string">||</span> <span class="string">th</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives</span> <span class="string">||</span> <span class="string">archive</span></span><br></pre></td></tr></table></figure></li>
 <li><p>步骤二：给文章添加对应的属性（如：tags、categories、description）。</p>
-<pre class="line-numbers language-yml" data-language="yml"><code class="language-yml">title: Hexo 首次搭建个人Blog 问题记录（一）
-date: 2021-02-01 22:14:05
-tags: 
-- blog搭建 
-- hexo建站
-categories: hexo建站<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">Hexo</span> <span class="string">首次搭建个人Blog</span> <span class="string">问题记录（一）</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2021-02-01 22:14:05</span></span><br><span class="line"><span class="attr">tags:</span> </span><br><span class="line"><span class="bullet">-</span> <span class="string">blog搭建</span> </span><br><span class="line"><span class="bullet">-</span> <span class="string">hexo建站</span></span><br><span class="line"><span class="attr">categories:</span> <span class="string">hexo建站</span></span><br></pre></td></tr></table></figure>
 <p><strong>问题2：设置首页新增了 <code>tags 和 categories</code> 页后，点击进入到对应的 tags 或者 categories 的时候没有想要的内容， 仅仅一个 tags 或者 categories 标签。</strong></p>
 <p>原因: 在执行 <code>hexo new page &quot;tags&quot;</code> 这一步自动生成的index.md 文件中内容缺失导致。</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 解决办法如下操作，打开对应的 blog_dir/source/tags/index.md 文件, 在最后补充如下代码</span>
-type: <span class="token string">"tags"</span>	<span class="token comment"># about/categories页操作将tags替换成about/categories即可</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 解决办法如下操作，打开对应的 blog_dir/source/tags/index.md 文件, 在最后补充如下代码</span></span><br><span class="line"><span class="built_in">type</span>: <span class="string">&quot;tags&quot;</span>	<span class="comment"># about/categories页操作将tags替换成about/categories即可</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>步骤三：文章折叠的<a target="_blank" rel="noopener" href="http://theme-next.iissnan.com/faqs.html#%E9%A6%96%E9%A1%B5%E6%98%BE%E7%A4%BA%E6%96%87%E7%AB%A0%E6%91%98%E5%BD%95">解决办法</a> (个人选择了方法一)</p>
 </li>
@@ -329,92 +318,45 @@ type: <span class="token string">"tags"</span>	<span class="token comment"># abo
 <img src="https://i.loli.net/2021/02/03/1I6TEuywBj2QG7R.png" alt="nexT_first.png" style="zoom:40%;" />
 
 <h4 id="优化三：-文章生成短链接"><a href="#优化三：-文章生成短链接" class="headerlink" title="优化三： 文章生成短链接"></a>优化三： 文章生成短链接</h4><p>点开上图的阅读全文后，发现整体的链接是一大串文字，这个时候看起来就比较怪异，并且复制出来后直接会是URL编码的格式。</p>
-<pre class="line-numbers language-html" data-language="html"><code class="language-html">https://beanskingdom.github.io/2021/02/01/Hexo-首次搭建遇到的问题/#more
-https://beanskingdom.github.io/2021/02/01/Hexo-%E9%A6%96%E6%AC%A1%E6%90%AD%E5%BB%BA%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/#more<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https://beanskingdom.github.io/2021/02/01/Hexo-首次搭建遇到的问题/#more</span><br><span class="line">https://beanskingdom.github.io/2021/02/01/Hexo-%E9%A6%96%E6%AC%A1%E6%90%AD%E5%BB%BA%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/#more</span><br></pre></td></tr></table></figure>
 <p>此时可以通过Hexo-abbrlink生成唯一永久文章链接（<a target="_blank" rel="noopener" href="https://github.com/Rozbo/hexo-abbrlink">参考链接</a>）。 </p>
 <p>最终的效果则为：<code>xxx/posts/48255dc8/#more</code></p>
 <h4 id="优化四：修改文内链接样式"><a href="#优化四：修改文内链接样式" class="headerlink" title="优化四：修改文内链接样式"></a>优化四：修改文内链接样式</h4><p>nexT默认文章链接样式如下图：</p>
 <img src="https://i.loli.net/2021/02/03/q2CwmFHZsNoyYlW.png" alt="next_link_style.png" style="zoom:40%;" />
 
 <p>为了突出区别性，我们在对应文件中添加下列的代码即可。</p>
-<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector"># themes/next/source/css/_common/components/post/post-body.styl
-.post-body p a</span> <span class="token punctuation">&#123;</span>
-    <span class="token property">color</span><span class="token punctuation">:</span> #0593d3<span class="token punctuation">;</span>
-    <span class="token property">border-bottom</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
-    <span class="token property">border-bottom</span><span class="token punctuation">:</span> 1px solid #0593d3<span class="token selector">;
-    &amp;:hover</span> <span class="token punctuation">&#123;</span>
-        <span class="token property">color</span><span class="token punctuation">:</span> #fc6423<span class="token punctuation">;</span>
-        <span class="token property">border-bottom</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
-        <span class="token property">border-bottom</span><span class="token punctuation">:</span> 1px solid #fc6423<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># <span class="selector-tag">themes</span>/<span class="selector-tag">next</span>/<span class="selector-tag">source</span>/<span class="selector-tag">css</span>/_<span class="selector-tag">common</span>/<span class="selector-tag">components</span>/<span class="selector-tag">post</span>/<span class="selector-tag">post-body</span><span class="selector-class">.styl</span></span><br><span class="line"><span class="selector-class">.post-body</span> <span class="selector-tag">p</span> <span class="selector-tag">a</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#0593d3</span>;</span><br><span class="line">    <span class="attribute">border-bottom</span>: none;</span><br><span class="line">    <span class="attribute">border-bottom</span>: <span class="number">1px</span> solid <span class="number">#0593d3</span>;</span><br><span class="line">    &amp;:hover &#123;</span><br><span class="line">        <span class="selector-tag">color</span>: <span class="selector-id">#fc6423</span>;</span><br><span class="line">        <span class="selector-tag">border-bottom</span>: <span class="selector-tag">none</span>;</span><br><span class="line">        <span class="selector-tag">border-bottom</span>: 1<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#fc6423</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>优化后的样式如下：</p>
 <img src="https://i.loli.net/2021/02/03/L4j9vFUxBl2o3cM.png" alt="next_link_update.png" style="zoom:40%;" />
 
 <h4 id="优化五：给主页文章添加阴影效果"><a href="#优化五：给主页文章添加阴影效果" class="headerlink" title="优化五：给主页文章添加阴影效果"></a>优化五：给主页文章添加阴影效果</h4><p>打开<code>themes/next/source/css/_common/components/post/index.styl</code>文件，将<code>post-block</code>代码进行如下更改：</p>
-<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">if (hexo-config('motion.transition.post_block'))</span> <span class="token punctuation">&#123;</span>
-  	<span class="token selector"># 添加如下代码
-    .post-block</span><span class="token punctuation">&#123;</span>
-        <span class="token property">margin-top</span><span class="token punctuation">:</span> 60px<span class="token punctuation">;</span>
-        <span class="token property">margin-bottom</span><span class="token punctuation">:</span> 60px<span class="token punctuation">;</span>
-        <span class="token property">padding</span><span class="token punctuation">:</span> 25px<span class="token punctuation">;</span>
-        <span class="token property">background</span><span class="token punctuation">:</span><span class="token function">rgba</span><span class="token punctuation">(</span>255<span class="token punctuation">,</span>255<span class="token punctuation">,</span>255<span class="token punctuation">,</span>0.9<span class="token punctuation">)</span> none repeat scroll <span class="token important">!important</span><span class="token punctuation">;</span> //添加透明效果
-        <span class="token property">-webkit-box-shadow</span><span class="token punctuation">:</span> 0 0 5px <span class="token function">rgba</span><span class="token punctuation">(</span>202<span class="token punctuation">,</span> 203<span class="token punctuation">,</span> 203<span class="token punctuation">,</span> .5<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token property">-moz-box-shadow</span><span class="token punctuation">:</span> 0 0 5px <span class="token function">rgba</span><span class="token punctuation">(</span>202<span class="token punctuation">,</span> 203<span class="token punctuation">,</span> 204<span class="token punctuation">,</span> .5<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-  <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">if (hexo-config(&#x27;motion.transition.post_block&#x27;)) &#123;</span><br><span class="line">  	# 添加如下代码</span><br><span class="line">    <span class="selector-class">.post-block</span>&#123;</span><br><span class="line">        <span class="attribute">margin-top</span>: <span class="number">60px</span>;</span><br><span class="line">        <span class="attribute">margin-bottom</span>: <span class="number">60px</span>;</span><br><span class="line">        <span class="attribute">padding</span>: <span class="number">25px</span>;</span><br><span class="line">        background:rgba(255,255,255,0.9) none repeat scroll !important; //添加透明效果</span><br><span class="line">        <span class="selector-tag">-webkit-box-shadow</span>: 0 0 5<span class="selector-tag">px</span> <span class="selector-tag">rgba</span>(202, 203, 203, .5);</span><br><span class="line">        <span class="selector-tag">-moz-box-shadow</span>: 0 0 5<span class="selector-tag">px</span> <span class="selector-tag">rgba</span>(202, 203, 204, .5);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
 
 <h4 id="优化六：文章内部的导航栏位置优化"><a href="#优化六：文章内部的导航栏位置优化" class="headerlink" title="优化六：文章内部的导航栏位置优化"></a>优化六：文章内部的导航栏位置优化</h4><p>默认文章内部的导航栏位置是在左侧，看文章时候比较怪异，所以优化到了右边。</p>
 <p>打开 <code>themes/next/_config.yml</code> 文件，将如下代码修改。</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sidebar:
-  <span class="token comment"># Sidebar Position.</span>
-  <span class="token comment"># position: left		# 将改行注释掉，再去掉下面一行的注释</span>
-  position: right<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sidebar:</span><br><span class="line">  <span class="comment"># Sidebar Position.</span></span><br><span class="line">  <span class="comment"># position: left		# 将改行注释掉，再去掉下面一行的注释</span></span><br><span class="line">  position: right</span><br></pre></td></tr></table></figure>
 
 
 <h4 id="优化七：给文章末尾添加结束语"><a href="#优化七：给文章末尾添加结束语" class="headerlink" title="优化七：给文章末尾添加结束语"></a>优化七：给文章末尾添加结束语</h4><ul>
 <li><p>在 <code>themes/next/layout/_macro</code> 中新建 <code>passage-end-tag.swig</code> 文件，添加代码至该文件中；</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token operator">&lt;</span>div<span class="token operator">></span>
-    <span class="token punctuation">&#123;</span>% <span class="token keyword">if</span> not is_index %<span class="token punctuation">&#125;</span>
-      <span class="token operator">&lt;</span>div <span class="token assign-left variable">style</span><span class="token operator">=</span><span class="token string">"text-align:center;color: #ccc;font-size:20px;"</span><span class="token operator">></span>------------- 本 文 结 束 <span class="token operator">&lt;</span>i <span class="token assign-left variable">class</span><span class="token operator">=</span><span class="token string">"fa fa-paw"</span><span class="token operator">></span><span class="token operator">&lt;</span>/i<span class="token operator">></span> 感 谢 您 的 阅 读 -------------<span class="token operator">&lt;</span>/div<span class="token operator">></span>
-    <span class="token punctuation">&#123;</span>% endif %<span class="token punctuation">&#125;</span>
-<span class="token operator">&lt;</span>/div<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">    &#123;% <span class="keyword">if</span> not is_index %&#125;</span><br><span class="line">      &lt;div style=<span class="string">&quot;text-align:center;color: #ccc;font-size:20px;&quot;</span>&gt;------------- 本 文 结 束 &lt;i class=<span class="string">&quot;fa fa-paw&quot;</span>&gt;&lt;/i&gt; 感 谢 您 的 阅 读 -------------&lt;/div&gt;</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></li>
 <li><p>打开 <code>themes/next/layout/_macro/post.njk</code> 文件，在 post-body 后，post-footer 前，添加下面内容:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token operator">&lt;</span>div<span class="token operator">></span>
-  <span class="token punctuation">&#123;</span>% <span class="token keyword">if</span> not is_index %<span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#123;</span>% include <span class="token string">'passage-end-tag.swig'</span> %<span class="token punctuation">&#125;</span>
-  <span class="token punctuation">&#123;</span>% endif %<span class="token punctuation">&#125;</span>
-<span class="token operator">&lt;</span>/div<span class="token operator">></span>
-
-<span class="token comment"># 在如下内容之前添加上述代码</span>
-<span class="token comment">#    &#123;#####################&#125;</span>
-<span class="token comment">#    &#123;### END POST BODY ###&#125;</span>
-<span class="token comment">#    &#123;#####################&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &#123;% <span class="keyword">if</span> not is_index %&#125;</span><br><span class="line">    &#123;% include <span class="string">&#x27;passage-end-tag.swig&#x27;</span> %&#125;</span><br><span class="line">  &#123;% endif %&#125;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在如下内容之前添加上述代码</span></span><br><span class="line"><span class="comment">#    &#123;#####################&#125;</span></span><br><span class="line"><span class="comment">#    &#123;### END POST BODY ###&#125;</span></span><br><span class="line"><span class="comment">#    &#123;#####################&#125;</span></span><br></pre></td></tr></table></figure></li>
 <li><p>在主题配置文件 <code>_config.yml</code> 在末尾添加：</p>
-<pre class="line-numbers language-yml" data-language="yml"><code class="language-yml"># 文章末尾添加“本文结束”标记
-passage_end_tag:
-  enabled: true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文章末尾添加“本文结束”标记</span></span><br><span class="line"><span class="attr">passage_end_tag:</span></span><br><span class="line">  <span class="attr">enabled:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 
 
 </li>
 </ul>
 <h4 id="优化八：给代码块添加复制功能"><a href="#优化八：给代码块添加复制功能" class="headerlink" title="优化八：给代码块添加复制功能"></a>优化八：给代码块添加复制功能</h4><p>打开 <code>themes/next/_config.yml</code> 主题配置文件，搜索 codeblock ,开启复制，修改代码如下。</p>
-<pre class="line-numbers language-yml" data-language="yml"><code class="language-yml">copy_button:
-  enable: true		# 显示复制按钮
-  # Available values: default | flat | mac
-  style: flat			# 复制按钮展示形式<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">copy_button:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span>		<span class="comment"># 显示复制按钮</span></span><br><span class="line">  <span class="comment"># Available values: default | flat | mac</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">flat</span>			<span class="comment"># 复制按钮展示形式</span></span><br></pre></td></tr></table></figure>
 
 
 <h4 id="优化九：实现统计功能"><a href="#优化九：实现统计功能" class="headerlink" title="优化九：实现统计功能"></a>优化九：实现统计功能</h4><p>在根目录下安装 <code>hexo-wordcount</code>,运行：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> hexo-wordcount --save<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-wordcount --save</span><br></pre></td></tr></table></figure>
 <p>然后在主题的配置文件中，配置如下：</p>
-<pre class="line-numbers language-yml" data-language="yml"><code class="language-yml"># Post wordcount display settings
-# Dependencies: https:&#x2F;&#x2F;github.com&#x2F;willin&#x2F;hexo-wordcount
-post_wordcount:
-  item_text: true
-  wordcount: true
-  min2read: true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Post wordcount display settings</span></span><br><span class="line"><span class="comment"># Dependencies: https://github.com/willin/hexo-wordcount</span></span><br><span class="line"><span class="attr">post_wordcount:</span></span><br><span class="line">  <span class="attr">item_text:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">wordcount:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">min2read:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 
 
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>​    至此，部分个人体验相关的优化已经结束，这个时候可以开心的写blog了，自己看起来效果也不错，但这样你满足了么？？</p>
@@ -560,20 +502,20 @@ post_wordcount:
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -610,13 +552,13 @@ post_wordcount:
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">11k</span>
+    <span title="站点总字数">14k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">10 分钟</span>
+    <span title="站点阅读时长">12 分钟</span>
 </div>
 <script src="/js/prism/prism.js" async></script>
 
@@ -703,6 +645,7 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
   }, window.Valine);
 });
 </script>
+
 
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"left","width":300,"height":300,"bottom":-20},"mobile":{"show":false},"log":false});</script></body>
 </html>

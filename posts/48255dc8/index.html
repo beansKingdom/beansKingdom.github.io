@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"beanskingdom.top","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"beanskingdom.top","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 <link rel="stylesheet" href="/js/prism/prism.css">
 
@@ -294,20 +294,14 @@
 <h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><p>​    emm…有一个比较详细的教程是多么重要的一件事，虽然别人的Blog上看起来也就1个小时的事，实际自己做起来却花费了大半天😭😭。。。总结了以下在搭建过程中自己遇到的坑。</p>
 <ol>
 <li><p><strong>执行修改_config.yml文件后，执行创建新的文章命令时候报错。</strong></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hexo new <span class="token string">"Bigbean's demo"</span>
-FATAL TypeError: Invalid config detected: <span class="token string">"url"</span> should be string, not object<span class="token operator">!</span>
-
-原因：拷贝其他教程的配置文件时候，url:  <span class="token comment">#网址 这个地方未配置</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">&quot;Bigbean&#x27;s demo&quot;</span></span><br><span class="line">FATAL TypeError: Invalid config detected: <span class="string">&quot;url&quot;</span> should be string, not object!</span><br><span class="line"></span><br><span class="line">原因：拷贝其他教程的配置文件时候，url:  <span class="comment">#网址 这个地方未配置</span></span><br></pre></td></tr></table></figure></li>
 <li><p><strong>发布了第一篇文章后，页面打开显示错误。</strong></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 终端里面报错 </span>
-WARN  No layout: index.html<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 终端里面报错 </span></span><br><span class="line">WARN  No layout: index.html</span><br></pre></td></tr></table></figure>
 <p>原因：在步骤3中按照参考链接中改了配置后，实际并没有链接中的那个主题 <code>theme: landscape-plus</code>， </p>
 <p>所以<font color=red><strong>修改_config.yml配置文件的时候一定要注意！！！再次提醒不要全部照抄，应该仅仅是改自己需要改的地方。</strong></font></p>
 </li>
 <li><p><strong>在执行 <code>hexo d</code> 发布的时候报错。</strong></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Deployer not found: <span class="token function">git</span>
-<span class="token comment"># 这是因为没安装hexo-deployer-git插件，在站点目录下输入下面的插件安装就好了</span>
-<span class="token function">npm</span> <span class="token function">install</span> hexo-deployer-git --save<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Deployer not found: git</span><br><span class="line"><span class="comment"># 这是因为没安装hexo-deployer-git插件，在站点目录下输入下面的插件安装就好了</span></span><br><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>怎么再通过github的链接直接访问网上远端的效果呢？</strong></p>
 <p>进入 github 项目中点击 Settings，向下拉到最后有个 GitHub Pages，点击 Choose a theme 选择一个主题。然后等一会儿，再回到 GitHub Pages，就会变成你选择的主题。<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/35668237">参考链接</a></p>
@@ -455,20 +449,20 @@ WARN  No layout: index.html<span aria-hidden="true" class="line-numbers-rows"><s
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -505,13 +499,13 @@ WARN  No layout: index.html<span aria-hidden="true" class="line-numbers-rows"><s
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">11k</span>
+    <span title="站点总字数">14k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">10 分钟</span>
+    <span title="站点阅读时长">12 分钟</span>
 </div>
 <script src="/js/prism/prism.js" async></script>
 
@@ -598,6 +592,7 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
   }, window.Valine);
 });
 </script>
+
 
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"left","width":300,"height":300,"bottom":-20},"mobile":{"show":false},"log":false});</script></body>
 </html>

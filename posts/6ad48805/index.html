@@ -21,26 +21,21 @@
   </script>
 <link rel="stylesheet" href="/js/prism/prism.css">
 
-  <meta name="description" content="背景​    已经集成的接口自动化测试 Job 在周期性定时运行的时候，会很小概率出现一直卡在那里，原本应该3min就执行完成的任务，偶尔过了半个小时还没结束。（(￣３￣)直觉告诉我这个地方肯定有问题。。。 ​    但由于复现的概率较小，一个月可能出现一次，所以开始并没有什么太大的线索（仅靠一些猜测并不切实际）。 ​    终于！！！在某一个阳光明媚的大好日子，它重现了。">
+  <meta name="description" content="背景​    某天，A：你们Web后台存在安全问题，部分接口存在SQL注入的问题。 ​    B：… ​    B To C：接口存在SQL注入的问题，你去调研下Sqlmap。 ​    C：… emm (⊙＿⊙)。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Py-spy解决Python程序Hang住问题">
-<meta property="og:url" content="https://beanskingdom.top/posts/cb61081b/index.html">
+<meta property="og:title" content="初探安全测试">
+<meta property="og:url" content="https://beanskingdom.top/posts/6ad48805/index.html">
 <meta property="og:site_name" content="BeansKingdom">
-<meta property="og:description" content="背景​    已经集成的接口自动化测试 Job 在周期性定时运行的时候，会很小概率出现一直卡在那里，原本应该3min就执行完成的任务，偶尔过了半个小时还没结束。（(￣３￣)直觉告诉我这个地方肯定有问题。。。 ​    但由于复现的概率较小，一个月可能出现一次，所以开始并没有什么太大的线索（仅靠一些猜测并不切实际）。 ​    终于！！！在某一个阳光明媚的大好日子，它重现了。">
+<meta property="og:description" content="背景​    某天，A：你们Web后台存在安全问题，部分接口存在SQL注入的问题。 ​    B：… ​    B To C：接口存在SQL注入的问题，你去调研下Sqlmap。 ​    C：… emm (⊙＿⊙)。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://i.loli.net/2021/01/22/AVhg7RGzYIfuWtN.png">
-<meta property="og:image" content="https://i.loli.net/2021/01/22/E1Yq9cjRo2GOx5e.png">
-<meta property="og:image" content="https://i.loli.net/2021/01/22/CuRZJnsj13eTXoQ.png">
-<meta property="article:published_time" content="2021-02-08T15:45:56.000Z">
-<meta property="article:modified_time" content="2021-02-09T08:41:22.418Z">
+<meta property="article:published_time" content="2021-02-16T04:33:06.000Z">
+<meta property="article:modified_time" content="2021-02-16T04:45:39.691Z">
 <meta property="article:author" content="BigBean">
-<meta property="article:tag" content="Python">
-<meta property="article:tag" content="Python Plugin">
-<meta property="article:tag" content="py-spy">
+<meta property="article:tag" content="安全测试">
+<meta property="article:tag" content="Sql注入">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/01/22/AVhg7RGzYIfuWtN.png">
 
-<link rel="canonical" href="https://beanskingdom.top/posts/cb61081b/">
+<link rel="canonical" href="https://beanskingdom.top/posts/6ad48805/">
 
 
 <script id="page-configurations">
@@ -53,7 +48,7 @@
   };
 </script>
 
-  <title>Py-spy解决Python程序Hang住问题 | BeansKingdom</title>
+  <title>初探安全测试 | BeansKingdom</title>
   
 
 
@@ -201,7 +196,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://beanskingdom.top/posts/cb61081b/">
+    <link itemprop="mainEntityOfPage" href="https://beanskingdom.top/posts/6ad48805/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -214,7 +209,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Py-spy解决Python程序Hang住问题
+          初探安全测试
         </h1>
 
         <div class="post-meta">
@@ -223,28 +218,22 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2021-02-08 23:45:56" itemprop="dateCreated datePublished" datetime="2021-02-08T23:45:56+08:00">2021-02-08</time>
+              <time title="创建时间：2021-02-16 12:33:06 / 修改时间：12:45:39" itemprop="dateCreated datePublished" datetime="2021-02-16T12:33:06+08:00">2021-02-16</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-09 16:41:22" itemprop="dateModified" datetime="2021-02-09T16:41:22+08:00">2021-02-09</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                  <a href="/categories/%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">安全测试</span></a>
                 </span>
             </span>
 
           
-            <span id="/posts/cb61081b/" class="post-meta-item leancloud_visitors" data-flag-title="Py-spy解决Python程序Hang住问题" title="阅读次数">
+            <span id="/posts/6ad48805/" class="post-meta-item leancloud_visitors" data-flag-title="初探安全测试" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -259,8 +248,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/posts/cb61081b/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/cb61081b/" itemprop="commentCount"></span>
+    <a title="valine" href="/posts/6ad48805/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/6ad48805/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -270,14 +259,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>938</span>
+              <span>1.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -289,29 +278,69 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>​    已经集成的接口自动化测试 Job 在周期性定时运行的时候，会很小概率出现一直卡在那里，原本应该3min就执行完成的任务，偶尔过了半个小时还没结束。（(￣３￣)直觉告诉我这个地方肯定有问题。。。</p>
-<p>​    但由于复现的概率较小，一个月可能出现一次，所以开始并没有什么太大的线索（仅靠一些猜测并不切实际）。</p>
-<p>​    终于！！！在某一个阳光明媚的大好日子，<strong>它重现了</strong>。</p>
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>​    某天，A：你们Web后台存在安全问题，部分接口<font color=red><strong>存在SQL注入的问题</strong></font>。</p>
+<p>​    B：…</p>
+<p>​    B To C：接口存在SQL注入的问题，你去调研下Sqlmap。</p>
+<p>​    C：… emm (⊙＿⊙)。</p>
 <a id="more"></a>
 
-<h3 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h3><ol>
-<li><p>赶紧先登录到服务器上看看进程情况，发现此时存在脚本发起的2个 Worker CPU占用100%（由于用的 <code>Pytest + Pytest-xdist</code>  分布式插件执行用例），当时第一反应是死循环了？？</p>
-<img src="https://i.loli.net/2021/01/22/AVhg7RGzYIfuWtN.png" alt="process_hang_1.png" style="zoom:50%;" />
+
+
+<h3 id="思路梳理"><a href="#思路梳理" class="headerlink" title="思路梳理"></a>思路梳理</h3><ul>
+<li>什么是安全问题？应用软件中又存在哪些方面的安全问题？</li>
+<li>什么是安全测试？</li>
+<li>常见的安全性缺陷和漏洞有哪些？</li>
+<li>Sql注入，用于进行Sql注入的工具有哪些？</li>
+</ul>
+<h4 id="安全问题"><a href="#安全问题" class="headerlink" title="安全问题"></a>安全问题</h4><p>​    现实生活中安全相关话题无处不在，如消防安全、卫生安全、人身安全等等，如：<strong>小区楼道中贴着一些禁止电动车在楼道中充电</strong>，因为这会存在着引发火灾的安全问题（严重的情况甚至影响到生命危险）。</p>
+<p>​    那么应用软件中也存在安全问题，情况严重时候不仅会造成经济损失，还可能由于大量用户信息被泄漏而导致整个公司崩溃。常见的几种安全问题如下：</p>
+<ul>
+<li><strong>信息安全问题</strong>：如淘宝、京东中，用户一般都绑定了身份证、银行卡、手机号、家庭住址等个人隐私信息，如果这些信息泄漏给一些不法分子后，就会对一些指定用户进行电信诈骗；</li>
+<li><strong>财产安全问题</strong>：如很多钓鱼网站，都是通过短信、微信、网页链接等方式模拟正规网页，骗取用户在上面进行操作，导致银行卡密码泄漏而造成财产损失；</li>
+<li><strong>权限安全问题</strong>：由于权限控制不得当，非公司内部管理员也能通过某些方式对公司的私密信息进行操作，最终导致整个公司隐私泄漏。</li>
+</ul>
+<h4 id="安全测试"><a href="#安全测试" class="headerlink" title="安全测试"></a>安全测试</h4><p>​    个人理解安全测试应该是 <strong>一个识别应用程序潜在的安全性缺陷的过程</strong>，如：保证用户对数据或业务功能的访问，在预期的安全性情况下，操作者只能<strong>访问应用程序的特定功能、有限的数据</strong>等。</p>
+<p>其它参考：<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95">百度–安全测试</a>、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95">维基–渗透测试</a></p>
+<p>​    常用的安全测试手段有：</p>
+<ul>
+<li>静态的代码安全测试；</li>
+<li>动态的渗透测试；</li>
+<li>程序数据扫描。</li>
+</ul>
+<h4 id="常见的软件安全性缺陷和漏洞有哪些"><a href="#常见的软件安全性缺陷和漏洞有哪些" class="headerlink" title="常见的软件安全性缺陷和漏洞有哪些"></a>常见的软件安全性缺陷和漏洞有哪些</h4><p>由于篇幅有限，暂仅对此次存在 <code>Sql注入</code> 的安全问题详细介绍。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/SQL%E6%B3%A8%E5%85%A5">SQL注入</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9fc25e661ab9">XSS注入</a></li>
+<li><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E">远程代码执行</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.netinbag.com/cn/internet/what-is-parameter-tampering.html">参数篡改</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/217290">弱口令</a></li>
+<li>…</li>
+</ul>
+<h4 id="Sql注入"><a href="#Sql注入" class="headerlink" title="Sql注入"></a>Sql注入</h4><p>​    在没有深入之前，对于Sql注入的理解是通过将恶意的 Sql 查询或添加语句插入到应用的输入参数中，然后获得该接口的返回或者绕过授权。对于存在Sql注入的威胁也仅仅是绕过登录或者获取某些普通数据。</p>
+<p>​    然而通过资料的查询以及自身的Sqlmap实践后，才感觉一阵后怕，比较常见的威胁如下：</p>
+<ul>
+<li>猜解后台数据库，这是利用最多的方式，盗取网站的敏感信息。（<strong>如果存在Sql注入时，在没有特殊的安全措施下，可以理解数据库里面的所有信息都可以被获取到</strong>）</li>
+<li>绕过认证，列如绕过验证登录网站后台。</li>
+</ul>
+<p>​    具体如何使用Sqlmap达到上面的效果这里就不细说了，网上这块教程比较多（如：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/cc11001100/p/7634049.html">Sql注入获取数据库信息</a>）。</p>
+<h4 id="Sql注入的步骤"><a href="#Sql注入的步骤" class="headerlink" title="Sql注入的步骤"></a>Sql注入的步骤</h4><ol>
+<li><p><strong>SQL注入点探测</strong>。</p>
+<p>探测SQL注入点是关键的一步，通过适当的分析应用程序，可以判断什么地方存在SQL注入点。通常只要带有输入提交的动态网页，并且动态网页访问数据库，就可能存在SQL注入漏洞。如果程序员信息安全意识不强，<font color=red><strong>采用动态构造SQL语句访问数据库，并且对用户的输入未进行有效性验证，则存在SQL注入漏洞的可能性很大。</strong></font>一般通过页面的报错信息来确定是否存在SQL注入漏洞。</p>
 </li>
-<li><p>通过<strong>perf</strong> 、<strong>ps</strong>或者 <strong>pstack</strong> 打印对应的pid， 看到的结果并没有什么太大用，反而<strong>误导我以为是代码里面的一个文件锁导致该问题</strong>。</p>
-<img src="https://i.loli.net/2021/01/22/E1Yq9cjRo2GOx5e.png" alt="process_hang_2.png" style="zoom:50%;" />
+<li><p><strong>收集后台数据库信息。</strong></p>
+<p>不同数据库的注入方法、函数都不尽相同，因此在注入之前，我们先要判断一下数据库的类型。判断数据库类型的方法很多，可以输入特殊字符，如单引号，让程序返回错误信息，我们根据错误信息提示进行判断；还可以使用特定函数来判断，比如输入“1 and version（）&gt;0”，程序返回正常，说明 <code>version()</code> 函数被数据库识别并执行，而.<code>version()</code> 函数是 <code>MySQL</code> 特有的函数，因此可以推断后台数据库为MySQL。</p>
 </li>
-<li><p>网上查询了一通后，发现一个神奇的工具一一 <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/310832912">py-spy</a> （更多使用方法见 <a target="_blank" rel="noopener" href="https://pypi.org/project/py-spy/">官网</a>）</p>
-<p>安装后使用命令 ：选定一个异常的进程，执行命令： <code>py-spy  top --pid 19785</code> 打印结果如下，很明显看出来当前Cpu都卡在 <code>check_retry_status</code> 方法上面。</p>
-<img src="https://i.loli.net/2021/01/22/CuRZJnsj13eTXoQ.png" alt="process_hang_3.png" style="zoom:50%;" />
+<li><p><strong>猜解用户名和密码。</strong></p>
+<p>数据库中的表和字段命名一般都是有规律的。通过构造特殊SQL语句在数据库中依次猜解出表名、字段名、字段数、用户名和密码。 </p>
 </li>
-<li><p>查看该代码，发现该方法中存在一个while循环，并且很凑巧的是。。。╮(╯3╰)╭ 里面<font color=red><strong>没有兜底</strong></font>。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 具体代码如下，过于相信传进来的 retry_flag 一定是1/2， 如果出现不是这两个值的时候，此时这个方法则进入了死循环。。。</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_retry_status</span>(<span class="params">cls, uid, atk, order_id, retry_flag, devuuid</span>):</span></span><br><span class="line">    max_count = <span class="number">5</span></span><br><span class="line">    <span class="keyword">while</span> max_count &gt; <span class="number">0</span>:</span><br><span class="line">      	<span class="keyword">if</span> retry_flag == <span class="number">2</span>:</span><br><span class="line">        	retry_flag = functionA(xxx, ...)</span><br><span class="line">        	max_count -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> retry_flag == <span class="number">1</span>:</span><br><span class="line">          <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">raise</span> Exception(<span class="string">&quot;验证充值订单失败&quot;</span>)</span><br></pre></td></tr></table></figure></li>
-<li><p>到这个地方，就很明显定位到了问题，在此处加上兜底并且加上对应日志记录functionA（<strong>第三方依赖</strong>）到底返回的是什么。（ 因为首次传入的 retry_flag 也是来自于functionA）</p>
+<li><p><strong>查找Web后台管理入口。</strong></p>
+<p>WEB后台管理通常不对普通用户开放，要找到后台管理的登录网址，可以利用Web目录扫描工具（如：wwwscan、AWVS）快速搜索到可能的登录地址，然后逐一尝试，便可以找到后台管理平台的登录网址。</p>
+</li>
+<li><p><strong>入侵和破坏。</strong></p>
+<p>一般后台管理具有较高权限和较多的功能，使用前面已破译的用户名、密码成功登录后台管理平台后，就可以任意进行破坏，比如上传<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%9C%A8%E9%A9%AC/530">木马</a>、篡改网页、修改和窃取信息等，还可以进一步提权，入侵Web服务器和数据库服务器。</p>
 </li>
 </ol>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>​    写代码要谨慎。。。特别是结果来自第三方依赖的时候。。。<strong>一定要进行兜底！！！</strong></p>
-<p>​    （emm… 兜一下总比不兜强）</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>​    概念相关就介绍到此，下一篇将会具体介绍如何通过工具来进行相关Sql注入的测试一一 <code>Sqlmap</code> 。</p>
 
     </div>
 
@@ -330,12 +359,6 @@
     
     
       
-  <div class="popular-posts-header">相关文章</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/posts/2a44a0fd/" rel="bookmark">python调用gRPC接口</a></div>
-    </li>
-  </ul>
 
         
 
@@ -346,7 +369,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://beanskingdom.top/posts/cb61081b/" title="Py-spy解决Python程序Hang住问题">https://beanskingdom.top/posts/cb61081b/</a>
+    <a href="https://beanskingdom.top/posts/6ad48805/" title="初探安全测试">https://beanskingdom.top/posts/6ad48805/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -358,9 +381,8 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
-              <a href="/tags/Python-Plugin/" rel="tag"><i class="fa fa-tag"></i> Python Plugin</a>
-              <a href="/tags/py-spy/" rel="tag"><i class="fa fa-tag"></i> py-spy</a>
+              <a href="/tags/%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/" rel="tag"><i class="fa fa-tag"></i> 安全测试</a>
+              <a href="/tags/Sql%E6%B3%A8%E5%85%A5/" rel="tag"><i class="fa fa-tag"></i> Sql注入</a>
           </div>
 
         
@@ -369,13 +391,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/posts/2a44a0fd/" rel="prev" title="python调用gRPC接口">
-      <i class="fa fa-chevron-left"></i> python调用gRPC接口
+    <a href="/posts/6a64e1dd/" rel="prev" title="2019~2020年回顾">
+      <i class="fa fa-chevron-left"></i> 2019~2020年回顾
     </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/a21b8f58/" rel="next" title="NexT + Valine躺坑之路">
-      NexT + Valine躺坑之路 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -435,7 +454,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E6%9F%A5%E8%BF%87%E7%A8%8B"><span class="nav-text">排查过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E6%A2%B3%E7%90%86"><span class="nav-text">思路梳理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98"><span class="nav-text">安全问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95"><span class="nav-text">安全测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E6%80%A7%E7%BC%BA%E9%99%B7%E5%92%8C%E6%BC%8F%E6%B4%9E%E6%9C%89%E5%93%AA%E4%BA%9B"><span class="nav-text">常见的软件安全性缺陷和漏洞有哪些</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sql%E6%B3%A8%E5%85%A5"><span class="nav-text">Sql注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sql%E6%B3%A8%E5%85%A5%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="nav-text">Sql注入的步骤</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

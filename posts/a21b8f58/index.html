@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"beanskingdom.top","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"beanskingdom.top","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 <link rel="stylesheet" href="/js/prism/prism.css">
 
@@ -262,7 +262,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
+              <span>1.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -289,21 +289,9 @@
 
 <h4 id="问题1-使用-Valine-插件后，在页面上并没有显示具体的评论数量以及文章的浏览次数。"><a href="#问题1-使用-Valine-插件后，在页面上并没有显示具体的评论数量以及文章的浏览次数。" class="headerlink" title="问题1: 使用 Valine 插件后，在页面上并没有显示具体的评论数量以及文章的浏览次数。"></a>问题1: 使用 <em>Valine</em> 插件后，在页面上并没有显示具体的评论数量以及文章的浏览次数。</h4><p>具体原因：因为 <code>v8.2.1 版本已经将 Valine 功能去除掉了</code>。（详情见<a target="_blank" rel="noopener" href="https://github.com/next-theme/hexo-theme-next/issues/188">官网解释</a>）也尝试了官网中的解决办法以及各种网上的方法，但是仍然无效。（瞎折腾了3个小时都没结果。。。气到内伤😭😭）</p>
 <p>那就将版本降低到能使用的 <em>Valine</em> 的 <em>NexT</em> 版本呢？（如降低到<a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next/releases/tag/v7.8.0">7.8.0</a>版本呢？？）<code>降低版本到7.8.0后，问题就解决了</code>。</p>
-<h4 id="问题2-降低版本后，发现原来文章中中文导航又不能用了，英文的就没有问题。"><a href="#问题2-降低版本后，发现原来文章中中文导航又不能用了，英文的就没有问题。" class="headerlink" title="问题2: 降低版本后，发现原来文章中中文导航又不能用了，英文的就没有问题。"></a>问题2: 降低版本后，发现原来文章中中文导航又不能用了，英文的就没有问题。</h4><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token comment">// 点击中文标题导航栏时候，console控制台中报错，并且页面上没有跳转到对应的标题位置。</span>
-Cannot read property <span class="token string">'getBoundingClientRect'</span> <span class="token keyword">of</span> <span class="token keyword">null</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="问题2-降低版本后，发现原来文章中中文导航又不能用了，英文的就没有问题。"><a href="#问题2-降低版本后，发现原来文章中中文导航又不能用了，英文的就没有问题。" class="headerlink" title="问题2: 降低版本后，发现原来文章中中文导航又不能用了，英文的就没有问题。"></a>问题2: 降低版本后，发现原来文章中中文导航又不能用了，英文的就没有问题。</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 点击中文标题导航栏时候，console控制台中报错，并且页面上没有跳转到对应的标题位置。</span></span><br><span class="line">Cannot read property <span class="string">&#x27;getBoundingClientRect&#x27;</span> <span class="keyword">of</span> <span class="literal">null</span></span><br></pre></td></tr></table></figure>
 <p>实际原因是:  <code>themes/next/source/js/utils.js</code> 中的代码存在遗漏，没有对中文进行URL解码。具体代码如下：</p>
-<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token operator">...</span> <span class="token comment">// 其他多余代码省略</span>
-<span class="token comment">// 在这个地方获取 event 的属性时候，中文的会被自动转成URI编码格式</span>
-<span class="token comment">// href="#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4" </span>
-<span class="token comment">// 但文章中的Id仍然是中文的 &lt;h3 id="操作步骤">, 所以导致此处的target为null。</span>
-<span class="token keyword">var</span> target <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>currentTarget<span class="token punctuation">.</span><span class="token function">getAttribute</span><span class="token punctuation">(</span><span class="token string">'href'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">'#'</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">var</span> offset <span class="token operator">=</span> target<span class="token punctuation">.</span><span class="token function">getBoundingClientRect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>top <span class="token operator">+</span> window<span class="token punctuation">.</span>scrollY<span class="token punctuation">;</span>
-<span class="token operator">...</span> <span class="token comment">// 其他多余代码省略</span>
-
-<span class="token comment">// 解决办法：将上述代码替换如下代码即可。</span>
-<span class="token keyword">var</span> str_id <span class="token operator">=</span> <span class="token function">decodeURI</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>currentTarget<span class="token punctuation">.</span><span class="token function">getAttribute</span><span class="token punctuation">(</span><span class="token string">'href'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">'#'</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">var</span> target <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span>str_id<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">var</span> offset <span class="token operator">=</span> target<span class="token punctuation">.</span><span class="token function">getBoundingClientRect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>top <span class="token operator">+</span> window<span class="token punctuation">.</span>scrollY<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">... <span class="comment">// 其他多余代码省略</span></span><br><span class="line"><span class="comment">// 在这个地方获取 event 的属性时候，中文的会被自动转成URI编码格式</span></span><br><span class="line"><span class="comment">// href=&quot;#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4&quot; </span></span><br><span class="line"><span class="comment">// 但文章中的Id仍然是中文的 &lt;h3 id=&quot;操作步骤&quot;&gt;, 所以导致此处的target为null。</span></span><br><span class="line"><span class="keyword">var</span> target = <span class="built_in">document</span>.getElementById(event.currentTarget.getAttribute(<span class="string">&#x27;href&#x27;</span>).replace(<span class="string">&#x27;#&#x27;</span>, <span class="string">&#x27;&#x27;</span>));</span><br><span class="line"><span class="keyword">var</span> offset = target.getBoundingClientRect().top + <span class="built_in">window</span>.scrollY;</span><br><span class="line">... <span class="comment">// 其他多余代码省略</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 解决办法：将上述代码替换如下代码即可。</span></span><br><span class="line"><span class="keyword">var</span> str_id = <span class="built_in">decodeURI</span>(event.currentTarget.getAttribute(<span class="string">&#x27;href&#x27;</span>).replace(<span class="string">&#x27;#&#x27;</span>, <span class="string">&#x27;&#x27;</span>));</span><br><span class="line"><span class="keyword">var</span> target = <span class="built_in">document</span>.getElementById(str_id);</span><br><span class="line"><span class="keyword">var</span> offset = target.getBoundingClientRect().top + <span class="built_in">window</span>.scrollY;</span><br></pre></td></tr></table></figure>
 <p>至此， 终于得到了自己想要的效果。。。（＋﹏＋）（＋﹏＋）</p>
 <img src="https://i.loli.net/2021/02/09/vLhxcG8jZfyk46u.png" alt="valine_result.png" style="zoom:50%;" />
 
@@ -329,10 +317,10 @@ Cannot read property <span class="token string">'getBoundingClientRect'</span> <
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/posts/48255dc8/" rel="bookmark">Hexo 首次搭建个人Blog问题记录</a></div>
+      <div class="popular-posts-title"><a href="/posts/a3ff5801/" rel="bookmark">Hexo之优化（一）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/posts/a3ff5801/" rel="bookmark">Hexo之优化（一）</a></div>
+      <div class="popular-posts-title"><a href="/posts/48255dc8/" rel="bookmark">Hexo 首次搭建个人Blog问题记录</a></div>
     </li>
   </ul>
 
@@ -450,20 +438,20 @@ Cannot read property <span class="token string">'getBoundingClientRect'</span> <
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -500,13 +488,13 @@ Cannot read property <span class="token string">'getBoundingClientRect'</span> <
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">11k</span>
+    <span title="站点总字数">14k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">10 分钟</span>
+    <span title="站点阅读时长">12 分钟</span>
 </div>
 <script src="/js/prism/prism.js" async></script>
 
@@ -593,6 +581,7 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
   }, window.Valine);
 });
 </script>
+
 
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"left","width":300,"height":300,"bottom":-20},"mobile":{"show":false},"log":false});</script></body>
 </html>
