@@ -29,7 +29,7 @@
 <meta property="og:description" content="背景​    某天，A：你们Web后台存在安全问题，部分接口存在SQL注入的问题。 ​    B：… ​    B To C：接口存在SQL注入的问题，你去调研下Sqlmap。 ​    C：… emm (⊙＿⊙)。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-02-16T04:33:06.000Z">
-<meta property="article:modified_time" content="2021-02-16T04:45:39.691Z">
+<meta property="article:modified_time" content="2021-02-16T06:22:16.275Z">
 <meta property="article:author" content="BigBean">
 <meta property="article:tag" content="安全测试">
 <meta property="article:tag" content="Sql注入">
@@ -220,7 +220,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-02-16 12:33:06 / 修改时间：12:45:39" itemprop="dateCreated datePublished" datetime="2021-02-16T12:33:06+08:00">2021-02-16</time>
+              <time title="创建时间：2021-02-16 12:33:06 / 修改时间：14:22:16" itemprop="dateCreated datePublished" datetime="2021-02-16T12:33:06+08:00">2021-02-16</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -297,7 +297,7 @@
 <ul>
 <li><strong>信息安全问题</strong>：如淘宝、京东中，用户一般都绑定了身份证、银行卡、手机号、家庭住址等个人隐私信息，如果这些信息泄漏给一些不法分子后，就会对一些指定用户进行电信诈骗；</li>
 <li><strong>财产安全问题</strong>：如很多钓鱼网站，都是通过短信、微信、网页链接等方式模拟正规网页，骗取用户在上面进行操作，导致银行卡密码泄漏而造成财产损失；</li>
-<li><strong>权限安全问题</strong>：由于权限控制不得当，非公司内部管理员也能通过某些方式对公司的私密信息进行操作，最终导致整个公司隐私泄漏。</li>
+<li><strong>权限安全问题</strong>：由于权限控制不得当，非公司内部管理员也能通过某些方式对公司的私密信息进行操作，最终导致整个公司隐私泄漏或者信息错误。</li>
 </ul>
 <h4 id="安全测试"><a href="#安全测试" class="headerlink" title="安全测试"></a>安全测试</h4><p>​    个人理解安全测试应该是 <strong>一个识别应用程序潜在的安全性缺陷的过程</strong>，如：保证用户对数据或业务功能的访问，在预期的安全性情况下，操作者只能<strong>访问应用程序的特定功能、有限的数据</strong>等。</p>
 <p>其它参考：<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95">百度–安全测试</a>、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95">维基–渗透测试</a></p>
@@ -328,7 +328,7 @@
 <p>探测SQL注入点是关键的一步，通过适当的分析应用程序，可以判断什么地方存在SQL注入点。通常只要带有输入提交的动态网页，并且动态网页访问数据库，就可能存在SQL注入漏洞。如果程序员信息安全意识不强，<font color=red><strong>采用动态构造SQL语句访问数据库，并且对用户的输入未进行有效性验证，则存在SQL注入漏洞的可能性很大。</strong></font>一般通过页面的报错信息来确定是否存在SQL注入漏洞。</p>
 </li>
 <li><p><strong>收集后台数据库信息。</strong></p>
-<p>不同数据库的注入方法、函数都不尽相同，因此在注入之前，我们先要判断一下数据库的类型。判断数据库类型的方法很多，可以输入特殊字符，如单引号，让程序返回错误信息，我们根据错误信息提示进行判断；还可以使用特定函数来判断，比如输入“1 and version（）&gt;0”，程序返回正常，说明 <code>version()</code> 函数被数据库识别并执行，而.<code>version()</code> 函数是 <code>MySQL</code> 特有的函数，因此可以推断后台数据库为MySQL。</p>
+<p>不同数据库的注入方法、函数都不尽相同，因此在注入之前，我们先要判断一下数据库的类型。判断数据库类型的方法很多，可以输入特殊字符，如单引号，让程序返回错误信息，我们根据错误信息提示进行判断；还可以使用特定函数来判断，比如输入“1 and version（）&gt;0”，程序返回正常，说明 <code>version()</code> 函数被数据库识别并执行，而 <code>version()</code> 函数是 <code>MySQL</code> 特有的函数，因此可以推断后台数据库为MySQL。</p>
 </li>
 <li><p><strong>猜解用户名和密码。</strong></p>
 <p>数据库中的表和字段命名一般都是有规律的。通过构造特殊SQL语句在数据库中依次猜解出表名、字段名、字段数、用户名和密码。 </p>
