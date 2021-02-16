@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://beanskingdom.top/posts/6ad48805/</loc>
+    <loc>https://beanskingdom.top/posts/e96496d4/</loc>
     
     <lastmod>2021-02-16</lastmod>
     
   </url>
   
   <url>
-    <loc>https://beanskingdom.top/posts/e96496d4/</loc>
+    <loc>https://beanskingdom.top/posts/6ad48805/</loc>
     
     <lastmod>2021-02-16</lastmod>
     
@@ -95,13 +95,6 @@
 
   
   <url>
-    <loc>https://beanskingdom.top/tags/%E5%B9%B4%E5%BA%A6%E5%9B%9E%E9%A1%BE/</loc>
-    <lastmod>2021-02-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://beanskingdom.top/tags/blog%E6%90%AD%E5%BB%BA/</loc>
     <lastmod>2021-02-16</lastmod>
     <changefreq>daily</changefreq>
@@ -116,13 +109,6 @@
   </url>
   
   <url>
-    <loc>https://beanskingdom.top/tags/Valine/</loc>
-    <lastmod>2021-02-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://beanskingdom.top/tags/shell-%E8%84%9A%E6%9C%AC%E8%B0%83%E8%AF%95/</loc>
     <lastmod>2021-02-16</lastmod>
     <changefreq>daily</changefreq>
@@ -131,6 +117,20 @@
   
   <url>
     <loc>https://beanskingdom.top/tags/Linux-%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2021-02-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://beanskingdom.top/tags/%E5%B9%B4%E5%BA%A6%E5%9B%9E%E9%A1%BE/</loc>
+    <lastmod>2021-02-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://beanskingdom.top/tags/Valine/</loc>
     <lastmod>2021-02-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -181,13 +181,6 @@
 
   
   <url>
-    <loc>https://beanskingdom.top/categories/%E5%A4%8D%E7%9B%98/</loc>
-    <lastmod>2021-02-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://beanskingdom.top/categories/hexo%E5%BB%BA%E7%AB%99/</loc>
     <lastmod>2021-02-16</lastmod>
     <changefreq>daily</changefreq>
@@ -196,6 +189,13 @@
   
   <url>
     <loc>https://beanskingdom.top/categories/Shell/</loc>
+    <lastmod>2021-02-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://beanskingdom.top/categories/%E5%A4%8D%E7%9B%98/</loc>
     <lastmod>2021-02-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
