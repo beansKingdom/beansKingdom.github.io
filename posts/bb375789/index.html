@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"beanskingdom.top","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+<link rel="stylesheet" href="/js/prism/prism.css">
+
+  <meta name="description" content="背景​    最近在开发测试用例管理平台，其中需要实现上传用例的 Excel 文件。 最终实现效果​    通过  Element-ui 很轻松就找到了对应的组件（Element-ui具体代码），通过查找资料以及填坑，最终实现的效果如下：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue + Element el-upload实现上传文件">
+<meta property="og:url" content="https://beanskingdom.top/posts/bb375789/index.html">
+<meta property="og:site_name" content="BeansKingdom">
+<meta property="og:description" content="背景​    最近在开发测试用例管理平台，其中需要实现上传用例的 Excel 文件。 最终实现效果​    通过  Element-ui 很轻松就找到了对应的组件（Element-ui具体代码），通过查找资料以及填坑，最终实现的效果如下：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/26/CZyFN5EdbTUOXgq.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/26/7Jj2FYUrWc8n4L3.png">
+<meta property="article:published_time" content="2021-02-26T13:28:00.000Z">
+<meta property="article:modified_time" content="2021-02-26T13:33:42.703Z">
+<meta property="article:author" content="BigBean">
+<meta property="article:tag" content="Vue">
+<meta property="article:tag" content="Element UI">
+<meta property="article:tag" content="前端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/26/CZyFN5EdbTUOXgq.png">
+
+<link rel="canonical" href="https://beanskingdom.top/posts/bb375789/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Vue + Element el-upload实现上传文件 | BeansKingdom</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+      <div class="site-meta-headline">
+        <a>
+          <img class="custom-logo-image" src="/uploads/avatar.png" alt="BeansKingdom">
+        </a>
+      </div>
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">BeansKingdom</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://beanskingdom.top/posts/bb375789/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="BigBean">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BeansKingdom">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vue + Element el-upload实现上传文件
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-02-26 21:28:00 / 修改时间：21:33:42" itemprop="dateCreated datePublished" datetime="2021-02-26T21:28:00+08:00">2021-02-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/posts/bb375789/" class="post-meta-item leancloud_visitors" data-flag-title="Vue + Element el-upload实现上传文件" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/bb375789/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/bb375789/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>​    最近在开发测试用例管理平台，其中需要实现上传用例的 <strong>Excel</strong> 文件。</p>
+<h3 id="最终实现效果"><a href="#最终实现效果" class="headerlink" title="最终实现效果"></a>最终实现效果</h3><p>​    通过  <code>Element-ui</code> 很轻松就找到了对应的组件（<a target="_blank" rel="noopener" href="https://element.eleme.cn/#/zh-CN/component/upload#tuo-zhuai-shang-chuan">Element-ui具体代码</a>），通过查找资料以及填坑，最终实现的效果如下：</p>
+<img src="https://i.loli.net/2021/02/26/CZyFN5EdbTUOXgq.png" alt="finally-ui-import.png" style="zoom:40%;" />
+
+<a id="more"></a>
+
+<p>具体核心代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;el-upload</span><br><span class="line">           class&#x3D;&quot;upload-demo&quot;</span><br><span class="line">           drag</span><br><span class="line">           :action&#x3D;&quot;doUpload&quot;</span><br><span class="line">           :data&#x3D;&quot;specialData&quot;</span><br><span class="line">           :on-change&#x3D;&quot;handleChange&quot;</span><br><span class="line">           :file-list&#x3D;&quot;fileList&quot;</span><br><span class="line">           :on-error&#x3D;&quot;handleError&quot;</span><br><span class="line">           :on-success&#x3D;&quot;handleSuccess&quot;</span><br><span class="line">           accept&#x3D;&quot;.xlsx, .xls&quot;</span><br><span class="line">           :before-upload&#x3D;&quot;onBeforeUpload&quot;</span><br><span class="line">           &gt;</span><br><span class="line">  &lt;i class&#x3D;&quot;el-icon-upload&quot;&gt;&lt;&#x2F;i&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;el-upload__text&quot;&gt;将文件拖到此处，或&lt;em&gt;点击上传&lt;&#x2F;em&gt;&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;el-upload__tip&quot; slot&#x3D;&quot;tip&quot; style&#x3D;&quot;color&#x3D;#4073ff&quot;&gt;只能上传excel文件，且不超过10MB&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;el-upload&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 其中对应的一些差异的js方法代码如下</span></span><br><span class="line"><span class="function"><span class="title">handleChange</span>(<span class="params">file, fileList</span>)</span> &#123;</span><br><span class="line">  <span class="built_in">this</span>.fileList = fileList;</span><br><span class="line">&#125;,</span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="title">handleError</span>(<span class="params">err</span>)</span> &#123;</span><br><span class="line">  <span class="comment">// 此处使用 JSON.parse(err.message) 代替 JSON.stringify(err) </span></span><br><span class="line">  <span class="keyword">var</span> err_msg = <span class="built_in">JSON</span>.parse(err.message)</span><br><span class="line">  <span class="built_in">console</span>.log(err_msg.err_msg)</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><p>虽然 <code>Element-ui</code> 上的组件很丰富， 但是对于<strong>一个测试</strong>来说，有时候还是有些难以理解😭😭。</p>
+<h4 id="问题1：action参数的使用问题。"><a href="#问题1：action参数的使用问题。" class="headerlink" title="问题1：action参数的使用问题。"></a>问题1：action参数的使用问题。</h4><p>在源码中 <code>action=&quot;https://jsonplaceholder.typicode.com/posts/&quot;</code> 的使用，以及下面参数<code>action</code> 解释为：<strong>必选参数，上传的地址</strong>。这个地方就误以为只能使用 <code>URL</code> 格式，实际也可以 <code>:action</code> 直接对应后端的上传文件的API接口即可 。</p>
+<p>解决方案为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将源码中的 action=&quot;https://jsonplaceholder.typicode.com/posts/&quot; ==&gt; :action=&quot;doUpload&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">	...</span><br><span class="line">  data() </span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      doUpload:<span class="string">&#x27;/api/upload_excel_file&#x27;</span>,	<span class="comment">// 对应后端的上传文件接口</span></span><br><span class="line">      ...</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="问题2：需要传输指定的参数给后端接口。"><a href="#问题2：需要传输指定的参数给后端接口。" class="headerlink" title="问题2：需要传输指定的参数给后端接口。"></a>问题2：需要传输指定的参数给后端接口。</h4><p>解决方案为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vue 中上传组件新增 :data参数为指定需要传入给后端接口的data</span></span><br><span class="line">&lt;el-upload</span><br><span class="line">	...</span><br><span class="line">  :action=<span class="string">&quot;doUpload&quot;</span></span><br><span class="line">  :data=<span class="string">&quot;specialData&quot;</span></span><br><span class="line">	...</span><br><span class="line">&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">	...</span><br><span class="line">  data() </span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      doUpload:<span class="string">&#x27;/api/upload_excel_file&#x27;</span>,	<span class="comment">// 对应后端的上传文件接口</span></span><br><span class="line">      specialData: &#123;</span><br><span class="line">        name: <span class="string">&quot;111&quot;</span>,		<span class="comment">// 后端接口就能接收到该变量</span></span><br><span class="line">      &#125;</span><br><span class="line">      ...</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>具体效果如下：</p>
+<img src="https://i.loli.net/2021/02/26/7Jj2FYUrWc8n4L3.png" alt="upload-data.png" style="zoom:80%;" />
+
+<h4 id="问题3-针对于上传失败后，解析返回的错误信息不全。"><a href="#问题3-针对于上传失败后，解析返回的错误信息不全。" class="headerlink" title="问题3: 针对于上传失败后，解析返回的错误信息不全。"></a>问题3: 针对于上传失败后，解析返回的错误信息不全。</h4><p>具体现象如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">handleError</span>(<span class="params">err</span>)</span> &#123;</span><br><span class="line">  <span class="keyword">var</span> err_msg = <span class="built_in">JSON</span>.stringify(err)</span><br><span class="line">  <span class="built_in">console</span>.log(err_msg)</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="comment">// </span></span><br><span class="line">&#123;<span class="string">&quot;status&quot;</span>:<span class="number">400</span>,<span class="string">&quot;method&quot;</span>:<span class="string">&quot;post&quot;</span>,<span class="string">&quot;url&quot;</span>:<span class="string">&quot;/api/upload_excel_file&quot;</span>&#125; 	</span><br><span class="line"><span class="comment">// 实际err的信息应该如下（需要解析到里面的err_msg）：</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>通过 <code> JSON.stringify(err)</code> 去解析err 发现打印的数据没有想要的错误信息， 通过控制台调试的时候发现完整的err应该为如下格式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Error</span>: &#123;</span><br><span class="line">  method: <span class="string">&quot;post&quot;</span></span><br><span class="line">  status: <span class="number">400</span></span><br><span class="line">  url: <span class="string">&quot;/api/upload_excel_file&quot;</span></span><br><span class="line">  message: <span class="string">&quot;&#123;↵  &quot;</span>code<span class="string">&quot;: 400, ↵  &quot;</span>data<span class="string">&quot;: &#123;&#125;, ↵  &quot;</span>err_msg<span class="string">&quot;: &quot;</span>\u5df2\u5b58\u5728\u76f8\u540c\u540d\u79f0\u7684\u6587\u4ef6<span class="string">&quot;↵&#125;↵&quot;</span></span><br><span class="line">  stack: <span class="string">&quot;Error: &#123;↵  &quot;</span>code<span class="string">&quot;: 400, ↵  &quot;</span>data<span class="string">&quot;: &#123;&#125;, </span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>所以是 <code>JSON.stringify</code> 在转义的过程中少了一些字段（具体原因：<strong>JSON.stringify()只能序列化对象的可枚举的自有属性</strong>），此处解决办法为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">handleError</span>(<span class="params">err</span>)</span> &#123;</span><br><span class="line">  <span class="comment">// 此处使用 JSON.parse(err.message) 代替 JSON.stringify(err) </span></span><br><span class="line">  <span class="keyword">var</span> err_msg = <span class="built_in">JSON</span>.parse(err.message)</span><br><span class="line">  <span class="built_in">console</span>.log(err_msg.err_msg)</span><br><span class="line">&#125;,</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>​    至此，基本已经满足了最初预定的需求。</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a target="_blank" rel="noopener" href="https://segmentfault.com/q/1010000019086550">Element upload组件如何获取它的on-error事件的报错信息</a><br><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000013796215">Element el-upload 上传组件详解</a><br><a target="_blank" rel="noopener" href="https://element.eleme.cn/#/zh-CN/component/upload#tuo-zhuai-shang-chuan">Element 官网</a></p>
+
+    </div>
+
+    <div>
+      
+        <div>
+    
+      <div style="text-align:center;color: #ccc;font-size:20px;">------------- 本 文 结 束 <i class="fa fa-paw"></i> 感 谢 您 的 阅 读 -------------</div>
+    
+</div>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>BigBean
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://beanskingdom.top/posts/bb375789/" title="Vue + Element el-upload实现上传文件">https://beanskingdom.top/posts/bb375789/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Vue/" rel="tag"><i class="fa fa-tag"></i> Vue</a>
+              <a href="/tags/Element-UI/" rel="tag"><i class="fa fa-tag"></i> Element UI</a>
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"><i class="fa fa-tag"></i> 前端</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/e96496d4/" rel="prev" title="初探Sqlmap（一）">
+      <i class="fa fa-chevron-left"></i> 初探Sqlmap（一）
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C"><span class="nav-number">2.</span> <span class="nav-text">最终实现效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%981%EF%BC%9Aaction%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%BF%E7%94%A8%E9%97%AE%E9%A2%98%E3%80%82"><span class="nav-number">3.1.</span> <span class="nav-text">问题1：action参数的使用问题。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%982%EF%BC%9A%E9%9C%80%E8%A6%81%E4%BC%A0%E8%BE%93%E6%8C%87%E5%AE%9A%E7%9A%84%E5%8F%82%E6%95%B0%E7%BB%99%E5%90%8E%E7%AB%AF%E6%8E%A5%E5%8F%A3%E3%80%82"><span class="nav-number">3.2.</span> <span class="nav-text">问题2：需要传输指定的参数给后端接口。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%983-%E9%92%88%E5%AF%B9%E4%BA%8E%E4%B8%8A%E4%BC%A0%E5%A4%B1%E8%B4%A5%E5%90%8E%EF%BC%8C%E8%A7%A3%E6%9E%90%E8%BF%94%E5%9B%9E%E7%9A%84%E9%94%99%E8%AF%AF%E4%BF%A1%E6%81%AF%E4%B8%8D%E5%85%A8%E3%80%82"><span class="nav-number">3.3.</span> <span class="nav-text">问题3: 针对于上传失败后，解析返回的错误信息不全。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">5.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="BigBean"
+      src="/uploads/avatar.png">
+  <p class="site-author-name" itemprop="name">BigBean</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BigBean</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">21k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">19 分钟</span>
+</div>
+<script src="/js/prism/prism.js" async></script>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'RxwAAjYjlIuwVtWQmp433VMU-gzGzoHsz',
+      appKey     : 'UnfFYvCblrw3Er5yRUH7IMrR',
+      placeholder: "不来吐个5毛钱的槽？？",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"left","width":300,"height":300,"bottom":-20},"mobile":{"show":false},"log":false});</script></body>
+</html>
