@@ -130,13 +130,6 @@
 
   
   <url>
-    <loc>https://beanskingdom.top/tags/%E5%B9%B4%E5%BA%A6%E5%9B%9E%E9%A1%BE/</loc>
-    <lastmod>2021-03-02</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://beanskingdom.top/tags/blog%E6%90%AD%E5%BB%BA/</loc>
     <lastmod>2021-03-02</lastmod>
     <changefreq>daily</changefreq>
@@ -145,6 +138,13 @@
   
   <url>
     <loc>https://beanskingdom.top/tags/hexo%E5%BB%BA%E7%AB%99/</loc>
+    <lastmod>2021-03-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://beanskingdom.top/tags/%E5%B9%B4%E5%BA%A6%E5%9B%9E%E9%A1%BE/</loc>
     <lastmod>2021-03-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -228,13 +228,6 @@
   </url>
   
   <url>
-    <loc>https://beanskingdom.top/tags/gRPC%E6%8E%A5%E5%8F%A3/</loc>
-    <lastmod>2021-03-02</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://beanskingdom.top/tags/%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/</loc>
     <lastmod>2021-03-02</lastmod>
     <changefreq>daily</changefreq>
@@ -270,6 +263,13 @@
   </url>
   
   <url>
+    <loc>https://beanskingdom.top/tags/gRPC%E6%8E%A5%E5%8F%A3/</loc>
+    <lastmod>2021-03-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://beanskingdom.top/tags/%E5%91%A8%E6%8A%A5/</loc>
     <lastmod>2021-03-02</lastmod>
     <changefreq>daily</changefreq>
@@ -286,14 +286,14 @@
 
   
   <url>
-    <loc>https://beanskingdom.top/categories/%E5%A4%8D%E7%9B%98/</loc>
+    <loc>https://beanskingdom.top/categories/hexo%E5%BB%BA%E7%AB%99/</loc>
     <lastmod>2021-03-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://beanskingdom.top/categories/hexo%E5%BB%BA%E7%AB%99/</loc>
+    <loc>https://beanskingdom.top/categories/%E5%A4%8D%E7%9B%98/</loc>
     <lastmod>2021-03-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
