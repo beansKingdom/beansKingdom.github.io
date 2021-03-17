@@ -179,27 +179,6 @@
   </url>
   
   <url>
-    <loc>https://beanskingdom.top/tags/Vue/</loc>
-    <lastmod>2021-03-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://beanskingdom.top/tags/Element-UI/</loc>
-    <lastmod>2021-03-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://beanskingdom.top/tags/%E5%89%8D%E7%AB%AF/</loc>
-    <lastmod>2021-03-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://beanskingdom.top/tags/PYPI/</loc>
     <lastmod>2021-03-17</lastmod>
     <changefreq>daily</changefreq>
@@ -229,6 +208,27 @@
   
   <url>
     <loc>https://beanskingdom.top/tags/excel%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</loc>
+    <lastmod>2021-03-17</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://beanskingdom.top/tags/Vue/</loc>
+    <lastmod>2021-03-17</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://beanskingdom.top/tags/Element-UI/</loc>
+    <lastmod>2021-03-17</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://beanskingdom.top/tags/%E5%89%8D%E7%AB%AF/</loc>
     <lastmod>2021-03-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -335,14 +335,14 @@
   </url>
   
   <url>
-    <loc>https://beanskingdom.top/categories/Vue/</loc>
+    <loc>https://beanskingdom.top/categories/Python/</loc>
     <lastmod>2021-03-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://beanskingdom.top/categories/Python/</loc>
+    <loc>https://beanskingdom.top/categories/Vue/</loc>
     <lastmod>2021-03-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
