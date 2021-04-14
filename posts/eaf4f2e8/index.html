@@ -21,26 +21,24 @@
   </script>
 <link rel="stylesheet" href="/js/prism/prism.css">
 
-  <meta name="description" content="背景​    已经集成的接口自动化测试 Job 在周期性定时运行的时候，会很小概率出现一直卡在那里，原本应该3min就执行完成的任务，偶尔过了半个小时还没结束。（(￣３￣)直觉告诉我这个地方肯定有问题。。。 ​    但由于复现的概率较小，一个月可能出现一次，所以开始并没有什么太大的线索（仅靠一些猜测并不切实际）。 ​    终于！！！在某一个阳光明媚的大好日子，它重现了。">
+  <meta name="description" content="背景​    在用例管理平台上可以编辑Excel用例文件，但如果上传了合并单元格的Excel用例文件，编辑时候处理起来会无法判断如何去拆解单元格，最终解决方式是：禁止上传存在合并单元格的Excel文件。（那么就需要在上传的时候校验文件中是否存在合并单元格。） ​    通过网上的资料查询了下，实现方案就是通过 sheet.merged_cells 来解决该问题，核心代码如下： 1234workbo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Py-spy解决Python程序Hang住问题">
-<meta property="og:url" content="https://beanskingdom.top/posts/cb61081b/index.html">
+<meta property="og:title" content="判断Excel文件中是否存在合并单元格">
+<meta property="og:url" content="https://beanskingdom.top/posts/eaf4f2e8/index.html">
 <meta property="og:site_name" content="BeansKingdom">
-<meta property="og:description" content="背景​    已经集成的接口自动化测试 Job 在周期性定时运行的时候，会很小概率出现一直卡在那里，原本应该3min就执行完成的任务，偶尔过了半个小时还没结束。（(￣３￣)直觉告诉我这个地方肯定有问题。。。 ​    但由于复现的概率较小，一个月可能出现一次，所以开始并没有什么太大的线索（仅靠一些猜测并不切实际）。 ​    终于！！！在某一个阳光明媚的大好日子，它重现了。">
+<meta property="og:description" content="背景​    在用例管理平台上可以编辑Excel用例文件，但如果上传了合并单元格的Excel用例文件，编辑时候处理起来会无法判断如何去拆解单元格，最终解决方式是：禁止上传存在合并单元格的Excel文件。（那么就需要在上传的时候校验文件中是否存在合并单元格。） ​    通过网上的资料查询了下，实现方案就是通过 sheet.merged_cells 来解决该问题，核心代码如下： 1234workbo">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://i.loli.net/2021/01/22/AVhg7RGzYIfuWtN.png">
-<meta property="og:image" content="https://i.loli.net/2021/01/22/E1Yq9cjRo2GOx5e.png">
-<meta property="og:image" content="https://i.loli.net/2021/01/22/CuRZJnsj13eTXoQ.png">
-<meta property="article:published_time" content="2021-02-08T15:45:56.000Z">
-<meta property="article:modified_time" content="2021-02-09T08:41:22.418Z">
+<meta property="og:image" content="https://i.loli.net/2021/04/14/F69Xw2OopIKJg4G.png">
+<meta property="article:published_time" content="2021-04-14T13:48:33.000Z">
+<meta property="article:modified_time" content="2021-04-14T14:02:02.574Z">
 <meta property="article:author" content="BigBean">
+<meta property="article:tag" content="Pandas">
 <meta property="article:tag" content="Python">
-<meta property="article:tag" content="Python Plugin">
-<meta property="article:tag" content="py-spy">
+<meta property="article:tag" content="Excel文件处理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/01/22/AVhg7RGzYIfuWtN.png">
+<meta name="twitter:image" content="https://i.loli.net/2021/04/14/F69Xw2OopIKJg4G.png">
 
-<link rel="canonical" href="https://beanskingdom.top/posts/cb61081b/">
+<link rel="canonical" href="https://beanskingdom.top/posts/eaf4f2e8/">
 
 
 <script id="page-configurations">
@@ -53,7 +51,7 @@
   };
 </script>
 
-  <title>Py-spy解决Python程序Hang住问题 | BeansKingdom</title>
+  <title>判断Excel文件中是否存在合并单元格 | BeansKingdom</title>
   
 
 
@@ -201,7 +199,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://beanskingdom.top/posts/cb61081b/">
+    <link itemprop="mainEntityOfPage" href="https://beanskingdom.top/posts/eaf4f2e8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -214,7 +212,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Py-spy解决Python程序Hang住问题
+          判断Excel文件中是否存在合并单元格
         </h1>
 
         <div class="post-meta">
@@ -223,16 +221,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2021-02-08 23:45:56" itemprop="dateCreated datePublished" datetime="2021-02-08T23:45:56+08:00">2021-02-08</time>
+              <time title="创建时间：2021-04-14 21:48:33 / 修改时间：22:02:02" itemprop="dateCreated datePublished" datetime="2021-04-14T21:48:33+08:00">2021-04-14</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-09 16:41:22" itemprop="dateModified" datetime="2021-02-09T16:41:22+08:00">2021-02-09</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -244,7 +236,7 @@
             </span>
 
           
-            <span id="/posts/cb61081b/" class="post-meta-item leancloud_visitors" data-flag-title="Py-spy解决Python程序Hang住问题" title="阅读次数">
+            <span id="/posts/eaf4f2e8/" class="post-meta-item leancloud_visitors" data-flag-title="判断Excel文件中是否存在合并单元格" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -259,8 +251,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/posts/cb61081b/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/cb61081b/" itemprop="commentCount"></span>
+    <a title="valine" href="/posts/eaf4f2e8/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/eaf4f2e8/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -270,14 +262,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>938</span>
+              <span>2.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -289,29 +281,31 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>​    已经集成的接口自动化测试 Job 在周期性定时运行的时候，会很小概率出现一直卡在那里，原本应该3min就执行完成的任务，偶尔过了半个小时还没结束。（(￣３￣)直觉告诉我这个地方肯定有问题。。。</p>
-<p>​    但由于复现的概率较小，一个月可能出现一次，所以开始并没有什么太大的线索（仅靠一些猜测并不切实际）。</p>
-<p>​    终于！！！在某一个阳光明媚的大好日子，<strong>它重现了</strong>。</p>
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>​    在用例管理平台上可以编辑Excel用例文件，但如果上传了合并单元格的Excel用例文件，编辑时候处理起来会无法判断如何去拆解单元格，最终解决方式是：禁止上传存在合并单元格的Excel文件。（那么就<strong>需要在上传的时候校验文件中是否存在合并单元格。</strong>）</p>
+<p>​    通过网上的资料查询了下，实现方案就是通过 <code>sheet.merged_cells</code> 来解决该问题，核心代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">workbook = xlrd.open_workbook(<span class="string">r&#x27;py.xlsx&#x27;</span>)</span><br><span class="line">sheet = workbook.sheet_by_index(<span class="number">0</span>)</span><br><span class="line"><span class="comment"># 如果该值返回的列表长度非0则存在合并单元格，否则不存在。</span></span><br><span class="line"><span class="keyword">return</span> sheet.merged_cells</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 
-<h3 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h3><ol>
-<li><p>赶紧先登录到服务器上看看进程情况，发现此时存在脚本发起的2个 Worker CPU占用100%（由于用的 <code>Pytest + Pytest-xdist</code>  分布式插件执行用例），当时第一反应是死循环了？？</p>
-<img src="https://i.loli.net/2021/01/22/AVhg7RGzYIfuWtN.png" alt="process_hang_1.png" style="zoom:50%;" />
-</li>
-<li><p>通过<strong>perf</strong> 、<strong>ps</strong>或者 <strong>pstack</strong> 打印对应的pid， 看到的结果并没有什么太大用，反而<strong>误导我以为是代码里面的一个文件锁导致该问题</strong>。</p>
-<img src="https://i.loli.net/2021/01/22/E1Yq9cjRo2GOx5e.png" alt="process_hang_2.png" style="zoom:50%;" />
-</li>
-<li><p>网上查询了一通后，发现一个神奇的工具一一 <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/310832912">py-spy</a> （更多使用方法见 <a target="_blank" rel="noopener" href="https://pypi.org/project/py-spy/">官网</a>）</p>
-<p>安装后使用命令 ：选定一个异常的进程，执行命令： <code>py-spy  top --pid 19785</code> 打印结果如下，很明显看出来当前Cpu都卡在 <code>check_retry_status</code> 方法上面。</p>
-<img src="https://i.loli.net/2021/01/22/CuRZJnsj13eTXoQ.png" alt="process_hang_3.png" style="zoom:50%;" />
-</li>
-<li><p>查看该代码，发现该方法中存在一个while循环，并且很凑巧的是。。。╮(╯3╰)╭ 里面<font color=red><strong>没有兜底</strong></font>。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 具体代码如下，过于相信传进来的 retry_flag 一定是1/2， 如果出现不是这两个值的时候，此时这个方法则进入了死循环。。。</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_retry_status</span>(<span class="params">cls, uid, atk, order_id, retry_flag, devuuid</span>):</span></span><br><span class="line">    max_count = <span class="number">5</span></span><br><span class="line">    <span class="keyword">while</span> max_count &gt; <span class="number">0</span>:</span><br><span class="line">      	<span class="keyword">if</span> retry_flag == <span class="number">2</span>:</span><br><span class="line">        	retry_flag = functionA(xxx, ...)</span><br><span class="line">        	max_count -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> retry_flag == <span class="number">1</span>:</span><br><span class="line">          <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">raise</span> Exception(<span class="string">&quot;验证充值订单失败&quot;</span>)</span><br></pre></td></tr></table></figure></li>
-<li><p>到这个地方，就很明显定位到了问题，在此处加上兜底并且加上对应日志记录functionA（<strong>第三方依赖</strong>）到底返回的是什么。（ 因为首次传入的 retry_flag 也是来自于functionA）</p>
-</li>
-</ol>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>​    写代码要谨慎。。。特别是结果来自第三方依赖的时候。。。<strong>一定要进行兜底！！！</strong></p>
-<p>​    （emm… 兜一下总比不兜强）</p>
+<p>​    <font color=gray><em>PS: 本文主要是记录下过程中遇到的问题以及一些扩展。</em></font></p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><h4 id="问题1-后端报错：expected-str-bytes-or-os-PathLike-object-not-FileStorage"><a href="#问题1-后端报错：expected-str-bytes-or-os-PathLike-object-not-FileStorage" class="headerlink" title="问题1: 后端报错：expected str, bytes or os.PathLike object, not FileStorage"></a>问题1: 后端报错：expected str, bytes or os.PathLike object, not FileStorage</h4><p>​    由于文件是直接通过前端上传的，所以传到后端是一个 <code>FileStorage</code> 对象，通过上述方式实现会直接报错。如果仅仅是简单的通过 <code>file_storage.read()</code> 转换成 bytes 后，仍然会有其他新的报错（<code>embedded null byte</code>）。</p>
+<p>​    最终使用如下方案来进行解决（因为后端原本都是使用 <code>Pandas</code> 库去处理Excel文件的）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">book = openpyxl.load_workbook(case_file)</span><br><span class="line">writer = pd.ExcelWriter(case_file, engine=<span class="string">&#x27;openpyxl&#x27;</span>)</span><br><span class="line">writer.book = book</span><br><span class="line"></span><br><span class="line">writer.sheets = <span class="built_in">dict</span>((ws.title, ws) <span class="keyword">for</span> ws <span class="keyword">in</span> book.worksheets)</span><br><span class="line"><span class="keyword">for</span> sheet <span class="keyword">in</span> writer.sheets.values():</span><br><span class="line">  merged_list = sheet.merged_cells</span><br><span class="line">  <span class="keyword">if</span> <span class="built_in">len</span>(merged_list.ranges) &gt; <span class="number">0</span>:</span><br><span class="line">    <span class="keyword">raise</span> ValueError(<span class="string">&quot;【%s】文件内容错误, 暂不支持文件中存在合并的单元格。&quot;</span> % case_file.filename)</span><br></pre></td></tr></table></figure>
+<p>验证了下，在上传带有单元格的文件时，会触发异常，正准备高高兴兴码完代码休息下～(￣▽￣～)(～￣▽￣)～ 。然而出于基本的开发素质，我又验证了不带单元格的文件。然而打脸总是来的这么突然。。。😭。</p>
+<p>​    上传失败，后端返回错误 <code>OSError: [Errno 22] Invalid argument</code>。（<strong>事实再次证明：不要以为功能简单就不验证</strong>(￣ε ￣) 。。。老铁，来吧！继续撸袖子修BUG。）</p>
+<h4 id="问题2-OSError-Errno-22-Invalid-argument"><a href="#问题2-OSError-Errno-22-Invalid-argument" class="headerlink" title="问题2:  OSError: [Errno 22] Invalid argument"></a>问题2:  OSError: [Errno 22] Invalid argument</h4><p>​    通过本地调试，发现触发异常的位置在文件被上传保存后，再次去读取该文件内容的时候。抛错的代码为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f = pd.ExcelFile(file_abs_path)</span><br></pre></td></tr></table></figure>
+<p>看了下文件的剧对路径，确定文件是存在的，然后去下载下来打开时，提示文件打开遇到错误。。。（并且此时的文件大小小于实际文件的大小，原文件17KB，上传后的文件12KB）。</p>
+<img src="https://i.loli.net/2021/04/14/F69Xw2OopIKJg4G.png" alt="file-storage-4.png" style="zoom:50%;" />
+
+<p>​    通过一步步的调试，发现罪魁祸首在于 <code>openpyxl.load_workbook(case_file)</code>，该操作会直接对传入的 <strong>FileStorage</strong> 对象进行操作，导致文件内容变化。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 原数据 case_file.read() 大小为16804，处理后case_file.read() 大小为11528</span></span><br><span class="line">openpyxl.load_workbook(case_file)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对于为什么文件大小会变小，是因为操作中会将缓存内的文件内容读取，导致实际在缓存内的内容变少，有兴趣的可以深入研究，核心代码如下：</span></span><br><span class="line">reader = ExcelReader(filename, read_only, keep_vba, data_only, keep_links)</span><br><span class="line">reader.read()</span><br></pre></td></tr></table></figure>
+<p><strong>最终解决方案则是</strong>：在问题1的代码块后， 新增代码：<code>case_file.stream.seek(0)</code>  即可，通过将原 <code>FileStorage</code> 对象缓存里面的内容指向最初的位置即可。</p>
+<h4 id="问题3-xlrd-biffh-XLRDError-File-size-is-0-bytes"><a href="#问题3-xlrd-biffh-XLRDError-File-size-is-0-bytes" class="headerlink" title="问题3: xlrd.biffh.XLRDError: File size is 0 bytes"></a>问题3: xlrd.biffh.XLRDError: File size is 0 bytes</h4><p>在获得最终解决方案的过程之前，还遇到了问题3，因为 <strong>FileStorage</strong> 对象在内存中的内容已经被拿出来操作了，实际缓存中的数据大小变成了0，导致了上述的报错。（<a target="_blank" rel="noopener" href="https://www.pythonheidong.com/blog/article/754328/9439a5fd9830ea11dd92/">参考链接</a>），如下是对于 <strong>FileStorage</strong> 对象的一个注解。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> werkzeug.datastructures <span class="keyword">import</span> FileStorage</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FileStorage</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;The :class:`FileStorage` class is a thin wrapper over incoming files.</span></span><br><span class="line"><span class="string">    It is used by the request object to represent uploaded files.  All the</span></span><br><span class="line"><span class="string">    attributes of the wrapper stream are proxied by the file storage so</span></span><br><span class="line"><span class="string">    it&#x27;s possible to do ``storage.read()`` instead of the long form</span></span><br><span class="line"><span class="string">    ``storage.stream.read()``.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>​    通过上述一系列的骚操作（瞎折腾）后，终于完成了最初的需求。。。╮(╯Д╰)╭ ，因为过程中很多奇奇怪怪得报错导致整个过程还是挺艰辛的。</p>
+<p>​    <strong>⚠️ 心得</strong>：大多数时候都是网上直接搜了解决方案，但是由于基础不扎实，在进行实施的时候，各种坑就埋在你脚下了。。。有些时候需要<strong>更多的去思考或者了解为什么使用这个方案，以及询问自己更多次为什么会出现这个问题，而不仅仅是解决。</strong></p>
 
     </div>
 
@@ -336,10 +330,10 @@
       <div class="popular-posts-title"><a href="/posts/617073a5/" rel="bookmark">Python之Pandas库躺坑记</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/posts/2a44a0fd/" rel="bookmark">python调用gRPC接口</a></div>
+      <div class="popular-posts-title"><a href="/posts/cb61081b/" rel="bookmark">Py-spy解决Python程序Hang住问题</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/posts/eaf4f2e8/" rel="bookmark">判断Excel文件中是否存在合并单元格</a></div>
+      <div class="popular-posts-title"><a href="/posts/2a44a0fd/" rel="bookmark">python调用gRPC接口</a></div>
     </li>
   </ul>
 
@@ -352,7 +346,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://beanskingdom.top/posts/cb61081b/" title="Py-spy解决Python程序Hang住问题">https://beanskingdom.top/posts/cb61081b/</a>
+    <a href="https://beanskingdom.top/posts/eaf4f2e8/" title="判断Excel文件中是否存在合并单元格">https://beanskingdom.top/posts/eaf4f2e8/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -364,9 +358,9 @@
       <footer class="post-footer">
           
           <div class="post-tags">
+              <a href="/tags/Pandas/" rel="tag"><i class="fa fa-tag"></i> Pandas</a>
               <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
-              <a href="/tags/Python-Plugin/" rel="tag"><i class="fa fa-tag"></i> Python Plugin</a>
-              <a href="/tags/py-spy/" rel="tag"><i class="fa fa-tag"></i> py-spy</a>
+              <a href="/tags/Excel%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> Excel文件处理</a>
           </div>
 
         
@@ -375,13 +369,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/posts/2a44a0fd/" rel="prev" title="python调用gRPC接口">
-      <i class="fa fa-chevron-left"></i> python调用gRPC接口
+    <a href="/posts/f1ff3319/" rel="prev" title="小强升职记读后感">
+      <i class="fa fa-chevron-left"></i> 小强升职记读后感
     </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/a21b8f58/" rel="next" title="NexT + Valine躺坑之路">
-      NexT + Valine躺坑之路 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -442,7 +433,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E6%9F%A5%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">排查过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%981-%E5%90%8E%E7%AB%AF%E6%8A%A5%E9%94%99%EF%BC%9Aexpected-str-bytes-or-os-PathLike-object-not-FileStorage"><span class="nav-number">2.1.</span> <span class="nav-text">问题1: 后端报错：expected str, bytes or os.PathLike object, not FileStorage</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%982-OSError-Errno-22-Invalid-argument"><span class="nav-number">2.2.</span> <span class="nav-text">问题2:  OSError: [Errno 22] Invalid argument</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%983-xlrd-biffh-XLRDError-File-size-is-0-bytes"><span class="nav-number">2.3.</span> <span class="nav-text">问题3: xlrd.biffh.XLRDError: File size is 0 bytes</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
