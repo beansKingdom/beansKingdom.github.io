@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Flask 序列化与反序列化</title>
+      <link href="posts/db0729cb/"/>
+      <url>posts/db0729cb/</url>
+      
+        <content type="html"><![CDATA[<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>​    为什么写这篇话题呢，印象中是有次面试中，面试官问我是否了解 <code>Flask</code> 中的序列化与反序列化。由于自身的客观原因，当时对于该问题只能硬着头皮回答：不太了解乀(ˉεˉ乀) 乀(ˉεˉ乀) 。。。（个人觉得还是：基础知识不扎实）</p><p>​    后来这个问题也一直没去关注。。。此次突然想起来后进行一下记录（同样的地方不要翻车两次┑(￣。。￣)┍ ）。</p><a id="more"></a><h3 id="行动"><a href="#行动" class="headerlink" title="行动"></a>行动</h3><p>​    大概先了解了下相关定义：<code>Serialization</code> 和 <code>Deserialization</code> 即序列化和反序列化。Flask中是<strong>将对象类型数据转为json即为序列化</strong>，<strong>将json转为对象类型数据即为反序列化</strong>。</p><p>​    <strong>Flask</strong>中的序列化和反序列化还是比较简单，下面分别进行下理解。</p><h4 id="序列化-jsonify"><a href="#序列化-jsonify" class="headerlink" title="序列化 jsonify()"></a>序列化 jsonify()</h4><p>​    Flask jsonify()的代码还是很简单， 可以理解在默认情况下，Flask的序列化就是直接使用了 <code>json.dumps()</code>，再通过 <code>Response</code> 对象直接返回了 ╮(╯Д╰)╭ ，核心代码如下：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 唯一就是在用法上有点区别， Flask的jsonify会对传入的参数进行取舍，具体逻辑如下</span></span><br><span class="line"><span class="keyword">elif</span> <span class="built_in">len</span>(args) == <span class="number">1</span>:  <span class="comment"># single args are passed directly to dumps()</span></span><br><span class="line">  data = args[<span class="number">0</span>]</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">  data = args <span class="keyword">or</span> kwargs</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最终将 data 通过 json.dumps() 进行序列化</span></span><br><span class="line"><span class="keyword">return</span> current_app.response_class(</span><br><span class="line">  dumps(data, indent=indent, separators=separators) + <span class="string">&quot;\n&quot;</span>,</span><br><span class="line">  mimetype=current_app.config[<span class="string">&quot;JSONIFY_MIMETYPE&quot;</span>],</span><br><span class="line">)</span><br></pre></td></tr></table></figure><p>看到网上其他人说了一些更深层次的内容， <a href="https://m.yisu.com/zixun/227014.html">参考链接</a>，<a href="https://www.kancloud.cn/schip/klause/1021392">参考链接2</a>：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认情况下用的都是 app.json_encoder， 如果有特殊需求，可以对该encoder进行自定义</span></span><br><span class="line"><span class="keyword">if</span> app:</span><br><span class="line">  ...</span><br><span class="line">  kwargs.setdefault(</span><br><span class="line">    <span class="string">&quot;cls&quot;</span>, bp.json_encoder <span class="keyword">if</span> bp <span class="keyword">and</span> bp.json_encoder <span class="keyword">else</span> app.json_encoder</span><br><span class="line">  )</span><br><span class="line">...</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">  ...</span><br><span class="line">  kwargs.setdefault(<span class="string">&quot;cls&quot;</span>, JSONEncoder)</span><br><span class="line">      </span><br><span class="line"><span class="comment"># 用户也可以通过对 app.json_encoder 进行二次封装</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">JSONEncoder</span>(<span class="params">_json.JSONEncoder</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;The default Flask JSON encoder. This one extends the default</span></span><br><span class="line"><span class="string">    encoder by also supporting ``datetime``, ``UUID``, ``dataclasses``,</span></span><br><span class="line"><span class="string">    and ``Markup`` objects.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    # 通过该对象可以定制化，比如我们要返回给前端的是一个从数据库查询的模型对象。那么就可以通过重写该方法进行定制化。</span></span><br></pre></td></tr></table></figure><h4 id="反序列化-request-get-json"><a href="#反序列化-request-get-json" class="headerlink" title="反序列化 request.get_json()"></a>反序列化 request.get_json()</h4><p>​    同样的。。。 Flask的反序列化也挺简单，可以理解在默认情况下， Flask的反序列化就是直接使用了 <code>json.loads()</code>，核心代码如下：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">data = self._get_data_for_json(cache=cache)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">  rv = self.json_module.loads(data)</span><br><span class="line">  </span><br><span class="line"><span class="comment"># self.json_module.loads()</span></span><br><span class="line"><span class="keyword">if</span> <span class="built_in">isinstance</span>(s, <span class="built_in">bytes</span>):</span><br><span class="line">  <span class="comment"># Needed for Python &lt; 3.6</span></span><br><span class="line">  encoding = detect_utf_encoding(s)</span><br><span class="line">  s = s.decode(encoding)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> _json.loads(s, **kw)</span><br></pre></td></tr></table></figure><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>​    额。。。本来以为是什么，实际查了下对应的资料后，从比较浅的层次来说， Flask中的序列化以及反序列化实际就是使用的 json库中自带的 <code>dumps</code> 和  <code>loads</code> 。（也可能是才疏学浅，没有太了解深层次的使用场景😂， 比如： <a href="https://m.yisu.com/zixun/227014.html">Flask序列化</a>），所以，不要被一些 “名词” 高大上的样子忽悠了，可能实际内容并不复杂，<strong>困难的是做出去解决这个问题的决心</strong>。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Flask </tag>
+            
+            <tag> Python </tag>
+            
+            <tag> 序列化与反序列化 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>判断Excel文件中是否存在合并单元格</title>
       <link href="posts/eaf4f2e8/"/>
       <url>posts/eaf4f2e8/</url>
@@ -20,9 +49,9 @@
       
         <tags>
             
-            <tag> Pandas </tag>
-            
             <tag> Python </tag>
+            
+            <tag> Pandas </tag>
             
             <tag> Excel文件处理 </tag>
             
@@ -105,9 +134,9 @@
       
         <tags>
             
-            <tag> Pandas </tag>
-            
             <tag> Python </tag>
+            
+            <tag> Pandas </tag>
             
             <tag> excel文件操作 </tag>
             
