@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"beanskingdom.top","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+<link rel="stylesheet" href="/js/prism/prism.css">
+
+  <meta name="description" content="现象​    公司内部的接口自动化框架在一次pytest升级后，用例中的logging模块无法正常打印日志（原来logging.info可以正常打印日志到日志文件中，现在是不会输出到对应的日志文件中）。 ​    存在的变更：原来使用 pytest&#x3D;&#x3D;5.4.3 版本（后续称之为低版本）的时候，升级pytest后是6.2.3版本（后续称之为高版本）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一次Pytest库升级遇到的问题">
+<meta property="og:url" content="https://beanskingdom.top/posts/18a06f9f/index.html">
+<meta property="og:site_name" content="BeansKingdom">
+<meta property="og:description" content="现象​    公司内部的接口自动化框架在一次pytest升级后，用例中的logging模块无法正常打印日志（原来logging.info可以正常打印日志到日志文件中，现在是不会输出到对应的日志文件中）。 ​    存在的变更：原来使用 pytest&#x3D;&#x3D;5.4.3 版本（后续称之为低版本）的时候，升级pytest后是6.2.3版本（后续称之为高版本）。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/05/17/Yhq2xblTWJ9AE7n.png">
+<meta property="og:image" content="https://i.loli.net/2021/05/17/EGOeSAfT5xJcbgQ.png">
+<meta property="article:published_time" content="2021-05-17T14:09:40.000Z">
+<meta property="article:modified_time" content="2021-05-17T14:42:54.271Z">
+<meta property="article:author" content="BigBean">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Pytest">
+<meta property="article:tag" content="Logging">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/05/17/Yhq2xblTWJ9AE7n.png">
+
+<link rel="canonical" href="https://beanskingdom.top/posts/18a06f9f/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>一次Pytest库升级遇到的问题 | BeansKingdom</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+      <div class="site-meta-headline">
+        <a>
+          <img class="custom-logo-image" src="/uploads/avatar.png" alt="BeansKingdom">
+        </a>
+      </div>
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">BeansKingdom</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://beanskingdom.top/posts/18a06f9f/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="BigBean">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BeansKingdom">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          一次Pytest库升级遇到的问题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-05-17 22:09:40 / 修改时间：22:42:54" itemprop="dateCreated datePublished" datetime="2021-05-17T22:09:40+08:00">2021-05-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/posts/18a06f9f/" class="post-meta-item leancloud_visitors" data-flag-title="一次Pytest库升级遇到的问题" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/18a06f9f/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/18a06f9f/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h3><p>​    公司内部的接口自动化框架在一次pytest升级后，用例中的logging模块无法正常打印日志（原来logging.info可以正常打印日志到日志文件中，现在是不会输出到对应的日志文件中）。</p>
+<p>​    <strong>存在的变更：原来使用 pytest==5.4.3 版本（后续称之为低版本）的时候，升级pytest后是6.2.3版本（后续称之为高版本）。</strong></p>
+<a id="more"></a>
+
+<h3 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h3><h4 id="问题1-为什么使用高版本的Pytest库后，日志无法打印出来呢？"><a href="#问题1-为什么使用高版本的Pytest库后，日志无法打印出来呢？" class="headerlink" title="问题1: 为什么使用高版本的Pytest库后，日志无法打印出来呢？"></a>问题1: 为什么使用高版本的Pytest库后，日志无法打印出来呢？</h4><p>​    先统一测试代码，发现<font color=blue><strong>根本原因在于</strong></font>：<strong>高版本Pytest场景中，logging对象的root.handlers默认存在两个Handler，直接跳过了部分处理代码，最终使用两个Handler中默认的 _FileHandler 将日志写入到了/dev/null 中了。</strong> </p>
+<blockquote>
+<p>/dev/null  ： 在类Unix系统中，/dev/null，或称空设备，是一个特殊的设备文件，它丢弃一切写入其中的数据（但报告写入操作成功），读取它则会立即得到一个EOF。<br>在程序员行话，尤其是Unix行话中，/dev/null 被称为位桶(bit bucket)或者黑洞(black hole)。空设备通常被用于丢弃不需要的输出流，或作为用于输入流的空文件。这些操作通常由重定向完成。</p>
+</blockquote>
+<p>​    而低版本Pytest场景中，logging对象的root.handlers为空，进行处理后使用的是自定义的文件目录写入日志。(可对比两者的 <code>FileHandler</code> 对象区别，如下两图（上图为高版本的handlers，下图为低版本），<font color=gray><em>由于涉及到个人电脑目录，对低版本的日志文件路径进行了打码</em></font>)</p>
+<img src="https://i.loli.net/2021/05/17/Yhq2xblTWJ9AE7n.png" alt="pytest-高版本打印日志问题.png" style="zoom:33%;" />
+
+<img src="https://i.loli.net/2021/05/17/EGOeSAfT5xJcbgQ.png" alt="低版本pytest-logging-handler.png" style="zoom:33%;" />
+
+<p>上述所述的部分处理代码如下（<code>logging库的__init__.py文件</code>， 低版本中通过 <code>len(root.handlers) == 0</code> 生成了用户自定义的 FileHandler对象）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">basicConfig</span>(<span class="params">**kwargs</span>):</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">try</span>:</span><br><span class="line">    force = kwargs.pop(<span class="string">&#x27;force&#x27;</span>, <span class="literal">False</span>)</span><br><span class="line">    encoding = kwargs.pop(<span class="string">&#x27;encoding&#x27;</span>, <span class="literal">None</span>)</span><br><span class="line">    errors = kwargs.pop(<span class="string">&#x27;errors&#x27;</span>, <span class="string">&#x27;backslashreplace&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> force:</span><br><span class="line">      <span class="keyword">for</span> h <span class="keyword">in</span> root.handlers[:]:</span><br><span class="line">        root.removeHandler(h)</span><br><span class="line">        h.close()</span><br><span class="line">    <span class="comment"># 高版本的Pytest在此处logging库中直接跳到最后，最终使用的是默认的 FileHandler，将内容打印到了/dev/null</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(root.handlers) == <span class="number">0</span>:</span><br><span class="line">      handlers = kwargs.pop(<span class="string">&quot;handlers&quot;</span>, <span class="literal">None</span>)</span><br><span class="line">      <span class="keyword">if</span> handlers <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        ...</span><br></pre></td></tr></table></figure>
+<p>再深入一点继续往下探索！</p>
+<h4 id="问题2-为什么高版本Pytest场景中，logging对象的root-handlers默认存在两个Handler？？"><a href="#问题2-为什么高版本Pytest场景中，logging对象的root-handlers默认存在两个Handler？？" class="headerlink" title="问题2: 为什么高版本Pytest场景中，logging对象的root.handlers默认存在两个Handler？？"></a>问题2: 为什么高版本Pytest场景中，logging对象的root.handlers默认存在两个Handler？？</h4><p>根本原因：高版本的Pytest对 <code>class LoggingPlugin</code> 类进行了修改，相关修改后导致出现该问题的代码如下（<strong>见注释部分</strong>）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LoggingPlugin</span>:</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Attaches to the logging module and captures log messages for each test.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, config: Config</span>) -&gt; <span class="keyword">None</span>:</span></span><br><span class="line">			...</span><br><span class="line">      <span class="comment"># 由于配置中未传入log_file配置，导致log_file默认为/dev/null</span></span><br><span class="line">      log_file = get_option_ini(config, <span class="string">&quot;log_file&quot;</span>) <span class="keyword">or</span> os.devnull</span><br><span class="line">      <span class="keyword">if</span> log_file != os.devnull:</span><br><span class="line">        directory = os.path.dirname(os.path.abspath(log_file))</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> os.path.isdir(directory):</span><br><span class="line">          	os.makedirs(directory)</span><br><span class="line"></span><br><span class="line">      <span class="comment"># 根据默认的log_file 生成一个_FileHandler对象，最终日志被写入到了/dev/null中</span></span><br><span class="line">      self.log_file_handler = _FileHandler(log_file, mode=<span class="string">&quot;w&quot;</span>, encoding=<span class="string">&quot;UTF-8&quot;</span>)</span><br><span class="line">      </span><br><span class="line">      <span class="comment"># 生成另外一个 _LiveLoggingNullHandler</span></span><br><span class="line">      self.log_cli_handler = _LiveLoggingNullHandler()</span><br></pre></td></tr></table></figure>
+<p>上述代码中就生成了root.handlers中的默认的两个Handler，相对于低版本中的处理逻辑如下，由于未传入log_file配置，最终生成的 <code>log_file_handler</code> 和 <code>log_cli_handler</code> 都为None，具体代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LoggingPlugin</span>:</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Attaches to the logging module and captures log messages for each test.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, config: Config</span>) -&gt; <span class="keyword">None</span>:</span></span><br><span class="line">				...</span><br><span class="line">        log_file = get_option_ini(config, <span class="string">&quot;log_file&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> log_file:</span><br><span class="line">            self.log_file_handler = logging.FileHandler(</span><br><span class="line">                log_file, mode=<span class="string">&quot;w&quot;</span>, encoding=<span class="string">&quot;UTF-8&quot;</span></span><br><span class="line">            )  <span class="comment"># type: Optional[logging.FileHandler]</span></span><br><span class="line">            self.log_file_handler.setFormatter(self.log_file_formatter)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.log_file_handler = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">        self.log_cli_handler = <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>​    至此大概的解决方案思路也清晰了，通过配置对应的 <code>log_file</code> 配置来解决，此处有两种方式。</p>
+<ul>
+<li><p>一种是直接写到根目录下的 <code>pytest.ini</code> 文件中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">log_file = data_factory_210517.log	<span class="comment"># 该方式比较死板，如果想修改日志文件名称需要修改pytest.ini文件</span></span><br></pre></td></tr></table></figure></li>
+<li><p>另外一种是直接通过 py.test 命令行执行的时候添加 <code>--log-file=xxx.log</code>（<font color=blue><strong>推荐</strong></font>）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">py.test --log-file=xxx.log <span class="comment"># 可在脚本中，根据用户自定义动态生成日志文件名称</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>​    大部分场景下，建议还是不要随意升级使用的组件库😭😭。。否则突然的改版可能会引起莫名其妙的问题。</p>
+
+    </div>
+
+    <div>
+      
+        <div>
+    
+      <div style="text-align:center;color: #ccc;font-size:20px;">------------- 本 文 结 束 <i class="fa fa-paw"></i> 感 谢 您 的 阅 读 -------------</div>
+    
+</div>
+
+      
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/posts/db0729cb/" rel="bookmark">Flask 序列化与反序列化</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/posts/617073a5/" rel="bookmark">Python之Pandas库躺坑记</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/posts/cb61081b/" rel="bookmark">Py-spy解决Python程序Hang住问题</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/posts/2a44a0fd/" rel="bookmark">python调用gRPC接口</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/posts/eaf4f2e8/" rel="bookmark">判断Excel文件中是否存在合并单元格</a></div>
+    </li>
+  </ul>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>BigBean
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://beanskingdom.top/posts/18a06f9f/" title="一次Pytest库升级遇到的问题">https://beanskingdom.top/posts/18a06f9f/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              <a href="/tags/Pytest/" rel="tag"><i class="fa fa-tag"></i> Pytest</a>
+              <a href="/tags/Logging/" rel="tag"><i class="fa fa-tag"></i> Logging</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/db0729cb/" rel="prev" title="Flask 序列化与反序列化">
+      <i class="fa fa-chevron-left"></i> Flask 序列化与反序列化
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%B0%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">现象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E6%9F%A5%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">排查过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%981-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E9%AB%98%E7%89%88%E6%9C%AC%E7%9A%84Pytest%E5%BA%93%E5%90%8E%EF%BC%8C%E6%97%A5%E5%BF%97%E6%97%A0%E6%B3%95%E6%89%93%E5%8D%B0%E5%87%BA%E6%9D%A5%E5%91%A2%EF%BC%9F"><span class="nav-number">2.1.</span> <span class="nav-text">问题1: 为什么使用高版本的Pytest库后，日志无法打印出来呢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%982-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%AB%98%E7%89%88%E6%9C%ACPytest%E5%9C%BA%E6%99%AF%E4%B8%AD%EF%BC%8Clogging%E5%AF%B9%E8%B1%A1%E7%9A%84root-handlers%E9%BB%98%E8%AE%A4%E5%AD%98%E5%9C%A8%E4%B8%A4%E4%B8%AAHandler%EF%BC%9F%EF%BC%9F"><span class="nav-number">2.2.</span> <span class="nav-text">问题2: 为什么高版本Pytest场景中，logging对象的root.handlers默认存在两个Handler？？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">3.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="BigBean"
+      src="/uploads/avatar.png">
+  <p class="site-author-name" itemprop="name">BigBean</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BigBean</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">42k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">38 分钟</span>
+</div>
+<script src="/js/prism/prism.js" async></script>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'RxwAAjYjlIuwVtWQmp433VMU-gzGzoHsz',
+      appKey     : 'UnfFYvCblrw3Er5yRUH7IMrR',
+      placeholder: "不来吐个5毛钱的槽？？",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"left","width":300,"height":300,"bottom":-20},"mobile":{"show":false},"log":false});</script></body>
+</html>
