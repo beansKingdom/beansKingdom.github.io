@@ -21,28 +21,24 @@
   </script>
 <link rel="stylesheet" href="/js/prism/prism.css">
 
-  <meta name="description" content="背景​    在几次工作总结或者是处理事情上觉得自己的思维比较混乱，比如：在周会上想和组员进行一些内容分享，但由于开始没准备充分，在实际讲的过程中比较混乱，自己讲完后都觉得难以吸收；还有就是在表达自己想法的时候，思路比较天马行空，往往是讲着讲着就没什么逻辑关联，导致听起来云里雾里的。 ​    于是网上搜索了下相关书籍，推荐了 《金字塔原理》，但看了几章后感觉不太好时间，又找了这本 《结构化思维》">
+  <meta name="description" content="背景​    平时编写Blog的时候，使用了 sm.ms 的免费图床（┑(￣。。￣)┍ 咳咳咳，这个名字不要误解，是一个正经的图片管理工具😂，如果访问流量比较少的，免费版本就可以满足需求）， 后来想在本地也定时备份下所有的图片，以便后续更换图床做不时之需。 于是想到了爬虫去爬取已有的图片并下载到本地。 解决方案最终通过调研，发现存在以下两种方式（欢迎提出其他解决方案）： 方案一：Beautifu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="结构化思维读后感">
-<meta property="og:url" content="https://beanskingdom.top/posts/6ac03032/index.html">
+<meta property="og:title" content="一次爬虫实践遇到的问题">
+<meta property="og:url" content="https://beanskingdom.top/posts/3e880dc7/index.html">
 <meta property="og:site_name" content="BeansKingdom">
-<meta property="og:description" content="背景​    在几次工作总结或者是处理事情上觉得自己的思维比较混乱，比如：在周会上想和组员进行一些内容分享，但由于开始没准备充分，在实际讲的过程中比较混乱，自己讲完后都觉得难以吸收；还有就是在表达自己想法的时候，思路比较天马行空，往往是讲着讲着就没什么逻辑关联，导致听起来云里雾里的。 ​    于是网上搜索了下相关书籍，推荐了 《金字塔原理》，但看了几章后感觉不太好时间，又找了这本 《结构化思维》">
+<meta property="og:description" content="背景​    平时编写Blog的时候，使用了 sm.ms 的免费图床（┑(￣。。￣)┍ 咳咳咳，这个名字不要误解，是一个正经的图片管理工具😂，如果访问流量比较少的，免费版本就可以满足需求）， 后来想在本地也定时备份下所有的图片，以便后续更换图床做不时之需。 于是想到了爬虫去爬取已有的图片并下载到本地。 解决方案最终通过调研，发现存在以下两种方式（欢迎提出其他解决方案）： 方案一：Beautifu">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://i.loli.net/2021/03/23/xbE8FB4tQUAzih6.png">
-<meta property="og:image" content="https://i.loli.net/2021/03/23/fKapOt59MdQh8rC.png">
-<meta property="og:image" content="https://i.loli.net/2021/03/23/M71tPoJSgCGxp5n.png">
-<meta property="og:image" content="https://i.loli.net/2021/03/23/YRgfOQbKqvHAChk.png">
-<meta property="og:image" content="https://i.loli.net/2021/03/23/ATfn8eIqb3zvmVu.png">
-<meta property="article:published_time" content="2021-03-28T14:56:15.000Z">
-<meta property="article:modified_time" content="2021-03-28T15:06:05.537Z">
+<meta property="og:image" content="https://i.loli.net/2021/07/02/3yBbxZYSz9nPVsg.png">
+<meta property="article:published_time" content="2021-07-02T15:50:28.000Z">
+<meta property="article:modified_time" content="2021-07-02T15:54:07.248Z">
 <meta property="article:author" content="BigBean">
-<meta property="article:tag" content="软素质">
-<meta property="article:tag" content="逻辑思维">
-<meta property="article:tag" content="结构化思维">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="requests">
+<meta property="article:tag" content="BeautifulSoup">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/03/23/xbE8FB4tQUAzih6.png">
+<meta name="twitter:image" content="https://i.loli.net/2021/07/02/3yBbxZYSz9nPVsg.png">
 
-<link rel="canonical" href="https://beanskingdom.top/posts/6ac03032/">
+<link rel="canonical" href="https://beanskingdom.top/posts/3e880dc7/">
 
 
 <script id="page-configurations">
@@ -55,7 +51,7 @@
   };
 </script>
 
-  <title>结构化思维读后感 | BeansKingdom</title>
+  <title>一次爬虫实践遇到的问题 | BeansKingdom</title>
   
 
 
@@ -203,7 +199,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://beanskingdom.top/posts/6ac03032/">
+    <link itemprop="mainEntityOfPage" href="https://beanskingdom.top/posts/3e880dc7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -216,7 +212,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          结构化思维读后感
+          一次爬虫实践遇到的问题
         </h1>
 
         <div class="post-meta">
@@ -227,7 +223,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-03-28 22:56:15 / 修改时间：23:06:05" itemprop="dateCreated datePublished" datetime="2021-03-28T22:56:15+08:00">2021-03-28</time>
+              <time title="创建时间：2021-07-02 23:50:28 / 修改时间：23:54:07" itemprop="dateCreated datePublished" datetime="2021-07-02T23:50:28+08:00">2021-07-02</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -235,12 +231,12 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/" itemprop="url" rel="index"><span itemprop="name">读后感</span></a>
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
           
-            <span id="/posts/6ac03032/" class="post-meta-item leancloud_visitors" data-flag-title="结构化思维读后感" title="阅读次数">
+            <span id="/posts/3e880dc7/" class="post-meta-item leancloud_visitors" data-flag-title="一次爬虫实践遇到的问题" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -255,8 +251,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/posts/6ac03032/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/6ac03032/" itemprop="commentCount"></span>
+    <a title="valine" href="/posts/3e880dc7/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/3e880dc7/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -266,14 +262,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.5k</span>
+              <span>2.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -285,45 +281,25 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>​    在几次工作总结或者是处理事情上觉得自己的思维比较混乱，比如：在周会上想和组员进行一些内容分享，但由于开始没准备充分，在实际讲的过程中比较混乱，自己讲完后都觉得难以吸收；还有就是在表达自己想法的时候，思路比较天马行空，往往是讲着讲着就没什么逻辑关联，导致听起来云里雾里的。</p>
-<p>​    于是网上搜索了下相关书籍，推荐了 <a target="_blank" rel="noopener" href="http://byteliu.com/PDF/%E9%87%91%E5%AD%97%E5%A1%94%E5%8E%9F%E7%90%86.pdf">《金字塔原理》</a>，但看了几章后感觉不太好时间，又找了这本 <a target="_blank" rel="noopener" href="https://read678.com/JdBook/index/16756">《结构化思维》</a>，个人感觉还是很符合<strong>入门级别的结构化思维书籍</strong>（后续可以再进行金字塔原理的阅读），借此在看完整本后再进行一个整体回顾。（<em>PS：个人觉得这本书阅读完后收益还是挺多的。</em>）</p>
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>​    平时编写Blog的时候，使用了 <a target="_blank" rel="noopener" href="https://sm.ms/">sm.ms</a> 的免费图床（┑(￣。。￣)┍ 咳咳咳，这个名字不要误解，是一个正经的图片管理工具😂，如果访问流量比较少的，免费版本就可以满足需求）， <strong><font color=red>后来想在本地也定时备份下所有的图片，以便后续更换图床做不时之需。</font></strong> 于是想到了爬虫去爬取已有的图片并下载到本地。</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>最终通过调研，发现存在以下两种方式（<strong>欢迎提出其他解决方案</strong>）：</p>
+<h4 id="方案一：BeautifulSoup-爬虫"><a href="#方案一：BeautifulSoup-爬虫" class="headerlink" title="方案一：BeautifulSoup 爬虫"></a>方案一：BeautifulSoup 爬虫</h4><p><strong>优点：</strong>可指定获取特定页面的 HTML 内容，然后通过解析 HTML 内容来获取所有图片的信息。</p>
+<p><strong>缺点：</strong>每次需要去更新请求中的 Cookie 信息来爬取对应的页面内容。</p>
 <a id="more"></a>
 
-<h3 id="内容介绍"><a href="#内容介绍" class="headerlink" title="内容介绍"></a>内容介绍</h3><p>​    本书总共五章，下面分别对每一篇进行一个总结。前3章基本上是对于思维相关的介绍（如思维的意义、思维的过程等），第4章是详细的介绍了金字塔结构，第5章是介绍了常用的几种思维模型。</p>
-<h4 id="第一章-初识思维"><a href="#第一章-初识思维" class="headerlink" title="第一章 初识思维"></a>第一章 初识思维</h4><p>​    本章节的内容还是比较简单，个人理解 <code>最主要的就是理解思维的意义</code>，如果对于看文章没什么太大兴趣的，推荐去看<strong>刘德华的《拆弹专家2》</strong>这部电影（刚好是我在看这本书的过程中看到的一部电影，很形象的描述了主角在影片中思维对他的影响），这也是书籍中介绍的故事思维可以更容易让人理解一个道理😂😂。（<font color=blue><em>脑图中有颜色标记的是我个人认为更加需要注意的点</em>，后面不再重复阐述</font>）</p>
-<img src="https://i.loli.net/2021/03/23/xbE8FB4tQUAzih6.png" alt="结构化思维-1-初识思维.png" style="zoom:40%;" />
-
-<h4 id="第二章-深入思维"><a href="#第二章-深入思维" class="headerlink" title="第二章 深入思维"></a>第二章 深入思维</h4><p>​    本章节介绍的概念较多，其中我个人认为比较重要的有两个点。（⚠️ 注意：<strong>思维是一直在变化的</strong>，每个人在不同年龄或者不同场景下，都可能对同一件事情有不同的看法、态度。）</p>
-<ul>
-<li><p><strong>信息的获取</strong></p>
-<p>在现实生活中可能常常看到墙壁上贴着宽带一年只要599、2室1厅一年仅要2000等等，当你真正打电话过去咨询的时候别人会告诉你这些都没了，大多数时候<font color=red><strong>你很容易获得的信息都是别人故意让你看到的信息</strong></font>，所以不要因为看到某些信息后就马上给出定论。</p>
-</li>
-<li><p><strong>信息的加工</strong></p>
-<p>对于平时<strong>工作经历应该多进行归纳</strong>，这样才能形成属于自己特定的经验。再对自己<strong>总结的经验（结论）多进行演绎</strong>，这样才能验证这些经验（结论）的正确性，通过这样的良性循环，最终形成自己的方法论才能更好的成长。</p>
-</li>
-</ul>
-<img src="https://i.loli.net/2021/03/23/fKapOt59MdQh8rC.png" alt="结构化思维-2-深入思维.png" style="zoom:40%;" />
-
-
-
-<h4 id="第三章-归纳与演绎"><a href="#第三章-归纳与演绎" class="headerlink" title="第三章 归纳与演绎"></a>第三章 归纳与演绎</h4><p>​        本章节比较细致介绍了归纳与演绎。这里就不做详细的阐述，有兴趣可以自行翻阅本书进行了解。</p>
-<img src="https://i.loli.net/2021/03/23/M71tPoJSgCGxp5n.png" alt="结构化思维-3-归纳和演绎.png" style="zoom:40%;" />
-
-<h4 id="第四章-结构化思维"><a href="#第四章-结构化思维" class="headerlink" title="第四章 结构化思维"></a>第四章 结构化思维</h4><p>​    本章节是对于金字塔结构的一个专辑讲解，这也是我看完后对金字塔结构更深入的理解，方便后面对《金字塔原理》进行阅读。</p>
-<p>​    个人理解 <code>最重要的为金字塔结构四个原则：结论先行、以上统下、归类分组、逻辑递进。</code>，然后在这四个中比较难的主要在于归类分组以及逻辑递进（这个也正好是我觉得自己最需要加强的能力），其中讲解的几个方法在看了后深有感触。比如：</p>
-<ul>
-<li><strong>归类分组</strong>：<strong>二分法、矩阵法、公式法、流程法</strong>这些在平时工作中常常遇见，所以运用起来更加容易上手。</li>
-<li><strong>逻辑递进</strong>：<strong>时间顺序、重要性顺序</strong>等。</li>
-</ul>
-<img src="https://i.loli.net/2021/03/23/YRgfOQbKqvHAChk.png" alt="结构化思维-4.png" style="zoom:40%;" />
-
-<h4 id="第五章-常用的思维模型"><a href="#第五章-常用的思维模型" class="headerlink" title="第五章 常用的思维模型"></a>第五章 常用的思维模型</h4><p>​    本章最终是介绍了常用的思维模型（<font color=gray><em>部分思维模型可能觉得有点重复就未进行梳理</em></font>），个人再根据我自己的理解进行了一个排序：<strong>5W2H、流程思维、故事思维、客户思维</strong>。并且在我个人的工作经验中，发现 <code>流程思维</code> 和 <code>客户思维</code> 更是自己的短板，比如在客户思维中的实例中：加班较多并且也没有给自己加工资，此时仅仅是抱怨老板或者领导么？自己是否恰当的去反馈了这些问题呢？（如：你是否工作安排合理？ 你是否缺乏时间管理意识等等）。</p>
-<img src="https://i.loli.net/2021/03/23/ATfn8eIqb3zvmVu.png" alt="结构化思维-5-思维模型.png" style="zoom:45%;" />
-
-
-
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>​    不管是生活中还是工作中，思维都起到一个重要的作用，乐观而又积极的思维会让你的生活丰富多彩，悲观而又消极的思维会让你的生活黯然失色，引用书中的一句话： <code>如果过往事实不能改变，我们就只能改变思维，改变面对事实的态度和行为，让未来过得更好，避免发生悲剧。改变思维才是改变一切的源头。</code> </p>
-<p>​    看书的最重要的点就是能够把<font color=red><strong>看到的知识运用到实际场景中</strong></font>，这样也算对得起自己用来看书花费的时间。</p>
+<h4 id="方案二：-sm-ms-API"><a href="#方案二：-sm-ms-API" class="headerlink" title="方案二： sm.ms API"></a>方案二： <a target="_blank" rel="noopener" href="https://doc.sm.ms/">sm.ms API</a></h4><p><strong>优点：</strong>对外API接口中，<code>/upload_history</code> 接口返回了历史的上传记录，可以获取到所有的已上传的图片链接以及相关信息。</p>
+<p><strong>缺点</strong>：每次返回的是全量数据，这对于历史数据很多的用户，体验比较差。</p>
+<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><p>上面两种方案都试验过后实际都可以满足背景中的需求，但发现经过调试代码成功后，实际开始进行内容爬取的时候，直接请求报错。具体报错信息如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RemoteDisconnected(<span class="string">&#x27;Remote end closed connection without response&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>┑(￣。。￣)┍ oh，比较坏的情况发生了，可能由于请求过快被服务端给拉黑了。。。通过后面的实验发现应该是<font color=red><strong>被服务端封了IP</strong></font>。</p>
+<p>网上解决方案：<a target="_blank" rel="noopener" href="https://blog.csdn.net/c406495762/article/details/60137956">使用User Agent和代理IP隐藏身份</a></p>
+<p>但再使用网上的解决方案之前，存在一个比较怪异的现象，那就是<font color=red><strong>同样的接口，使用本地的Postman却可以一直调用成功，使用本地的Pycharm脚本调用却一直失败。</strong></font>（都是通过API方式去调用的 /upload_history接口）</p>
+<p>通过一系列的骚操作对比后，发现核心区别在于（postman自动使用了本地的代理端口去发送请求，也就是代理IP隐藏身份）：<br><img src="https://i.loli.net/2021/07/02/3yBbxZYSz9nPVsg.png" alt="postman_proxy_1_new.png" style="zoom:67%;" /></p>
+<p>Python requests 解决该问题的核心代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="comment"># 主要是添加 proxy 来隐藏实际自己的IP。</span></span><br><span class="line">proxy = &#123;<span class="string">&quot;http&quot;</span>: <span class="string">&quot;http://127.0.0.1:1235/&quot;</span>, <span class="string">&quot;https&quot;</span>: <span class="string">&quot;http://127.0.0.1:1235/&quot;</span>&#125;</span><br><span class="line">res = requests.get(img_url,  headers=headers, proxies=proxy, stream=<span class="literal">True</span>)</span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&quot;wb&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">  f.write(res.content)</span><br></pre></td></tr></table></figure>
+<p>PS: <strong>如何判断自己的代理生效了</strong>可参考如下代码（<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/79466893">参考链接</a>）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">validate</span>(<span class="params">proxies=<span class="literal">None</span></span>):</span></span><br><span class="line">    https_url = <span class="string">&#x27;https://ip.cn/api/index?ip=&amp;type=0&#x27;</span></span><br><span class="line">    http_url = <span class="string">&#x27;http://ip111.cn/&#x27;</span></span><br><span class="line">    headers = &#123;<span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;curl/7.29.0&#x27;</span>&#125;</span><br><span class="line">    https_r = requests.get(https_url, headers=headers, proxies=proxies, timeout=<span class="number">10</span>)</span><br><span class="line">    http_r = requests.get(http_url, headers=headers, proxies=proxies, timeout=<span class="number">10</span>)</span><br><span class="line">    soup = BeautifulSoup(http_r.content, <span class="string">&#x27;html.parser&#x27;</span>)</span><br><span class="line">    result = soup.find(class_=<span class="string">&#x27;card-body&#x27;</span>).get_text().strip().split(<span class="string">&#x27;&#x27;&#x27;\n&#x27;&#x27;&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    https_r_json = https_r.json()</span><br><span class="line">    https_r_address, https_r_ip = https_r_json.get(<span class="string">&quot;address&quot;</span>), https_r_json.get(<span class="string">&quot;ip&quot;</span>)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;local_proxy.log&quot;</span>, <span class="string">&quot;a+&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(<span class="string">&quot;=========================\n&quot;</span>)</span><br><span class="line">        f.write(<span class="string">&quot;访问https网站使用代理：%s %s\n&quot;</span> % (https_r_ip, https_r_address))</span><br><span class="line">        f.write(<span class="string">&quot;访问http网站使用代理：%s\n&quot;</span> % result)</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 未开启代理时</span></span><br><span class="line">validate()</span><br><span class="line">&gt;&gt; 访问https网站使用代理：172.69.34.243 美国 加利福尼亚  	<span class="comment"># 这个看起来有点问题</span></span><br><span class="line">&gt;&gt; 访问http网站使用代理：xxx.xxx.xx.xxx 中国 xx市</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启代理后 =========================</span></span><br><span class="line">&gt;&gt; 访问https网站使用代理：153.122.116.100 日本  东京都 东京 </span><br><span class="line">&gt;&gt; 访问http网站使用代理：153.122.116.100 日本 </span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -345,19 +321,19 @@
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/posts/50e7aed3/" rel="bookmark">初识思维</a></div>
+      <div class="popular-posts-title"><a href="/posts/db0729cb/" rel="bookmark">Flask 序列化与反序列化</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/posts/1f0a8761/" rel="bookmark">思维的影响</a></div>
+      <div class="popular-posts-title"><a href="/posts/617073a5/" rel="bookmark">Python之Pandas库躺坑记</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/posts/ec1ab3bc/" rel="bookmark">结构化思维</a></div>
+      <div class="popular-posts-title"><a href="/posts/cb61081b/" rel="bookmark">Py-spy解决Python程序Hang住问题</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/posts/d9c66cb5/" rel="bookmark">《学会提问》读后感</a></div>
+      <div class="popular-posts-title"><a href="/posts/2a44a0fd/" rel="bookmark">python调用gRPC接口</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/posts/f1ff3319/" rel="bookmark">小强升职记读后感</a></div>
+      <div class="popular-posts-title"><a href="/posts/18a06f9f/" rel="bookmark">一次Pytest库升级遇到的问题</a></div>
     </li>
   </ul>
 
@@ -370,7 +346,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://beanskingdom.top/posts/6ac03032/" title="结构化思维读后感">https://beanskingdom.top/posts/6ac03032/</a>
+    <a href="https://beanskingdom.top/posts/3e880dc7/" title="一次爬虫实践遇到的问题">https://beanskingdom.top/posts/3e880dc7/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -382,9 +358,9 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/%E8%BD%AF%E7%B4%A0%E8%B4%A8/" rel="tag"><i class="fa fa-tag"></i> 软素质</a>
-              <a href="/tags/%E9%80%BB%E8%BE%91%E6%80%9D%E7%BB%B4/" rel="tag"><i class="fa fa-tag"></i> 逻辑思维</a>
-              <a href="/tags/%E7%BB%93%E6%9E%84%E5%8C%96%E6%80%9D%E7%BB%B4/" rel="tag"><i class="fa fa-tag"></i> 结构化思维</a>
+              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              <a href="/tags/requests/" rel="tag"><i class="fa fa-tag"></i> requests</a>
+              <a href="/tags/BeautifulSoup/" rel="tag"><i class="fa fa-tag"></i> BeautifulSoup</a>
           </div>
 
         
@@ -393,13 +369,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/posts/617073a5/" rel="prev" title="Python之Pandas库躺坑记">
-      <i class="fa fa-chevron-left"></i> Python之Pandas库躺坑记
+    <a href="/posts/d9c66cb5/" rel="prev" title="《学会提问》读后感">
+      <i class="fa fa-chevron-left"></i> 《学会提问》读后感
     </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/f1ff3319/" rel="next" title="小强升职记读后感">
-      小强升职记读后感 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -460,7 +433,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AE%B9%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">内容介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%80%9D%E7%BB%B4"><span class="nav-number">2.1.</span> <span class="nav-text">第一章 初识思维</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%80%9D%E7%BB%B4"><span class="nav-number">2.2.</span> <span class="nav-text">第二章 深入思维</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E5%BD%92%E7%BA%B3%E4%B8%8E%E6%BC%94%E7%BB%8E"><span class="nav-number">2.3.</span> <span class="nav-text">第三章 归纳与演绎</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E7%BB%93%E6%9E%84%E5%8C%96%E6%80%9D%E7%BB%B4"><span class="nav-number">2.4.</span> <span class="nav-text">第四章 结构化思维</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E5%B8%B8%E7%94%A8%E7%9A%84%E6%80%9D%E7%BB%B4%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.5.</span> <span class="nav-text">第五章 常用的思维模型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">2.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%B8%80%EF%BC%9ABeautifulSoup-%E7%88%AC%E8%99%AB"><span class="nav-number">2.1.</span> <span class="nav-text">方案一：BeautifulSoup 爬虫</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%BA%8C%EF%BC%9A-sm-ms-API"><span class="nav-number">2.2.</span> <span class="nav-text">方案二： sm.ms API</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">遇到的问题</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
