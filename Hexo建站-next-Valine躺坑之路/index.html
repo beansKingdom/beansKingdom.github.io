@@ -21,22 +21,24 @@
   </script>
 <link rel="stylesheet" href="/js/prism/prism.css">
 
-  <meta name="description" content="背景​    为什么写这篇话题呢，印象中是有次面试中，面试官问我是否了解 Flask 中的序列化与反序列化。由于自身的客观原因，当时对于该问题只能硬着头皮回答：不太了解乀(ˉεˉ乀) 乀(ˉεˉ乀) 。。。（个人觉得还是：基础知识不扎实） ​    后来这个问题也一直没去关注。。。此次突然想起来后进行一下记录（同样的地方不要翻车两次┑(￣。。￣)┍ ）。">
+  <meta name="description" content="背景​    写了一段时间博客后，发现别人的文章有浏览次数以及评论功能★~★，这也某种程度上提高写 Blog 的动力，那我也来弄一个哈哈哈。。。 操作步骤​    然而，事实总是那么折磨人。。。使用的是 nexT 主题的 v8.2.1 版本，按照网上的教程后一直没有达到最终的效果😭😭。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Flask 序列化与反序列化">
-<meta property="og:url" content="https://beanskingdom.top/Flask-%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/index.html">
+<meta property="og:title" content="NexT + Valine躺坑之路">
+<meta property="og:url" content="https://beanskingdom.top/Hexo%E5%BB%BA%E7%AB%99-next-Valine%E8%BA%BA%E5%9D%91%E4%B9%8B%E8%B7%AF/index.html">
 <meta property="og:site_name" content="BeansKingdom">
-<meta property="og:description" content="背景​    为什么写这篇话题呢，印象中是有次面试中，面试官问我是否了解 Flask 中的序列化与反序列化。由于自身的客观原因，当时对于该问题只能硬着头皮回答：不太了解乀(ˉεˉ乀) 乀(ˉεˉ乀) 。。。（个人觉得还是：基础知识不扎实） ​    后来这个问题也一直没去关注。。。此次突然想起来后进行一下记录（同样的地方不要翻车两次┑(￣。。￣)┍ ）。">
+<meta property="og:description" content="背景​    写了一段时间博客后，发现别人的文章有浏览次数以及评论功能★~★，这也某种程度上提高写 Blog 的动力，那我也来弄一个哈哈哈。。。 操作步骤​    然而，事实总是那么折磨人。。。使用的是 nexT 主题的 v8.2.1 版本，按照网上的教程后一直没有达到最终的效果😭😭。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-04-22T14:38:04.000Z">
-<meta property="article:modified_time" content="2021-04-22T14:45:01.725Z">
+<meta property="og:image" content="https://i.loli.net/2021/02/09/vLhxcG8jZfyk46u.png">
+<meta property="article:published_time" content="2021-02-09T08:42:03.000Z">
+<meta property="article:modified_time" content="2021-02-09T10:24:59.912Z">
 <meta property="article:author" content="BigBean">
-<meta property="article:tag" content="Flask">
-<meta property="article:tag" content="Python">
-<meta property="article:tag" content="序列化与反序列化">
+<meta property="article:tag" content="blog搭建">
+<meta property="article:tag" content="hexo建站">
+<meta property="article:tag" content="Valine">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/09/vLhxcG8jZfyk46u.png">
 
-<link rel="canonical" href="https://beanskingdom.top/Flask-%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+<link rel="canonical" href="https://beanskingdom.top/Hexo%E5%BB%BA%E7%AB%99-next-Valine%E8%BA%BA%E5%9D%91%E4%B9%8B%E8%B7%AF/">
 
 
 <script id="page-configurations">
@@ -49,7 +51,7 @@
   };
 </script>
 
-  <title>Flask 序列化与反序列化 | BeansKingdom</title>
+  <title>NexT + Valine躺坑之路 | BeansKingdom</title>
   
 
 
@@ -197,7 +199,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://beanskingdom.top/Flask-%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+    <link itemprop="mainEntityOfPage" href="https://beanskingdom.top/Hexo%E5%BB%BA%E7%AB%99-next-Valine%E8%BA%BA%E5%9D%91%E4%B9%8B%E8%B7%AF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -210,7 +212,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Flask 序列化与反序列化
+          NexT + Valine躺坑之路
         </h1>
 
         <div class="post-meta">
@@ -221,7 +223,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-04-22 22:38:04 / 修改时间：22:45:01" itemprop="dateCreated datePublished" datetime="2021-04-22T22:38:04+08:00">2021-04-22</time>
+              <time title="创建时间：2021-02-09 16:42:03 / 修改时间：18:24:59" itemprop="dateCreated datePublished" datetime="2021-02-09T16:42:03+08:00">2021-02-09</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -229,12 +231,12 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                  <a href="/categories/hexo%E5%BB%BA%E7%AB%99/" itemprop="url" rel="index"><span itemprop="name">hexo建站</span></a>
                 </span>
             </span>
 
           
-            <span id="/Flask-%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="post-meta-item leancloud_visitors" data-flag-title="Flask 序列化与反序列化" title="阅读次数">
+            <span id="/Hexo%E5%BB%BA%E7%AB%99-next-Valine%E8%BA%BA%E5%9D%91%E4%B9%8B%E8%B7%AF/" class="post-meta-item leancloud_visitors" data-flag-title="NexT + Valine躺坑之路" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -249,8 +251,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/Flask-%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/Flask-%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" itemprop="commentCount"></span>
+    <a title="valine" href="/Hexo%E5%BB%BA%E7%AB%99-next-Valine%E8%BA%BA%E5%9D%91%E4%B9%8B%E8%B7%AF/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Hexo%E5%BB%BA%E7%AB%99-next-Valine%E8%BA%BA%E5%9D%91%E4%B9%8B%E8%B7%AF/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -260,14 +262,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.8k</span>
+              <span>1.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -279,23 +281,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>​    为什么写这篇话题呢，印象中是有次面试中，面试官问我是否了解 <code>Flask</code> 中的序列化与反序列化。由于自身的客观原因，当时对于该问题只能硬着头皮回答：不太了解乀(ˉεˉ乀) 乀(ˉεˉ乀) 。。。（个人觉得还是：基础知识不扎实）</p>
-<p>​    后来这个问题也一直没去关注。。。此次突然想起来后进行一下记录（同样的地方不要翻车两次┑(￣。。￣)┍ ）。</p>
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>​    写了一段时间博客后，发现别人的文章有浏览次数以及评论功能★~★，这也某种程度上提高写 <em>Blog</em> 的动力，那我也来弄一个哈哈哈。。。</p>
+<h3 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h3><p>​    然而，事实总是那么折磨人。。。使用的是 <em>nexT</em> 主题的 <em>v8.2.1</em> 版本，按照网上的<a target="_blank" rel="noopener" href="https://qianfanguojin.github.io/2019/07/23/Hexo%E5%8D%9A%E5%AE%A2%E8%BF%9B%E9%98%B6%EF%BC%9A%E4%B8%BANext%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0Valine%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/">教程</a>后一直没有达到最终的效果😭😭。</p>
 <a id="more"></a>
 
-<h3 id="行动"><a href="#行动" class="headerlink" title="行动"></a>行动</h3><p>​    大概先了解了下相关定义：<code>Serialization</code> 和 <code>Deserialization</code> 即序列化和反序列化。Flask中是<strong>将对象类型数据转为json即为序列化</strong>，<strong>将json转为对象类型数据即为反序列化</strong>。</p>
-<p>​    <strong>Flask</strong>中的序列化和反序列化还是比较简单，下面分别进行下理解。</p>
-<h4 id="序列化-jsonify"><a href="#序列化-jsonify" class="headerlink" title="序列化 jsonify()"></a>序列化 jsonify()</h4><p>​    Flask jsonify()的代码还是很简单， 可以理解在默认情况下，Flask的序列化就是直接使用了 <code>json.dumps()</code>，再通过 <code>Response</code> 对象直接返回了 ╮(╯Д╰)╭ ，核心代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 唯一就是在用法上有点区别， Flask的jsonify会对传入的参数进行取舍，具体逻辑如下</span></span><br><span class="line"><span class="keyword">elif</span> <span class="built_in">len</span>(args) == <span class="number">1</span>:  <span class="comment"># single args are passed directly to dumps()</span></span><br><span class="line">  data = args[<span class="number">0</span>]</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">  data = args <span class="keyword">or</span> kwargs</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最终将 data 通过 json.dumps() 进行序列化</span></span><br><span class="line"><span class="keyword">return</span> current_app.response_class(</span><br><span class="line">  dumps(data, indent=indent, separators=separators) + <span class="string">&quot;\n&quot;</span>,</span><br><span class="line">  mimetype=current_app.config[<span class="string">&quot;JSONIFY_MIMETYPE&quot;</span>],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>看到网上其他人说了一些更深层次的内容， <a target="_blank" rel="noopener" href="https://m.yisu.com/zixun/227014.html">参考链接</a>，<a target="_blank" rel="noopener" href="https://www.kancloud.cn/schip/klause/1021392">参考链接2</a>：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认情况下用的都是 app.json_encoder， 如果有特殊需求，可以对该encoder进行自定义</span></span><br><span class="line"><span class="keyword">if</span> app:</span><br><span class="line">  ...</span><br><span class="line">  kwargs.setdefault(</span><br><span class="line">    <span class="string">&quot;cls&quot;</span>, bp.json_encoder <span class="keyword">if</span> bp <span class="keyword">and</span> bp.json_encoder <span class="keyword">else</span> app.json_encoder</span><br><span class="line">  )</span><br><span class="line">	...</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">  ...</span><br><span class="line">  kwargs.setdefault(<span class="string">&quot;cls&quot;</span>, JSONEncoder)</span><br><span class="line">      </span><br><span class="line"><span class="comment"># 用户也可以通过对 app.json_encoder 进行二次封装</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">JSONEncoder</span>(<span class="params">_json.JSONEncoder</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;The default Flask JSON encoder. This one extends the default</span></span><br><span class="line"><span class="string">    encoder by also supporting ``datetime``, ``UUID``, ``dataclasses``,</span></span><br><span class="line"><span class="string">    and ``Markup`` objects.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    # 通过该对象可以定制化，比如我们要返回给前端的是一个从数据库查询的模型对象。那么就可以通过重写该方法进行定制化。</span></span><br></pre></td></tr></table></figure>
 
 
-<h4 id="反序列化-request-get-json"><a href="#反序列化-request-get-json" class="headerlink" title="反序列化 request.get_json()"></a>反序列化 request.get_json()</h4><p>​    同样的。。。 Flask的反序列化也挺简单，可以理解在默认情况下， Flask的反序列化就是直接使用了 <code>json.loads()</code>，核心代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">data = self._get_data_for_json(cache=cache)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">  rv = self.json_module.loads(data)</span><br><span class="line">  </span><br><span class="line"><span class="comment"># self.json_module.loads()</span></span><br><span class="line"><span class="keyword">if</span> <span class="built_in">isinstance</span>(s, <span class="built_in">bytes</span>):</span><br><span class="line">  <span class="comment"># Needed for Python &lt; 3.6</span></span><br><span class="line">  encoding = detect_utf_encoding(s)</span><br><span class="line">  s = s.decode(encoding)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> _json.loads(s, **kw)</span><br></pre></td></tr></table></figure>
+<h4 id="问题1-使用-Valine-插件后，在页面上并没有显示具体的评论数量以及文章的浏览次数。"><a href="#问题1-使用-Valine-插件后，在页面上并没有显示具体的评论数量以及文章的浏览次数。" class="headerlink" title="问题1: 使用 Valine 插件后，在页面上并没有显示具体的评论数量以及文章的浏览次数。"></a>问题1: 使用 <em>Valine</em> 插件后，在页面上并没有显示具体的评论数量以及文章的浏览次数。</h4><p>具体原因：因为 <code>v8.2.1 版本已经将 Valine 功能去除掉了</code>。（详情见<a target="_blank" rel="noopener" href="https://github.com/next-theme/hexo-theme-next/issues/188">官网解释</a>）也尝试了官网中的解决办法以及各种网上的方法，但是仍然无效。（瞎折腾了3个小时都没结果。。。气到内伤😭😭）</p>
+<p>那就将版本降低到能使用的 <em>Valine</em> 的 <em>NexT</em> 版本呢？（如降低到<a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next/releases/tag/v7.8.0">7.8.0</a>版本呢？？）<code>降低版本到7.8.0后，问题就解决了</code>。</p>
+<h4 id="问题2-降低版本后，发现原来文章中中文导航又不能用了，英文的就没有问题。"><a href="#问题2-降低版本后，发现原来文章中中文导航又不能用了，英文的就没有问题。" class="headerlink" title="问题2: 降低版本后，发现原来文章中中文导航又不能用了，英文的就没有问题。"></a>问题2: 降低版本后，发现原来文章中中文导航又不能用了，英文的就没有问题。</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 点击中文标题导航栏时候，console控制台中报错，并且页面上没有跳转到对应的标题位置。</span></span><br><span class="line">Cannot read property <span class="string">&#x27;getBoundingClientRect&#x27;</span> <span class="keyword">of</span> <span class="literal">null</span></span><br></pre></td></tr></table></figure>
+<p>实际原因是:  <code>themes/next/source/js/utils.js</code> 中的代码存在遗漏，没有对中文进行URL解码。具体代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">... <span class="comment">// 其他多余代码省略</span></span><br><span class="line"><span class="comment">// 在这个地方获取 event 的属性时候，中文的会被自动转成URI编码格式</span></span><br><span class="line"><span class="comment">// href=&quot;#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4&quot; </span></span><br><span class="line"><span class="comment">// 但文章中的Id仍然是中文的 &lt;h3 id=&quot;操作步骤&quot;&gt;, 所以导致此处的target为null。</span></span><br><span class="line"><span class="keyword">var</span> target = <span class="built_in">document</span>.getElementById(event.currentTarget.getAttribute(<span class="string">&#x27;href&#x27;</span>).replace(<span class="string">&#x27;#&#x27;</span>, <span class="string">&#x27;&#x27;</span>));</span><br><span class="line"><span class="keyword">var</span> offset = target.getBoundingClientRect().top + <span class="built_in">window</span>.scrollY;</span><br><span class="line">... <span class="comment">// 其他多余代码省略</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 解决办法：将上述代码替换如下代码即可。</span></span><br><span class="line"><span class="keyword">var</span> str_id = <span class="built_in">decodeURI</span>(event.currentTarget.getAttribute(<span class="string">&#x27;href&#x27;</span>).replace(<span class="string">&#x27;#&#x27;</span>, <span class="string">&#x27;&#x27;</span>));</span><br><span class="line"><span class="keyword">var</span> target = <span class="built_in">document</span>.getElementById(str_id);</span><br><span class="line"><span class="keyword">var</span> offset = target.getBoundingClientRect().top + <span class="built_in">window</span>.scrollY;</span><br></pre></td></tr></table></figure>
+<p>至此， 终于得到了自己想要的效果。。。（＋﹏＋）（＋﹏＋）</p>
+<img src="https://i.loli.net/2021/02/09/vLhxcG8jZfyk46u.png" alt="valine_result.png" style="zoom:50%;" />
 
-
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>​    额。。。本来以为是什么，实际查了下对应的资料后，从比较浅的层次来说， Flask中的序列化以及反序列化实际就是使用的 json库中自带的 <code>dumps</code> 和  <code>loads</code> 。（也可能是才疏学浅，没有太了解深层次的使用场景😂， 比如： <a target="_blank" rel="noopener" href="https://m.yisu.com/zixun/227014.html">Flask序列化</a>），所以，不要被一些 “名词” 高大上的样子忽悠了，可能实际内容并不复杂，<strong>困难的是做出去解决这个问题的决心</strong>。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>​    很多时候遇到的问题，通过网上不一定能适用自己当前的场景，并不一定是别人的方式有问题。。。很可能是你的环境和别人的就不一样，所以<code>同样的操作不一定能解决同样现象的问题</code>。。。还是需要多排查定位看看主要的问题点在哪。</p>
 
     </div>
 
@@ -317,19 +317,10 @@
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/一次爬虫实践遇到的问题/" rel="bookmark">一次爬虫实践遇到的问题</a></div>
+      <div class="popular-posts-title"><a href="/Hexo建站-Hexo-首次搭建遇到的问题/" rel="bookmark">Hexo 首次搭建个人Blog问题记录</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/python-Python-快速编写单测实践/" rel="bookmark">Python 快速编写单测实践</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/python-python调用gRPC接口/" rel="bookmark">python调用gRPC接口</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/python-Python之Pandas库躺坑记/" rel="bookmark">Python之Pandas库躺坑记</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/python-一次Pytest库升级遇到的问题/" rel="bookmark">一次Pytest库升级遇到的问题</a></div>
+      <div class="popular-posts-title"><a href="/Hexo建站-Hexo之优化（一）/" rel="bookmark">Hexo之优化（一）</a></div>
     </li>
   </ul>
 
@@ -342,7 +333,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://beanskingdom.top/Flask-%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="Flask 序列化与反序列化">https://beanskingdom.top/Flask-序列化与反序列化/</a>
+    <a href="https://beanskingdom.top/Hexo%E5%BB%BA%E7%AB%99-next-Valine%E8%BA%BA%E5%9D%91%E4%B9%8B%E8%B7%AF/" title="NexT + Valine躺坑之路">https://beanskingdom.top/Hexo建站-next-Valine躺坑之路/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -354,9 +345,9 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/Flask/" rel="tag"><i class="fa fa-tag"></i> Flask</a>
-              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
-              <a href="/tags/%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag"><i class="fa fa-tag"></i> 序列化与反序列化</a>
+              <a href="/tags/blog%E6%90%AD%E5%BB%BA/" rel="tag"><i class="fa fa-tag"></i> blog搭建</a>
+              <a href="/tags/hexo%E5%BB%BA%E7%AB%99/" rel="tag"><i class="fa fa-tag"></i> hexo建站</a>
+              <a href="/tags/Valine/" rel="tag"><i class="fa fa-tag"></i> Valine</a>
           </div>
 
         
@@ -365,12 +356,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/python-%E5%88%A4%E6%96%ADExcel%E6%96%87%E4%BB%B6%E4%B8%AD%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E5%90%88%E5%B9%B6%E5%8D%95%E5%85%83%E6%A0%BC/" rel="prev" title="判断Excel文件中是否存在合并单元格">
-      <i class="fa fa-chevron-left"></i> 判断Excel文件中是否存在合并单元格
+    <a href="/python-py-spy%E8%A7%A3%E5%86%B3Python%E7%A8%8B%E5%BA%8FHang%E4%BD%8F%E9%97%AE%E9%A2%98/" rel="prev" title="Py-spy解决Python程序Hang住问题">
+      <i class="fa fa-chevron-left"></i> Py-spy解决Python程序Hang住问题
     </a></div>
       <div class="post-nav-item">
-    <a href="/python-%E4%B8%80%E6%AC%A1Pytest%E5%BA%93%E5%8D%87%E7%BA%A7%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" rel="next" title="一次Pytest库升级遇到的问题">
-      一次Pytest库升级遇到的问题 <i class="fa fa-chevron-right"></i>
+    <a href="/%E5%B9%B4%E5%BA%A6%E5%9B%9E%E9%A1%BE-2019-2020%E5%B9%B4%E5%9B%9E%E9%A1%BE/" rel="next" title="2019~2020年回顾">
+      2019~2020年回顾 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -432,7 +423,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E5%8A%A8"><span class="nav-number">2.</span> <span class="nav-text">行动</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96-jsonify"><span class="nav-number">2.1.</span> <span class="nav-text">序列化 jsonify()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-request-get-json"><span class="nav-number">2.2.</span> <span class="nav-text">反序列化 request.get_json()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.</span> <span class="nav-text">操作步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%981-%E4%BD%BF%E7%94%A8-Valine-%E6%8F%92%E4%BB%B6%E5%90%8E%EF%BC%8C%E5%9C%A8%E9%A1%B5%E9%9D%A2%E4%B8%8A%E5%B9%B6%E6%B2%A1%E6%9C%89%E6%98%BE%E7%A4%BA%E5%85%B7%E4%BD%93%E7%9A%84%E8%AF%84%E8%AE%BA%E6%95%B0%E9%87%8F%E4%BB%A5%E5%8F%8A%E6%96%87%E7%AB%A0%E7%9A%84%E6%B5%8F%E8%A7%88%E6%AC%A1%E6%95%B0%E3%80%82"><span class="nav-number">2.1.</span> <span class="nav-text">问题1: 使用 Valine 插件后，在页面上并没有显示具体的评论数量以及文章的浏览次数。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%982-%E9%99%8D%E4%BD%8E%E7%89%88%E6%9C%AC%E5%90%8E%EF%BC%8C%E5%8F%91%E7%8E%B0%E5%8E%9F%E6%9D%A5%E6%96%87%E7%AB%A0%E4%B8%AD%E4%B8%AD%E6%96%87%E5%AF%BC%E8%88%AA%E5%8F%88%E4%B8%8D%E8%83%BD%E7%94%A8%E4%BA%86%EF%BC%8C%E8%8B%B1%E6%96%87%E7%9A%84%E5%B0%B1%E6%B2%A1%E6%9C%89%E9%97%AE%E9%A2%98%E3%80%82"><span class="nav-number">2.2.</span> <span class="nav-text">问题2: 降低版本后，发现原来文章中中文导航又不能用了，英文的就没有问题。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
