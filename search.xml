@@ -51,9 +51,9 @@
       
         <tags>
             
-            <tag> 守护进程 </tag>
+            <tag> Linux </tag>
             
-            <tag> Linux 工具 </tag>
+            <tag> 守护进程 </tag>
             
             <tag> 环境部署 </tag>
             
@@ -80,9 +80,9 @@
       
         <tags>
             
-            <tag> TCP 工具 </tag>
+            <tag> Linux </tag>
             
-            <tag> Linux 命令 </tag>
+            <tag> TCP 工具 </tag>
             
         </tags>
       
@@ -848,6 +848,8 @@
             <tag> shell 脚本调试 </tag>
             
             <tag> shell 命令 </tag>
+            
+            <tag> Linux </tag>
             
         </tags>
       
