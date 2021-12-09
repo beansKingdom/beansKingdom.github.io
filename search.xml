@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>《软件测试的艺术》读后感</title>
+      <link href="%E8%AF%BB%E5%90%8E%E6%84%9F-%E3%80%8A%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%9A%84%E8%89%BA%E6%9C%AF%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
+      <url>%E8%AF%BB%E5%90%8E%E6%84%9F-%E3%80%8A%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%9A%84%E8%89%BA%E6%9C%AF%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/</url>
+      
+        <content type="html"><![CDATA[<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>​    公司开始推荐相关阅读书籍，其中有一本书的要求是：“<strong>针对该行业的入门级必读书籍</strong>”，回头一看自己看过很多相关测试的书籍（<strong>囫囵吞枣模式</strong>┑(￣。。￣)┍ ），但确实没法一下说出来哪本书属于入门级必读书籍（毕竟自己刚进入测试行业的时候，完全是来靠自己摸爬滚打，在整个工作经验中慢慢的阅读相关书籍😂，当时也没有想到要针对性的指导自己去学习测试这门技术）。</p><h3 id="入门级人群的定义"><a href="#入门级人群的定义" class="headerlink" title="入门级人群的定义"></a>入门级人群的定义</h3><p>​    入门级必读书籍面对的人群我个人认为大概画像是：<strong>从未接触过测试或刚进入测试行业的人群</strong>（不一定工作年限为0，可能存在其他领域转到测试行业）。</p><a id="more"></a><h3 id="行动"><a href="#行动" class="headerlink" title="行动"></a>行动</h3><p>​    通过网上找了一些相关比较热门的推荐，其中一个是<a href="https://book.douban.com/subject/1445661/">《软件测试的艺术》</a>（豆瓣评分8.4分）。虽然原来也读过，但没有从入门这个维度去思考整本书籍，借此机会又重新阅读了整本书籍。</p><p>​    阅读完后， 根据我已知的国内测试行业的现状以及书内的内容做了以下的一些总结。</p><ul><li>适合入门阅读的章节；</li><li>不适合入门阅读的章节（也可以理解为适合：1～2年测试工作经验的人群，存在一定的测试基础以及相关经验的人群）；</li><li>其他章节（此章节属于通用能力的提升，不一定仅仅适用在测试行业，如果时间允许还是建议阅读）。</li></ul><h3 id="比较适合阅读的章节"><a href="#比较适合阅读的章节" class="headerlink" title="比较适合阅读的章节"></a>比较适合阅读的章节</h3><ul><li><p><strong>章节1：</strong>简单的通过一个简单的小测试，来说明做好测试这件事并不是一个简单的事，从而也间接的体现了测试这个行业的挑战。</p></li><li><p><strong>章节2：从心理学和经济学的层面解释如何进行测试，并且梳理了一系列的软件测试原则</strong>。<br>以下展示个人觉得比较有同感的原则（有兴趣的可以自行阅读相关章节）。</p><ol><li><strong><font color=green>测试用例中必须部分是对输出和结果的定义（是能量化或者有标准能衡量的）</font></strong> ，应该必须包含的两个部分：对程序的输入数据描述以及相应的正确输出结果描述。</li><li><strong><font color=green>应避免测试用例用后即弃，除非软件本身就是一个一次性的软件。</font></strong></li><li><strong><font color=green>程序某部分存在更多错误的可能性，与该部分已发现错误的数量成正比。</font></strong></li><li><strong>软件测试是一项极富创造性、极具智力挑战性的工作。</strong></li><li><strong><font color=green>一次成功的测试用例能够发现未知的错误；</font></strong></li></ol><br></li><li><p><strong>章节4：</strong>分别对白盒/黑盒测试的测试用例设计方法进行介绍，但实际网络上有更多翻译的形式（<strong>建议了解到存在此类型的设计方法后，多查看几个网上的样例，最终形成自己的理解</strong>）。<br><strong>白盒测试用例设计方法</strong></p><ul><li>语句覆盖；</li><li>判定覆盖；</li><li>条件覆盖；</li><li>判定/条件覆盖；</li><li>多重条件覆盖。</li></ul><br><p><strong>黑盒测试用例设计方法</strong>（<font color=green>前三种基本属于最常用的，建议深入</font>）</p><ul><li>等价类划分；</li><li>边界值分析；</li><li>错误猜测；</li><li>因果图分析。</li></ul><br></li><li><p><strong>章节6：</strong>比较全面的介绍了除了平时做的功能测试，实际还存在<strong>各种各样的测试类型（比如：安装测试、存储测试、易用性测试等）</strong>，这些测试类型可以去帮助发现那些不常见但又严重的缺陷。<br>在大部分刚入职做测试的同学，可能刚开始做的都是界面上的点点点（当然也有接口测试或者其他方面的测试）。<strong>此章节比较全面的介绍了除了功能测试，还能进行哪些测试。</strong><br>比如（此处未全部列举，有兴趣的可以深入阅读相关章节）：<strong>强度测试、易用性测试、性能测试、存储测试、配置测试、兼容性测试、安装测试等等</strong>。</p></li><li><p><strong>章节9：</strong>更加细致的去介绍了现在互联网下，测试行业面临的一个困难和挑战。<br>具体的难点可以分为以下三个层面（<strong>大部分行业内测试主要集中在表现层以及业务层，业界也有相应的分层测试概念</strong>，有兴趣的可以深入了解）：</p><ul><li>表现层一一主要目的是发现<strong>应用程序的GUI或前端中的错误</strong>。测试点为：<br><strong>内容测试</strong>：包括整体审美、字体、色彩、拼写、内容准确性和默认值；<br><strong>用户环境</strong>：包括浏览器版本和操作系统配置，移动设备的操作系统以及版本等。</li><li>业务层一一主要目的是发现<strong>应用系统的业务逻辑中的错误</strong>。测试点为：<br><strong>数据有效性</strong>：发现从客户那里采集到的数据中的错误；<br><strong>事务</strong>：发现事务处理过程中的错误，包括：信用卡处理、下单处理、打款处理等；<br><strong>业务性能</strong>。</li><li>数据层一一对<strong>应用系统用于存储和获取信息的数据库管理系统的</strong>测试。测试点为：<br><strong>响应时间</strong>： 量化Sql中的 Insert、Update、Delete、Select以及事务的完成时间；<br><strong>数据完整性</strong>：验证数据存储适当且正确；<br><strong>容错性和可恢复性</strong>： 最大化MTBF，最小化MTTR。</li></ul></li></ul><h3 id="不适合阅读的章节"><a href="#不适合阅读的章节" class="headerlink" title="不适合阅读的章节"></a>不适合阅读的章节<br></h3><ul><li><p><strong>章节3</strong>：<strong>详细的介绍了代码检查以及走查两种方法论</strong>，通过该方法可以更加快速的发现问题并解决。<br><strong><font color=red>不推荐的原因</font>：</strong>从已知的经验中，暂未发现有 <strong><font color=red>哪个测试团队</font></strong> 在这方面做的比较好或者是有公开的最佳实践经验。该环节是一个比较繁琐的一个环节（并且现在也出了部分静态扫描工具），即使存在该环节，大部分也是流于形式。</p><p><strong>该章节比较适合开发人员阅读，或者是测试人员阅读后在开发团队进行推广。</strong></p></li><li><p><strong>章节5</strong>：<strong>详细的介绍了如何去进行单元测试</strong>，从更小的模块更快的去发现问题。<br><strong><font color=red>不推荐的原因</font>：</strong>从已知的经验中，暂未发现有 <strong><font color=red>哪个测试团队</font></strong> 在这方面做的比较好或者是有公开的最佳实践经验。大致归于代码内部严重耦合、函数未满足单一功能以及版本迭代过快等原因，导致该环节可能费时且收益小。对于测试来说，该难度较大。</p><p><strong>该章节比较适合开发/专职测试开发的人员进行阅读。</strong></p></li><li><p><strong>章节8</strong>：章节名叫 “极限测试”。<br>一个高大上的名词，但整体看下来属于敏捷迭代中的一个缩略版，<strong>仅包含测试中的单元测试以及验收测试，主要靠程序员本人进行相关测试（<font color=red>看起来都无需测试人员了</font>）</strong>。其中用了一个比较小的 <code>Java</code> 程序进行说明该方法。</p><p><strong>该章节比较适合开发/专职测试开发人员阅读。</strong></p></li></ul><h3 id="其他章节"><a href="#其他章节" class="headerlink" title="其他章节"></a>其他章节</h3><ul><li>章节7：详细的介绍了定位/发现问题根本原因的方法论。通过掌握这些方法论后，可以更得心应手的去深入挖掘问题，而不是简单是只发现某个缺陷的表象。<br>此章节优先级相对较低，可以理解如果想做的更好可以阅读。（这些章节的内容需要花费较多的精力，但收益也比较客观）</li></ul><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>​    以上所有内容根据个人经验判断（ <strong><font color=blue>也可能是本人经验比较少，未发现相关好的实践</font></strong> 😂，如果存在不认同的地方欢迎讨论）。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 读后感 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 测试 </tag>
+            
+            <tag> 入门级书籍 </tag>
+            
+            <tag> 测试基础 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Linux install python3</title>
       <link href="Linux-Linux-install-python3/"/>
       <url>Linux-Linux-install-python3/</url>
@@ -20,9 +49,9 @@
       
         <tags>
             
-            <tag> Python3 </tag>
-            
             <tag> Linux </tag>
+            
+            <tag> Python3 </tag>
             
         </tags>
       
@@ -47,9 +76,9 @@
       
         <tags>
             
-            <tag> 内置函数 </tag>
-            
             <tag> Python3 </tag>
+            
+            <tag> 内置函数 </tag>
             
             <tag> 列表 </tag>
             
