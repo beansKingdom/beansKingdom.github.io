@@ -21,26 +21,22 @@
   </script>
 <link rel="stylesheet" href="/js/prism/prism.css">
 
-  <meta name="description" content="背景​    已经集成的接口自动化测试 Job 在周期性定时运行的时候，会很小概率出现一直卡在那里，原本应该3min就执行完成的任务，偶尔过了半个小时还没结束。（(￣３￣)直觉告诉我这个地方肯定有问题。。。 ​    但由于复现的概率较小，一个月可能出现一次，所以开始并没有什么太大的线索（仅靠一些猜测并不切实际）。 ​    终于！！！在某一个阳光明媚的大好日子，它重现了。">
+  <meta name="description" content="​    记录下常见的几种 Shell 字符串包含的方法。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Py-spy解决Python程序Hang住问题">
-<meta property="og:url" content="https://beanskingdom.top/python-py-spy%E8%A7%A3%E5%86%B3Python%E7%A8%8B%E5%BA%8FHang%E4%BD%8F%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:title" content="Shell 字符串包含">
+<meta property="og:url" content="https://beanskingdom.top/shell-Shell-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%85%E5%90%AB/index.html">
 <meta property="og:site_name" content="BeansKingdom">
-<meta property="og:description" content="背景​    已经集成的接口自动化测试 Job 在周期性定时运行的时候，会很小概率出现一直卡在那里，原本应该3min就执行完成的任务，偶尔过了半个小时还没结束。（(￣３￣)直觉告诉我这个地方肯定有问题。。。 ​    但由于复现的概率较小，一个月可能出现一次，所以开始并没有什么太大的线索（仅靠一些猜测并不切实际）。 ​    终于！！！在某一个阳光明媚的大好日子，它重现了。">
+<meta property="og:description" content="​    记录下常见的几种 Shell 字符串包含的方法。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://i.loli.net/2021/01/22/AVhg7RGzYIfuWtN.png">
-<meta property="og:image" content="https://i.loli.net/2021/01/22/E1Yq9cjRo2GOx5e.png">
-<meta property="og:image" content="https://i.loli.net/2021/01/22/CuRZJnsj13eTXoQ.png">
-<meta property="article:published_time" content="2021-02-08T15:45:56.000Z">
-<meta property="article:modified_time" content="2021-02-09T08:41:22.418Z">
+<meta property="article:published_time" content="2022-01-09T03:25:18.000Z">
+<meta property="article:modified_time" content="2022-01-09T03:27:32.874Z">
 <meta property="article:author" content="BigBean">
-<meta property="article:tag" content="Python">
-<meta property="article:tag" content="Python Plugin">
-<meta property="article:tag" content="py-spy">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Shell">
+<meta property="article:tag" content="字符串包含">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/01/22/AVhg7RGzYIfuWtN.png">
 
-<link rel="canonical" href="https://beanskingdom.top/python-py-spy%E8%A7%A3%E5%86%B3Python%E7%A8%8B%E5%BA%8FHang%E4%BD%8F%E9%97%AE%E9%A2%98/">
+<link rel="canonical" href="https://beanskingdom.top/shell-Shell-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%85%E5%90%AB/">
 
 
 <script id="page-configurations">
@@ -53,7 +49,7 @@
   };
 </script>
 
-  <title>Py-spy解决Python程序Hang住问题 | BeansKingdom</title>
+  <title>Shell 字符串包含 | BeansKingdom</title>
   
 
 
@@ -201,7 +197,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://beanskingdom.top/python-py-spy%E8%A7%A3%E5%86%B3Python%E7%A8%8B%E5%BA%8FHang%E4%BD%8F%E9%97%AE%E9%A2%98/">
+    <link itemprop="mainEntityOfPage" href="https://beanskingdom.top/shell-Shell-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%85%E5%90%AB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -214,7 +210,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Py-spy解决Python程序Hang住问题
+          Shell 字符串包含
         </h1>
 
         <div class="post-meta">
@@ -223,28 +219,22 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2021-02-08 23:45:56" itemprop="dateCreated datePublished" datetime="2021-02-08T23:45:56+08:00">2021-02-08</time>
+              <time title="创建时间：2022-01-09 11:25:18 / 修改时间：11:27:32" itemprop="dateCreated datePublished" datetime="2022-01-09T11:25:18+08:00">2022-01-09</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-09 16:41:22" itemprop="dateModified" datetime="2021-02-09T16:41:22+08:00">2021-02-09</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                  <a href="/categories/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a>
                 </span>
             </span>
 
           
-            <span id="/python-py-spy%E8%A7%A3%E5%86%B3Python%E7%A8%8B%E5%BA%8FHang%E4%BD%8F%E9%97%AE%E9%A2%98/" class="post-meta-item leancloud_visitors" data-flag-title="Py-spy解决Python程序Hang住问题" title="阅读次数">
+            <span id="/shell-Shell-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%85%E5%90%AB/" class="post-meta-item leancloud_visitors" data-flag-title="Shell 字符串包含" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -259,8 +249,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/python-py-spy%E8%A7%A3%E5%86%B3Python%E7%A8%8B%E5%BA%8FHang%E4%BD%8F%E9%97%AE%E9%A2%98/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/python-py-spy%E8%A7%A3%E5%86%B3Python%E7%A8%8B%E5%BA%8FHang%E4%BD%8F%E9%97%AE%E9%A2%98/" itemprop="commentCount"></span>
+    <a title="valine" href="/shell-Shell-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%85%E5%90%AB/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/shell-Shell-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%85%E5%90%AB/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -270,7 +260,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>938</span>
+              <span>454</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -289,29 +279,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>​    已经集成的接口自动化测试 Job 在周期性定时运行的时候，会很小概率出现一直卡在那里，原本应该3min就执行完成的任务，偶尔过了半个小时还没结束。（(￣３￣)直觉告诉我这个地方肯定有问题。。。</p>
-<p>​    但由于复现的概率较小，一个月可能出现一次，所以开始并没有什么太大的线索（仅靠一些猜测并不切实际）。</p>
-<p>​    终于！！！在某一个阳光明媚的大好日子，<strong>它重现了</strong>。</p>
+        <p>​    记录下常见的几种 Shell 字符串包含的方法。</p>
 <a id="more"></a>
 
-<h3 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h3><ol>
-<li><p>赶紧先登录到服务器上看看进程情况，发现此时存在脚本发起的2个 Worker CPU占用100%（由于用的 <code>Pytest + Pytest-xdist</code>  分布式插件执行用例），当时第一反应是死循环了？？</p>
-<img src="https://i.loli.net/2021/01/22/AVhg7RGzYIfuWtN.png" alt="process_hang_1.png" style="zoom:50%;" />
-</li>
-<li><p>通过<strong>perf</strong> 、<strong>ps</strong>或者 <strong>pstack</strong> 打印对应的pid， 看到的结果并没有什么太大用，反而<strong>误导我以为是代码里面的一个文件锁导致该问题</strong>。</p>
-<img src="https://i.loli.net/2021/01/22/E1Yq9cjRo2GOx5e.png" alt="process_hang_2.png" style="zoom:50%;" />
-</li>
-<li><p>网上查询了一通后，发现一个神奇的工具一一 <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/310832912">py-spy</a> （更多使用方法见 <a target="_blank" rel="noopener" href="https://pypi.org/project/py-spy/">官网</a>）</p>
-<p>安装后使用命令 ：选定一个异常的进程，执行命令： <code>py-spy  top --pid 19785</code> 打印结果如下，很明显看出来当前Cpu都卡在 <code>check_retry_status</code> 方法上面。</p>
-<img src="https://i.loli.net/2021/01/22/CuRZJnsj13eTXoQ.png" alt="process_hang_3.png" style="zoom:50%;" />
-</li>
-<li><p>查看该代码，发现该方法中存在一个while循环，并且很凑巧的是。。。╮(╯3╰)╭ 里面<font color=red><strong>没有兜底</strong></font>。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 具体代码如下，过于相信传进来的 retry_flag 一定是1/2， 如果出现不是这两个值的时候，此时这个方法则进入了死循环。。。</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_retry_status</span>(<span class="params">cls, uid, atk, order_id, retry_flag, devuuid</span>):</span></span><br><span class="line">    max_count = <span class="number">5</span></span><br><span class="line">    <span class="keyword">while</span> max_count &gt; <span class="number">0</span>:</span><br><span class="line">      	<span class="keyword">if</span> retry_flag == <span class="number">2</span>:</span><br><span class="line">        	retry_flag = functionA(xxx, ...)</span><br><span class="line">        	max_count -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> retry_flag == <span class="number">1</span>:</span><br><span class="line">          <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">raise</span> Exception(<span class="string">&quot;验证充值订单失败&quot;</span>)</span><br></pre></td></tr></table></figure></li>
-<li><p>到这个地方，就很明显定位到了问题，在此处加上兜底并且加上对应日志记录functionA（<strong>第三方依赖</strong>）到底返回的是什么。（ 因为首次传入的 retry_flag 也是来自于functionA）</p>
-</li>
-</ol>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>​    写代码要谨慎。。。特别是结果来自第三方依赖的时候。。。<strong>一定要进行兜底！！！</strong></p>
-<p>​    （emm… 兜一下总比不兜强）</p>
+
+
+<h3 id="方法一：利用grep查找"><a href="#方法一：利用grep查找" class="headerlink" title="方法一：利用grep查找"></a>方法一：利用grep查找</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">A=<span class="string">&quot;test str&quot;</span></span><br><span class="line">B=<span class="string">&quot;test&quot;</span></span><br><span class="line">result=$(<span class="built_in">echo</span> <span class="variable">$A</span> | grep <span class="string">&quot;<span class="variable">$&#123;B&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">&quot;<span class="variable">$result</span>&quot;</span> != <span class="string">&quot;&quot;</span> ]];<span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;包含&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;不包含&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="方法二：利用字符串运算符"><a href="#方法二：利用字符串运算符" class="headerlink" title="方法二：利用字符串运算符"></a>方法二：利用字符串运算符</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">A=<span class="string">&quot;test str&quot;</span></span><br><span class="line">B=<span class="string">&quot;test&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$A</span> =~ <span class="variable">$B</span> ]];<span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;包含&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;不包含&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="方法三：利用通配符"><a href="#方法三：利用通配符" class="headerlink" title="方法三：利用通配符"></a>方法三：利用通配符</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">A=<span class="string">&quot;test str&quot;</span></span><br><span class="line">B=<span class="string">&quot;test&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$A</span> == *<span class="variable">$B</span>* ]];<span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;包含&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;不包含&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -333,19 +312,19 @@
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/python-Flask-序列化与反序列化/" rel="bookmark">Flask 序列化与反序列化</a></div>
+      <div class="popular-posts-title"><a href="/shell-Shell关联数组/" rel="bookmark">Shell关联数组</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/python-Python-快速编写单测实践/" rel="bookmark">Python 快速编写单测实践</a></div>
+      <div class="popular-posts-title"><a href="/Linux-Linux-Set命令/" rel="bookmark">Linux Set命令</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/python-Python之Pandas库躺坑记/" rel="bookmark">Python之Pandas库躺坑记</a></div>
+      <div class="popular-posts-title"><a href="/Linux-Linux-install-python3/" rel="bookmark">Linux install python3</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/python-python调用gRPC接口/" rel="bookmark">python调用gRPC接口</a></div>
+      <div class="popular-posts-title"><a href="/Linux-Linux-paping-工具/" rel="bookmark">Linux paping 工具</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/python-一次Pytest库升级遇到的问题/" rel="bookmark">一次Pytest库升级遇到的问题</a></div>
+      <div class="popular-posts-title"><a href="/Linux-Linux-supervisor-守护进程/" rel="bookmark">Linux Supervisor</a></div>
     </li>
   </ul>
 
@@ -358,7 +337,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://beanskingdom.top/python-py-spy%E8%A7%A3%E5%86%B3Python%E7%A8%8B%E5%BA%8FHang%E4%BD%8F%E9%97%AE%E9%A2%98/" title="Py-spy解决Python程序Hang住问题">https://beanskingdom.top/python-py-spy解决Python程序Hang住问题/</a>
+    <a href="https://beanskingdom.top/shell-Shell-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%85%E5%90%AB/" title="Shell 字符串包含">https://beanskingdom.top/shell-Shell-字符串包含/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -370,9 +349,9 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
-              <a href="/tags/Python-Plugin/" rel="tag"><i class="fa fa-tag"></i> Python Plugin</a>
-              <a href="/tags/py-spy/" rel="tag"><i class="fa fa-tag"></i> py-spy</a>
+              <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+              <a href="/tags/Shell/" rel="tag"><i class="fa fa-tag"></i> Shell</a>
+              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%85%E5%90%AB/" rel="tag"><i class="fa fa-tag"></i> 字符串包含</a>
           </div>
 
         
@@ -381,13 +360,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/python-python%E8%B0%83%E7%94%A8gRPC%E6%8E%A5%E5%8F%A3/" rel="prev" title="python调用gRPC接口">
-      <i class="fa fa-chevron-left"></i> python调用gRPC接口
+    <a href="/shell-Shell%E5%85%B3%E8%81%94%E6%95%B0%E7%BB%84/" rel="prev" title="Shell关联数组">
+      <i class="fa fa-chevron-left"></i> Shell关联数组
     </a></div>
-      <div class="post-nav-item">
-    <a href="/Hexo%E5%BB%BA%E7%AB%99-next-Valine%E8%BA%BA%E5%9D%91%E4%B9%8B%E8%B7%AF/" rel="next" title="NexT + Valine躺坑之路">
-      NexT + Valine躺坑之路 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -448,7 +424,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E6%9F%A5%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">排查过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E5%88%A9%E7%94%A8grep%E6%9F%A5%E6%89%BE"><span class="nav-number">1.</span> <span class="nav-text">方法一：利用grep查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E5%88%A9%E7%94%A8%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">2.</span> <span class="nav-text">方法二：利用字符串运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%89%EF%BC%9A%E5%88%A9%E7%94%A8%E9%80%9A%E9%85%8D%E7%AC%A6"><span class="nav-number">3.</span> <span class="nav-text">方法三：利用通配符</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

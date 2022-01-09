@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Shell 字符串包含</title>
+      <link href="shell-Shell-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%85%E5%90%AB/"/>
+      <url>shell-Shell-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%85%E5%90%AB/</url>
+      
+        <content type="html"><![CDATA[<p>​    记录下常见的几种 Shell 字符串包含的方法。</p><a id="more"></a><h3 id="方法一：利用grep查找"><a href="#方法一：利用grep查找" class="headerlink" title="方法一：利用grep查找"></a>方法一：利用grep查找</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">A=<span class="string">&quot;test str&quot;</span></span><br><span class="line">B=<span class="string">&quot;test&quot;</span></span><br><span class="line">result=$(<span class="built_in">echo</span> <span class="variable">$A</span> | grep <span class="string">&quot;<span class="variable">$&#123;B&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">&quot;<span class="variable">$result</span>&quot;</span> != <span class="string">&quot;&quot;</span> ]];<span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;包含&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;不包含&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure><h3 id="方法二：利用字符串运算符"><a href="#方法二：利用字符串运算符" class="headerlink" title="方法二：利用字符串运算符"></a>方法二：利用字符串运算符</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">A=<span class="string">&quot;test str&quot;</span></span><br><span class="line">B=<span class="string">&quot;test&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$A</span> =~ <span class="variable">$B</span> ]];<span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;包含&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;不包含&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure><h3 id="方法三：利用通配符"><a href="#方法三：利用通配符" class="headerlink" title="方法三：利用通配符"></a>方法三：利用通配符</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">A=<span class="string">&quot;test str&quot;</span></span><br><span class="line">B=<span class="string">&quot;test&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$A</span> == *<span class="variable">$B</span>* ]];<span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;包含&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;不包含&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Shell </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Shell </tag>
+            
+            <tag> 字符串包含 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Shell关联数组</title>
       <link href="shell-Shell%E5%85%B3%E8%81%94%E6%95%B0%E7%BB%84/"/>
       <url>shell-Shell%E5%85%B3%E8%81%94%E6%95%B0%E7%BB%84/</url>
